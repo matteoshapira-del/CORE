@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CORE — Product Requirements &amp; Design Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./PRD_files/css2" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#16161f;--surface-2:#1e1e29;--surface-3:#2a2a37;--text:#f4f0e8;--text-muted:#8a8a95;--text-faint:#5a5a64;--accent:#5bc0a7;--accent-dim:#3a8770;--accent-soft:rgba(91,192,167,0.15);--accent-warm:#e89b7c;--serif:'Fraunces',Georgia,serif;--sans:'Outfit',-apple-system,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:var(--accent);text-decoration:none}
+.layout{display:grid;grid-template-columns:240px 1fr;max-width:1480px;margin:0 auto}
+nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;padding:32px 24px;border-right:1px solid var(--surface-3);font-size:13px}
+nav.toc .logo{font-family:var(--serif);font-weight:500;font-size:28px;letter-spacing:-0.02em;margin-bottom:4px}
+nav.toc .logo-sub{color:var(--text-muted);font-size:10px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:28px}
+nav.toc h4{font-weight:600;font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.1em;margin:20px 0 8px}
+nav.toc a{display:block;padding:5px 0;color:var(--text-muted);font-size:12px}
+nav.toc a:hover{color:var(--text)}
+main{padding:56px 64px 120px;max-width:1100px}
+section{margin-bottom:80px;scroll-margin-top:32px}
+.eyebrow{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px}
+h1.display{font-family:var(--serif);font-weight:400;font-size:64px;line-height:1;letter-spacing:-0.025em;margin-bottom:16px}
+h1.display em{font-style:italic;color:var(--accent);font-weight:300}
+h2{font-family:var(--serif);font-weight:400;font-size:36px;letter-spacing:-0.015em;margin-bottom:8px;line-height:1.1}
+h3{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:-0.01em;margin:36px 0 12px;color:var(--text)}
+h4{font-weight:600;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-muted);margin:20px 0 8px}
+.lead{font-size:18px;color:var(--text-muted);max-width:680px;line-height:1.55;margin-bottom:24px}
+p{margin-bottom:14px;max-width:760px;line-height:1.6;color:var(--text)}
+ul,ol{margin-bottom:14px;padding-left:22px;max-width:760px}
+li{margin-bottom:6px;line-height:1.55}
+.badges{display:flex;gap:6px;margin-bottom:32px;flex-wrap:wrap}
+.badge{display:inline-block;background:var(--surface);border:1px solid var(--surface-3);color:var(--text-muted);border-radius:100px;padding:4px 12px;font-size:11px;font-weight:500;font-family:var(--mono)}
+.badge.accent{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.callout{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 20px;margin:20px 0;max-width:800px}
+.callout.warm{border-left-color:var(--accent-warm)}
+.callout .lbl{font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:6px}
+.callout.warm .lbl{color:var(--accent-warm)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:24px 0}
+table{width:100%;max-width:900px;border-collapse:collapse;margin:12px 0 24px;font-size:13px}
+th{text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);padding:10px 12px;border-bottom:1px solid var(--surface-3)}
+td{padding:10px 12px;border-bottom:1px solid var(--surface-3);vertical-align:top;line-height:1.5}
+td:first-child{font-weight:500;color:var(--text)}
+table.compact th,table.compact td{padding:7px 10px;font-size:12px}
+code{font-family:var(--mono);font-size:11px;background:var(--surface-2);padding:1px 5px;border-radius:3px;color:var(--accent-warm)}
+pre{font-family:var(--mono);font-size:11.5px;background:var(--surface);border:1px solid var(--surface-3);border-radius:10px;padding:18px 20px;overflow-x:auto;margin:16px 0 24px;line-height:1.6;max-width:900px;color:var(--text)}
+pre .k{color:#b89df0}pre .s{color:#a3d4a0}pre .n{color:#f0c987}pre .c{color:var(--text-faint);font-style:italic}pre .p{color:var(--text-muted)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:16px 0;max-width:900px}
+.swatch{background:var(--surface);border-radius:8px;padding:10px}
+.swatch .chip{height:44px;border-radius:5px;margin-bottom:8px}
+.swatch .name{font-size:11px;font-weight:600;margin-bottom:2px}
+.swatch .hex{font-family:var(--mono);font-size:9px;color:var(--text-muted)}
+.prompt-card{background:var(--surface);border:1px solid var(--surface-3);border-radius:10px;padding:14px 18px;margin:10px 0;max-width:860px}
+.prompt-card .id{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--accent);background:var(--accent-soft);padding:2px 7px;border-radius:4px;margin-bottom:6px;letter-spacing:0.04em}
+.prompt-card .name{font-family:var(--serif);font-size:16px;font-weight:500;margin-bottom:6px}
+.prompt-card .prompt{font-size:12.5px;color:var(--text-muted);line-height:1.6;font-style:italic}
+.mockup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:40px;margin:24px 0 32px}
+.mock{display:flex;flex-direction:column;align-items:center}
+.mock-caption{margin-top:18px;text-align:center;max-width:330px}
+.mock-caption .t{font-family:var(--serif);font-weight:500;font-size:16px;margin-bottom:4px}
+.mock-caption .d{color:var(--text-muted);font-size:12px;line-height:1.5}
+.phone{width:330px;height:715px;background:#000;border-radius:44px;padding:11px;position:relative;box-shadow:0 0 0 1.5px #2a2a37,0 30px 80px rgba(0,0,0,0.5),0 10px 30px rgba(0,0,0,0.3)}
+.phone-screen{width:100%;height:100%;border-radius:34px;overflow:hidden;position:relative;background:var(--bg)}
+.notch{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:100px;height:28px;background:#000;border-radius:16px;z-index:100}
+.screen{position:absolute;inset:0;background:var(--bg);overflow:hidden;display:flex;flex-direction:column;color:var(--text)}
+.sb{height:44px;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font-size:11px;font-weight:600}
+.sb .r{display:flex;gap:4px;align-items:center}
+.cnt{flex:1;overflow:hidden;padding:0 20px;display:flex;flex-direction:column}
+.cnt.scr{overflow-y:auto}
+.tb{height:70px;flex-shrink:0;background:rgba(15,15,22,0.95);display:flex;border-top:0.5px solid var(--surface-3);padding-bottom:12px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;color:var(--text-faint);font-weight:500}
+.tab.a{color:var(--accent)}
+.tab svg{width:22px;height:22px}
+.greet{padding-top:8px;margin-bottom:16px}
+.greet .h{font-family:var(--serif);font-size:22px;font-weight:400;letter-spacing:-0.01em}
+.greet .s{color:var(--text-muted);font-size:13px;margin-top:2px}
+.hero{border-radius:22px;overflow:hidden;aspect-ratio:4/4.3;background:linear-gradient(160deg,#b5d4b5 0%,#8fb38f 100%);position:relative;padding:18px;display:flex;flex-direction:column;justify-content:space-between;color:#1a1a1a;margin-bottom:16px}
+.hero .rib{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.4);padding:5px 10px;border-radius:100px;font-size:10px;font-weight:600;width:fit-content;text-transform:uppercase;letter-spacing:0.05em}
+.hero .rib .pu{width:6px;height:6px;background:#1a4a3a;border-radius:50%}
+.hero-ill{align-self:center;margin:8px 0}
+.hero .ti{font-family:var(--serif);font-weight:500;font-size:26px;letter-spacing:-0.01em;line-height:1.1}
+.hero .me{font-size:12px;color:rgba(26,26,26,0.7);margin-top:4px;font-weight:500}
+.hero .sb-btn{align-self:flex-end;background:#1a1a1a;color:var(--text);padding:12px 22px;border-radius:100px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;margin-top:12px}
+.hero .sb-btn svg{width:12px;height:12px}
+.pst{background:var(--surface);border-radius:18px;padding:14px;margin-bottom:12px}
+.pst .row{display:flex;align-items:center;gap:12px}
+.cim{flex-shrink:0;padding-right:12px;border-right:1px solid var(--surface-3)}
+.cim .l{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+.cim .v{font-family:var(--serif);font-size:28px;font-weight:500;line-height:1;margin-top:2px}
+.cim .v .d{color:var(--text-faint);font-size:14px;font-weight:400}
+.kc-r{display:flex;gap:8px;overflow-x:auto;flex:1}
+.kc{flex-shrink:0;background:var(--surface-2);border-radius:12px;padding:8px 10px;min-width:80px}
+.kc .n{font-size:8px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600;margin-bottom:3px}
+.kc .r2{display:flex;align-items:center;justify-content:space-between}
+.kc .sc{font-family:var(--serif);font-size:18px;font-weight:500;line-height:1}
+.kc svg{width:30px;height:14px}
+.alt{color:var(--text-muted);font-size:12px;padding:6px 0;margin-bottom:6px}
+.alt span{color:var(--accent);font-weight:500}
+.rmb{background:var(--surface);border:1px solid var(--surface-3);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;margin-top:auto;margin-bottom:8px}
+.rmb .dt{width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+.rmb .tx{font-size:11px;flex:1}
+.rmb .tx .mu{color:var(--text-muted)}
+.rmb .ct{font-size:11px;color:var(--accent);font-weight:600}
+.run{background:#000;height:100%;display:flex;flex-direction:column;padding-top:0}
+.run-top{display:flex;justify-content:space-between;align-items:center;padding:12px 20px 0}
+.run-x{width:36px;height:36px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center}
+.run-x svg{width:14px;height:14px}
+.run-co{color:var(--text);font-size:15px;font-weight:500}
+.run-fr{background:var(--surface-2);color:var(--text-muted);font-size:11px;padding:6px 12px;border-radius:100px;font-weight:600;letter-spacing:0.03em}
+.run-cw{flex:1;display:flex;align-items:center;justify-content:center;position:relative;margin-top:-8px}
+.run-c{width:250px;height:250px;position:relative}
+.run-cb{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,#d4c8e8 0%,#b5a8d4 100%)}
+.run-ar{position:absolute;inset:-2px;pointer-events:none}
+.run-il{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.run-bs{flex-shrink:0;padding:0 24px 16px}
+.run-sw{width:36px;height:36px;border-radius:50%;background:var(--surface-2);margin:0 auto 14px;display:flex;align-items:center;justify-content:center}
+.run-sw svg{width:16px;height:16px}
+.run-nm{text-align:center;font-family:var(--serif);font-size:26px;font-weight:500;letter-spacing:-0.01em;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:10px}
+.run-i{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--text-muted);display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-muted);font-style:italic;font-family:var(--serif)}
+.run-tm{text-align:center;font-family:var(--serif);font-size:64px;font-weight:300;color:var(--text-muted);letter-spacing:-0.02em;line-height:1;margin:6px 0 22px}
+.run-ct{display:flex;justify-content:space-around;align-items:center}
+.run-b{width:56px;height:56px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center}
+.run-b.pa{width:72px;height:72px;background:var(--text)}
+.run-b svg{width:22px;height:22px}
+.run-b.pa svg{width:26px;height:26px}
+.cmp{flex:1;display:flex;flex-direction:column;padding:20px;text-align:center}
+.cmp-ic{width:64px;height:64px;border-radius:50%;background:rgba(91,192,167,0.15);margin:24px auto 16px;display:flex;align-items:center;justify-content:center}
+.cmp-ic svg{width:28px;height:28px}
+.cmp h1{font-family:var(--serif);font-size:42px;font-weight:400;letter-spacing:-0.02em;margin-bottom:6px}
+.cmp-s{color:var(--text-muted);font-size:14px;margin-bottom:24px}
+.cmp-sm{background:var(--surface);border-radius:16px;padding:14px;margin-bottom:16px;text-align:left}
+.cmp-sm .l{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:8px}
+.cmp-sm .st{display:flex;justify-content:space-between;align-items:center}
+.cmp-sm .stt{text-align:center}
+.cmp-sm .stt .nu{font-family:var(--serif);font-size:22px;font-weight:500}
+.cmp-sm .stt .sb{color:var(--text-muted);font-size:10px;margin-top:2px}
+.psn{background:var(--surface);border-radius:16px;padding:14px;margin-bottom:16px;text-align:left}
+.psn .l{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:12px}
+.snk{display:flex;align-items:center;gap:10px;padding:8px 0}
+.snk+.snk{border-top:0.5px solid var(--surface-3)}
+.snk .n{font-size:12px;flex:1}
+.snk .dl{color:var(--accent);font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px}
+.snk .sm{font-family:var(--serif);font-size:16px;font-weight:500;color:var(--text-muted)}
+.psn .wm{color:var(--text);font-size:13px;margin-top:14px;padding-top:12px;border-top:0.5px solid var(--surface-3);font-family:var(--serif);font-style:italic}
+.cmp-a{margin-top:auto;padding-top:8px}
+.btn-p{background:var(--accent);color:#07120e;border-radius:100px;padding:14px;text-align:center;font-weight:600;font-size:15px;width:100%;margin-bottom:8px}
+.btn-l{text-align:center;color:var(--text-muted);font-size:13px;padding:10px}
+.pgh{padding-top:8px}
+.pgt{font-family:var(--serif);font-size:32px;font-weight:400;letter-spacing:-0.02em;margin-bottom:16px}
+.cic{background:linear-gradient(160deg,#1e3a32 0%,#16161f 100%);border-radius:22px;padding:20px;margin-bottom:14px;position:relative;overflow:hidden}
+.cic .l{font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:4px}
+.cic .v{font-family:var(--serif);font-size:56px;font-weight:500;line-height:1;letter-spacing:-0.02em}
+.cic .v .d{color:var(--text-faint);font-size:28px;font-weight:400}
+.cic .dl{color:var(--accent);font-size:12px;margin-top:6px;font-weight:500}
+.cic .rp{position:absolute;right:-20px;top:50%;transform:translateY(-50%);opacity:0.9}
+.str{display:flex;gap:10px;margin-bottom:14px}
+.stc{flex:1;background:var(--surface);border-radius:16px;padding:14px}
+.stc.im{background:linear-gradient(160deg,#1f3a32 0%,var(--surface) 100%);border:0.5px solid var(--accent-dim)}
+.stc .ir{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.stc .ir svg{width:16px;height:16px}
+.stc .l{font-size:10px;color:var(--text-muted);font-weight:500}
+.stc .v{font-family:var(--serif);font-size:24px;font-weight:500;line-height:1}
+.stc .s{color:var(--text-muted);font-size:10px;margin-top:2px}
+.klh{display:flex;justify-content:space-between;align-items:center;margin:12px 0 10px}
+.klh .he{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+.klh .fl{display:flex;gap:4px}
+.klh .ch{font-size:10px;padding:4px 10px;border-radius:100px;background:var(--surface);color:var(--text-muted)}
+.klh .ch.a{background:var(--text);color:var(--bg)}
+.kr{background:var(--surface);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.kr .n{flex:1;font-size:12px;font-weight:500}
+.kr .n .ar{color:var(--text-faint);font-size:9px;text-transform:uppercase;letter-spacing:0.05em;margin-top:1px}
+.kr .sb{background:var(--surface-3);border-radius:8px;padding:4px 8px;font-family:var(--serif);font-size:15px;font-weight:500;min-width:32px;text-align:center}
+.kr .sb.go{background:rgba(91,192,167,0.15);color:var(--accent)}
+.kr svg.sp{width:36px;height:14px}
+.kr .di{color:var(--accent);font-size:11px;font-weight:700}
+.kr .di.fl{color:var(--text-faint)}
+.rv{flex:1;display:flex;flex-direction:column;padding:24px 20px;text-align:center}
+.rv-l{font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;font-weight:600;margin-top:12px;margin-bottom:16px}
+.rv h1{font-family:var(--serif);font-size:28px;font-weight:400;letter-spacing:-0.01em;line-height:1.15;margin-bottom:6px}
+.rv-s{color:var(--text-muted);font-size:13px;margin-bottom:24px;padding:0 12px}
+.rv-r{margin:0 auto;position:relative}
+.rv-i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.rv-i .nu{font-family:var(--serif);font-size:44px;font-weight:500;line-height:1}
+.rv-i .de{color:var(--text-muted);font-size:12px;margin-top:2px}
+.rv-w{background:var(--surface);border-radius:14px;padding:14px;margin-top:22px;text-align:left;display:flex;align-items:center;gap:12px}
+.rv-w .ic{width:36px;height:36px;border-radius:50%;background:#F0C9A8;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rv-w .tx{flex:1;font-size:12px;line-height:1.4}
+.rv-w .tx strong{font-family:var(--serif);font-weight:500}
+.rv-ct{margin-top:auto}
+.kdh{padding-top:10px;margin-bottom:16px}
+.kdb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted);margin-bottom:16px}
+.kdb svg{width:14px;height:14px}
+.kdt{font-family:var(--serif);font-size:26px;font-weight:400;letter-spacing:-0.01em}
+.kds{color:var(--text-muted);font-size:12px;margin-top:4px}
+.ksh{background:linear-gradient(160deg,#1e3a32 0%,var(--surface) 100%);border-radius:20px;padding:18px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.ksh .le .l{font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:4px}
+.ksh .le .sc{font-family:var(--serif);font-size:48px;font-weight:500;line-height:1}
+.ksh .le .sc .d{color:var(--text-faint);font-size:24px;font-weight:400}
+.ksh .le .ba{font-size:11px;color:var(--text);margin-top:4px;font-style:italic;font-family:var(--serif)}
+.sbv{display:flex;gap:3px;margin-top:8px}
+.sbv .se{flex:1;height:6px;border-radius:3px;background:var(--surface-3)}
+.sbv .se.fi{background:var(--accent)}
+.hc{background:var(--surface);border-radius:16px;padding:16px;margin-bottom:14px}
+.hc .hr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.hc .he{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+.hc .pe{font-size:11px;color:var(--accent);font-weight:500}
+.asy{background:var(--surface);border-radius:16px;padding:14px;margin-bottom:14px}
+.asy .hr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.asy .l{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+.asy .pc{font-size:11px;color:var(--accent-warm);font-weight:600}
+.abr{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.abr .si{font-size:10px;color:var(--text-muted);width:12px}
+.abr .ba{flex:1;height:8px;background:var(--surface-2);border-radius:4px;position:relative;overflow:hidden}
+.abr .fi{position:absolute;inset:0;background:var(--accent);border-radius:4px}
+.abr .fi.wa{background:var(--accent-warm)}
+.abr .va{font-size:11px;width:32px;text-align:right;font-variant-numeric:tabular-nums}
+.asy .no{font-size:11px;color:var(--text-muted);margin-top:8px;font-style:italic}
+.oh{padding-top:16px;margin-bottom:18px}
+.os{font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:8px}
+.ot{font-family:var(--serif);font-size:26px;font-weight:400;letter-spacing:-0.01em;line-height:1.2}
+.ou{color:var(--text-muted);font-size:13px;margin-top:6px}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;flex:1;overflow-y:auto;padding-bottom:12px}
+.ac{background:var(--surface);border-radius:14px;padding:12px;border:1.5px solid transparent;position:relative;aspect-ratio:1/1.05;display:flex;flex-direction:column}
+.ac.se{border-color:var(--accent);background:linear-gradient(160deg,rgba(91,192,167,0.12) 0%,var(--surface) 100%)}
+.ac .ck{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center}
+.ac .ck svg{width:10px;height:10px}
+.ac .ico{width:38px;height:38px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.ac.se .ico{background:rgba(91,192,167,0.15)}
+.ac .ico svg{width:20px;height:20px}
+.ac .nm{font-size:12px;font-weight:600;margin-bottom:3px;line-height:1.1}
+.ac .kl{color:var(--text-muted);font-size:9px;line-height:1.3}
+.of{border-top:0.5px solid var(--surface-3);padding:12px 0 0;margin-top:6px}
+.oc{font-size:11px;color:var(--text-muted);text-align:center;margin-bottom:8px}
+.oc strong{color:var(--accent);font-weight:600}
+.mh{padding-top:8px}
+.mp{display:flex;gap:4px;margin-bottom:14px}
+.mp .se{flex:1;height:3px;background:var(--surface-2);border-radius:2px}
+.mp .se.do{background:var(--accent)}
+.mp .se.ac{background:var(--accent);opacity:0.5}
+.msl{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:6px}
+.mt{font-family:var(--serif);font-size:24px;font-weight:400;letter-spacing:-0.01em;margin-bottom:4px}
+.md{color:var(--text-muted);font-size:12px;margin-bottom:14px;line-height:1.5}
+.mv{aspect-ratio:16/10;background:linear-gradient(160deg,#2a2540 0%,#1e1e29 100%);border-radius:14px;margin-bottom:14px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mv .pl{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.95);display:flex;align-items:center;justify-content:center;position:absolute;z-index:2}
+.mv .pl svg{width:14px;height:14px;margin-left:2px}
+.mv .di{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.6}
+.mcl{background:var(--surface);border-radius:12px;padding:12px;margin-bottom:14px}
+.mck{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:12px}
+.mck .bx{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--text-muted);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.mck.do .bx{background:var(--accent);border-color:var(--accent)}
+.mck.do .bx svg{width:10px;height:10px}
+.mck.do .tx{color:var(--text-muted);text-decoration:line-through;text-decoration-color:var(--text-faint)}
+.mm{background:var(--surface);border-radius:14px;padding:14px;margin-bottom:auto}
+.mm .l{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:8px}
+.mm .ir{display:flex;align-items:baseline;justify-content:space-between}
+.mm .ir .va{font-family:var(--serif);font-size:36px;font-weight:500}
+.mm .ir .un{display:flex;gap:2px;background:var(--surface-2);border-radius:100px;padding:3px}
+.mm .ir .un .u{font-size:10px;padding:4px 10px;border-radius:100px;color:var(--text-muted);font-weight:500}
+.mm .ir .un .u.a{background:var(--text);color:var(--bg)}
+.mm .he{font-size:11px;color:var(--accent);margin-top:8px}
+.ma{padding-top:10px}
+.psec{background:var(--surface);border-radius:14px;padding:14px;margin-bottom:12px}
+.psec .l{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:12px}
+.pr{display:flex;align-items:center;padding:10px 0;font-size:13px;border-top:0.5px solid var(--surface-3)}
+.pr:first-of-type{border-top:none;padding-top:0}
+.pr .ib{width:30px;height:30px;border-radius:8px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;margin-right:12px;flex-shrink:0}
+.pr .ib svg{width:14px;height:14px}
+.pr .ls{flex:1}
+.pr .ls .ti{font-weight:500}
+.pr .ls .su{color:var(--text-muted);font-size:11px;margin-top:1px}
+.pr .ch svg{width:12px;height:12px;color:var(--text-faint)}
+.pr.act .ib{background:var(--accent-soft)}
+.pr.act .ib svg{color:var(--accent)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}nav.toc{position:static;height:auto;border-right:none;border-bottom:1px solid var(--surface-3)}main{padding:32px 24px 64px}.twocol{grid-template-columns:1fr}}
+@media print{.layout{grid-template-columns:1fr}nav.toc{display:none}main{padding:24px}.phone{box-shadow:none}section{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc">
+<div class="logo">CORE</div>
+<div class="logo-sub">PRD &amp; Design Ref · v1.0</div>
+<h4>Overview</h4>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#intro">0. Intro</a>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#principles">1. Principles</a>
+<h4>Foundations</h4>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#brand">2. Brand &amp; voice</a>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#design">3. Design system</a>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#tech">4. Tech spec</a>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#data">5. Data + JSON</a>
+<h4>Product</h4>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#flows">6. User flows</a>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#areas">7. Areas + KPIs + exercises</a>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#exercises">8. Exercise library</a>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#screens">9. Screen specs</a>
+<h4>Visuals</h4>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#mockups">10. Mockups</a>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#prompts">11. Visual prompts</a>
+<h4>Reference</h4>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#metrics">12. Metrics &amp; risks</a>
+<a href="file:///Users/matteo.shapira/Downloads/CORE_PRD_1.html#open">13. Open decisions</a>
+</nav>
+<main>
+<section id="intro">
+<div class="eyebrow">PRD &amp; Design Reference · v1.0</div>
+<h1 class="display">CORE.<br><em>Measure what you move.</em></h1>
+<p class="lead">A daily stretching and core-strength <strong>mobile webapp</strong>. Each exercise feeds a measurable KPI — touch your toes, hold a 60s side plank, reach your ear to your shoulder — each scored 1–5. The daily ritual stays calm. The measurement layer makes it <em>mean</em> something.</p>
+<div class="badges">
+<span class="badge accent">Mobile webapp</span>
+<span class="badge">Vercel-hosted</span>
+<span class="badge">Portrait only</span>
+<span class="badge">iOS + Android</span>
+<span class="badge">PWA installable</span>
+<span class="badge">Offline-first</span>
+<span class="badge">JSON backup</span>
+</div>
+<div class="callout"><div class="lbl">How to use this document</div>This is a single feedable reference for designers, engineers, and AI design tools (claude.design). Sections are self-contained. Every screen has a written spec and an inline mockup. Design tokens are in §3. Tech constraints in §4. The Area × KPI × Exercise master table is in §7.</div>
+</section>
+
+<section id="principles">
+<div class="eyebrow">§ 1</div>
+<h2>Design principles</h2>
+<p class="lead">Non-negotiable. Every screen, every word, every animation must pass these.</p>
+<ol>
+<li><strong>Simple before clever.</strong> If a screen has more than one primary action, it’s too complex.</li>
+<li><strong>Friendly, never clinical.</strong> The KPIs are clinical underneath. The voice the user hears is not. “Nice — your forward fold is improving,” not “F1 score increased 2→3.”</li>
+<li><strong>Daily ritual is sacred.</strong> The calm 4–8 minute habit is why people return. Nothing disrupts that loop.</li>
+<li><strong>Progress is always one tap away.</strong> From any screen, see CORE Index and KPI trends.</li>
+<li><strong>Measurement is the seasoning, not the meal.</strong> Big once at onboarding, light every two weeks after.</li>
+<li><strong>No nagging.</strong> Re-measurement prompts are gentle. Streaks don’t shame. Lapses welcomed warmly.</li>
+<li><strong>Forgiveness everywhere.</strong> Easy skip, pause, resume, undo.</li>
+<li><strong>One screen, one job.</strong> No tabs inside screens, no multi-step forms on a single view.</li>
+<li><strong>Your data is yours.</strong> One tap exports everything as JSON. One tap imports it back. No account required to start.</li>
+</ol>
+</section>
+
+<section id="brand">
+<div class="eyebrow">§ 2</div>
+<h2>Brand &amp; voice</h2>
+<p class="lead">CORE is calm, premium, lightly clinical-but-warm. Whoop meets Headspace meets a high-end physical-therapy clinic.</p>
+<h3>Logotype</h3>
+<div style="font-family:var(--serif);font-weight:500;font-size:88px;letter-spacing:0.04em;margin:16px 0;">CORE</div>
+<p>Set in Fraunces medium with widened tracking. The “O” can optionally evoke a radar / concentric-ring motif. Works in single-color and in the teal accent.</p>
+<h3>Tagline</h3>
+<p style="font-family:var(--serif);font-style:italic;font-size:22px;color:var(--text-muted);">“Measure what you move.”</p>
+<h3>Voice</h3>
+<div class="twocol">
+<div><h4>Use</h4><ul><li>“Nice.”</li><li>“You’re getting there.”</li><li>“Plenty of room to grow.”</li><li>“Ready when you are.”</li><li>“Welcome back.”</li></ul></div>
+<div><h4>Don’t use</h4><ul><li>“Workout complete.”</li><li>“Failure detected.”</li><li>“You’re behind.”</li><li>“Don’t break your streak!”</li><li>“Beat your record.”</li></ul></div>
+</div>
+<h4>Score language</h4>
+<table class="compact">
+<thead><tr><th>Score</th><th>What we say</th><th>What we never say</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>“Plenty of room to grow.”</td><td>“Very poor.”</td></tr>
+<tr><td>2</td><td>“Working ground.”</td><td>“Below average.”</td></tr>
+<tr><td>3</td><td>“Solid base. Average for your age and sex.”</td><td>“Mediocre.”</td></tr>
+<tr><td>4</td><td>“Strong — above most.”</td><td>“Pretty good.”</td></tr>
+<tr><td>5</td><td>“Top tier. Nice work.”</td><td>“Excellent.”</td></tr>
+</tbody>
+</table>
+</section>
+<section id="design">
+<div class="eyebrow">§ 3</div>
+<h2>Design system</h2>
+<h3>Colors — chrome</h3>
+<div class="swatches">
+<div class="swatch"><div class="chip" style="background:#0a0a0f"></div><div class="name">Background</div><div class="hex">#0A0A0F</div></div>
+<div class="swatch"><div class="chip" style="background:#16161f"></div><div class="name">Surface</div><div class="hex">#16161F</div></div>
+<div class="swatch"><div class="chip" style="background:#1e1e29"></div><div class="name">Surface 2</div><div class="hex">#1E1E29</div></div>
+<div class="swatch"><div class="chip" style="background:#2a2a37"></div><div class="name">Surface 3</div><div class="hex">#2A2A37</div></div>
+<div class="swatch"><div class="chip" style="background:#f4f0e8"></div><div class="name">Text</div><div class="hex">#F4F0E8</div></div>
+<div class="swatch"><div class="chip" style="background:#8a8a95"></div><div class="name">Text muted</div><div class="hex">#8A8A95</div></div>
+<div class="swatch"><div class="chip" style="background:#5a5a64"></div><div class="name">Text faint</div><div class="hex">#5A5A64</div></div>
+</div>
+<h3>Colors — accents</h3>
+<div class="swatches">
+<div class="swatch"><div class="chip" style="background:#5bc0a7"></div><div class="name">Accent</div><div class="hex">#5BC0A7</div></div>
+<div class="swatch"><div class="chip" style="background:#3a8770"></div><div class="name">Accent dim</div><div class="hex">#3A8770</div></div>
+<div class="swatch"><div class="chip" style="background:#e89b7c"></div><div class="name">Accent warm</div><div class="hex">#E89B7C</div></div>
+</div>
+<p>Teal carries all progress and primary actions. Warm coral is reserved for L/R asymmetry and gentle cautions — never errors. No red anywhere.</p>
+<h3>Colors — area pastels</h3>
+<p>Each Area gets a soft pastel that fills the hero card on Home and the runtime circle. Rotates through routines to keep daily variety.</p>
+<div class="swatches">
+<div class="swatch"><div class="chip" style="background:#c8b8e8"></div><div class="name">Lavender</div><div class="hex">#C8B8E8</div></div>
+<div class="swatch"><div class="chip" style="background:#b5d4b5"></div><div class="name">Sage</div><div class="hex">#B5D4B5</div></div>
+<div class="swatch"><div class="chip" style="background:#f0c9a8"></div><div class="name">Peach</div><div class="hex">#F0C9A8</div></div>
+<div class="swatch"><div class="chip" style="background:#a5d4d0"></div><div class="name">Mist</div><div class="hex">#A5D4D0</div></div>
+<div class="swatch"><div class="chip" style="background:#f0b4a8"></div><div class="name">Coral</div><div class="hex">#F0B4A8</div></div>
+<div class="swatch"><div class="chip" style="background:#f0e2c8"></div><div class="name">Cream</div><div class="hex">#F0E2C8</div></div>
+</div>
+<h3>Typography</h3>
+<p>Two-font system. <strong>Fraunces</strong> (serif, display + emotional moments) paired with <strong>Outfit</strong> (sans, UI + data). JetBrains Mono for any numeric or code surface.</p>
+<table class="compact">
+<thead><tr><th>Token</th><th>Font</th><th>Size / weight</th><th>Use</th></tr></thead>
+<tbody>
+<tr><td>Display</td><td>Fraunces 400</td><td>64–72 / -0.025em</td><td>Brand moments only</td></tr>
+<tr><td>H1 / screen title</td><td>Fraunces 400</td><td>26–32 / -0.02em</td><td>Top of any screen</td></tr>
+<tr><td>H2 / card title</td><td>Fraunces 500</td><td>22–24</td><td>Cards, sections</td></tr>
+<tr><td>Body</td><td>Outfit 400</td><td>14–15 / 1.5</td><td>All running text</td></tr>
+<tr><td>Label</td><td>Outfit 600</td><td>10–11 / +0.08em / uppercase</td><td>Card eyebrows, axes</td></tr>
+<tr><td>Score numeral</td><td>Fraunces 500</td><td>24–56 / tabular-num</td><td>The 1–5 scores everywhere</td></tr>
+<tr><td>Mono / data</td><td>JetBrains Mono</td><td>11–12</td><td>Code, settings keys</td></tr>
+</tbody>
+</table>
+<h3>Spacing &amp; radius</h3>
+<p>Base unit 4px. Common: 8, 12, 16, 20, 24, 32, 48, 64. Inside phone screens, body padding 20px. Card padding 14–18px. Section gaps 16px.</p>
+<p>Cards 14–16px radius. Hero cards 22px. Small chips 12px. Pills/buttons 100px (fully rounded). Phone screen mask 34px.</p>
+<h3>Motion</h3>
+<ul>
+<li><strong>Page transitions:</strong> 240ms cubic-bezier(0.2, 0.8, 0.2, 1). Slide-right forward, fade for tabs.</li>
+<li><strong>Routine auto-advance:</strong> 400ms cross-fade between exercises.</li>
+<li><strong>Radar polygon fill:</strong> 600ms ease-out. Axes draw counterclockwise over 400ms first.</li>
+<li><strong>Score reveal:</strong> 300ms scale-up from 0.85, ease-out. No bounce.</li>
+<li><strong>Re-measure banner pulse:</strong> 2s gentle opacity loop 0.6 → 1.0.</li>
+<li><strong>Never:</strong> spring animations on critical UI. No celebratory confetti. No sound effects beyond a soft transition ding.</li>
+</ul>
+<h3>Icons</h3>
+<p>Line icons, 1.5px stroke, rounded line-caps and line-joins. 22px in tab bar, 16–20px elsewhere. Anatomical icons (Area cards) are highly abstracted.</p>
+<h3>Illustrations</h3>
+<p>Cartoon figures inside circles, in the spirit of Bend. Warm skin tones, simple hair, colorful athletic wear (default outfit: coral-red top + dark-blue pants). White motion arrows where relevant. Always inside a soft pastel circle that rotates by Area.</p>
+</section>
+
+<section id="tech">
+<div class="eyebrow">§ 4</div>
+<h2>Technical specification</h2>
+<h3>Platform</h3>
+<ul>
+<li><strong>Mobile webapp</strong>, served from <strong>Vercel</strong>.</li>
+<li><strong>Portrait orientation only</strong> on both iOS and Android. Lock via CSS <code>@media (orientation: landscape)</code> with a polite "rotate your phone" screen — no landscape experience.</li>
+<li><strong>PWA-installable</strong> with manifest + service worker. iOS Add-to-Home-Screen supported. Android install prompt supported.</li>
+<li><strong>Offline-first.</strong> All exercises, KPIs, and content bundled at build time. App works fully without a network.</li>
+<li><strong>No account required to start.</strong> Local-first storage. Account is optional, for cross-device sync (V2 only).</li>
+</ul>
+<h3>Recommended stack</h3>
+<table class="compact">
+<thead><tr><th>Layer</th><th>Choice</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>Framework</td><td>Next.js 15 (App Router)</td><td>Vercel-native; static export possible; PWA-friendly</td></tr>
+<tr><td>Language</td><td>TypeScript</td><td>Schema safety for JSON import/export</td></tr>
+<tr><td>Styling</td><td>Tailwind + CSS variables</td><td>Token-driven; design system as CSS vars</td></tr>
+<tr><td>State</td><td>Zustand</td><td>Lightweight; persists to IndexedDB</td></tr>
+<tr><td>Storage</td><td>IndexedDB via idb-keyval</td><td>Larger than localStorage; survives PWA reinstalls</td></tr>
+<tr><td>Animation</td><td>Framer Motion</td><td>Right level for the calm motion we want</td></tr>
+<tr><td>Charts</td><td>Custom inline SVG</td><td>Radar + sparklines simple enough to hand-roll; no 200KB dep</td></tr>
+<tr><td>Pose (V2)</td><td>MediaPipe Tasks (web)</td><td>Runs in-browser; no backend; privacy-preserving</td></tr>
+</tbody>
+</table>
+<h3>Mobile webapp constraints</h3>
+<ul>
+<li><strong>Viewport:</strong> <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"&gt;</code></li>
+<li><strong>Safe areas:</strong> use <code>env(safe-area-inset-top/bottom/left/right)</code> for all chrome. Tab bar always includes bottom inset; runtime player includes top inset.</li>
+<li><strong>iOS rubber-band:</strong> <code>overscroll-behavior: none</code> on body; scroll inside containers.</li>
+<li><strong>No-zoom inputs:</strong> all <code>&lt;input&gt;</code> ≥16px font-size to prevent iOS auto-zoom.</li>
+<li><strong>Tap targets:</strong> minimum 44×44 px (Apple HIG).</li>
+<li><strong>Status bar:</strong> manifest <code>theme-color: #0a0a0f</code> matches background; <code>apple-mobile-web-app-status-bar-style: black-translucent</code>.</li>
+<li><strong>Install prompt:</strong> only after first completed routine. Never on first launch.</li>
+<li><strong>Wake lock:</strong> request <code>screen-wake-lock</code> during routine player so the screen doesn't dim mid-stretch.</li>
+<li><strong>Audio:</strong> short transition ding (~200ms) at exercise change. User can mute. No music — let users run their own.</li>
+<li><strong>Landscape lock:</strong> CSS-only — at <code>@media (orientation: landscape)</code>, show a rotate-icon screen with "CORE works best in portrait."</li>
+</ul>
+<h3>Performance budgets</h3>
+<ul>
+<li>Initial JS bundle: under 150 KB gzipped.</li>
+<li>Time-to-interactive on a mid-tier Android (Moto G6 equivalent): under 2.5s on 4G.</li>
+<li>Routine player must hit 60 fps on exercise transitions.</li>
+<li>All exercise illustrations: inline SVG (no PNG/JPG). Total illustration weight under 80 KB.</li>
+</ul>
+<h3>Vercel deployment</h3>
+<ul>
+<li>Static export (<code>output: 'export'</code>) where possible to maximize CDN cacheability.</li>
+<li>Preview deployments on every PR.</li>
+<li>One env var: <code>NEXT_PUBLIC_APP_VERSION</code> shown on Profile screen.</li>
+<li>Analytics: Vercel Analytics (privacy-preserving, cookieless). Plausible as a deeper alternative.</li>
+<li>Custom domain on first launch (e.g. <code>core.app</code> or chosen domain).</li>
+</ul>
+<h3>Browser support</h3>
+<ul>
+<li>iOS Safari 16+ (covers iOS 16–18+, ~95% of active iPhones).</li>
+<li>Chrome on Android 110+.</li>
+<li>Samsung Internet 22+.</li>
+<li>Desktop: not supported. Visiting on desktop shows a "scan QR to open on your phone" landing page.</li>
+</ul>
+</section>
+<section id="data">
+<div class="eyebrow">§ 5</div>
+<h2>Data model + JSON I/O</h2>
+<p class="lead">All user data lives client-side in IndexedDB. A single JSON file exports everything for backup, or imports to restore. This is the user’s primary backup mechanism — there is no cloud account in V1.</p>
+<h3>Storage architecture</h3>
+<ul>
+<li><strong>IndexedDB</strong> via <code>idb-keyval</code> (one keyspace).</li>
+<li>Single top-level key: <code>core_data_v1</code> containing the full state object.</li>
+<li>Auto-save on every meaningful state change (debounced 500ms).</li>
+<li>Schema version field guards against breaking changes; migrations run on import.</li>
+</ul>
+<h3>Export / Import — user flow</h3>
+<p>From the Profile screen:</p>
+<ul>
+<li><strong>Export:</strong> "Download my data" → serializes the full state, downloads as <code>core-backup-YYYY-MM-DD.json</code>. iOS uses Web Share API; Android uses standard file download.</li>
+<li><strong>Import:</strong> "Restore from backup" → file picker → validates schema → confirmation diff ("This will replace 47 measurements with the ones in your backup. Continue?") → restores.</li>
+<li><strong>Merge mode</strong> (V1.5): combine current + backup, keeping the newest of any conflicts.</li>
+<li><strong>Auto-prompt:</strong> after every 30 days of activity, gentle Profile-screen card: "Want to back up your progress?"</li>
+</ul>
+<h3>JSON schema (v1)</h3>
+<pre><span class="p">{</span>
+  <span class="s">"$schema"</span><span class="p">:</span> <span class="s">"core/v1"</span><span class="p">,</span>
+  <span class="s">"exportedAt"</span><span class="p">:</span> <span class="s">"2026-05-23T14:22:00Z"</span><span class="p">,</span>
+  <span class="s">"appVersion"</span><span class="p">:</span> <span class="s">"1.0.3"</span><span class="p">,</span>
+
+  <span class="s">"profile"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">"id"</span><span class="p">:</span> <span class="s">"uuid-v4-here"</span><span class="p">,</span>
+    <span class="s">"displayName"</span><span class="p">:</span> <span class="s">"Matteo"</span><span class="p">,</span>
+    <span class="s">"age"</span><span class="p">:</span> <span class="n">36</span><span class="p">,</span>
+    <span class="s">"sex"</span><span class="p">:</span> <span class="s">"male"</span><span class="p">,</span>
+    <span class="s">"heightCm"</span><span class="p">:</span> <span class="n">178</span><span class="p">,</span>
+    <span class="s">"weightKg"</span><span class="p">:</span> <span class="n">76</span><span class="p">,</span>
+    <span class="s">"units"</span><span class="p">:</span> <span class="s">"metric"</span><span class="p">,</span>
+    <span class="s">"activityLevel"</span><span class="p">:</span> <span class="s">"moderate"</span><span class="p">,</span>
+    <span class="s">"injuries"</span><span class="p">:</span> <span class="p">[</span><span class="s">"lower_back"</span><span class="p">],</span>
+    <span class="s">"createdAt"</span><span class="p">:</span> <span class="s">"2026-02-01T09:00:00Z"</span>
+  <span class="p">},</span>
+
+  <span class="s">"selectedAreas"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s">"neck"</span><span class="p">,</span> <span class="s">"shoulders"</span><span class="p">,</span> <span class="s">"hips"</span><span class="p">,</span> <span class="s">"core_anterior"</span><span class="p">,</span> <span class="s">"core_lateral"</span>
+  <span class="p">],</span>
+
+  <span class="s">"activeKpis"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s">"f1_forward_fold"</span><span class="p">,</span> <span class="s">"f4_knee_to_wall"</span><span class="p">,</span>
+    <span class="s">"f5_apley"</span><span class="p">,</span> <span class="s">"f8_cervical_rom"</span><span class="p">,</span>
+    <span class="s">"c1_front_plank"</span><span class="p">,</span> <span class="s">"c2_side_plank"</span>
+  <span class="p">],</span>
+
+  <span class="s">"measurements"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s">"id"</span><span class="p">:</span> <span class="s">"m_2026-02-01_001"</span><span class="p">,</span>
+      <span class="s">"kpiId"</span><span class="p">:</span> <span class="s">"f1_forward_fold"</span><span class="p">,</span>
+      <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"2026-02-01T09:14:00Z"</span><span class="p">,</span>
+      <span class="s">"method"</span><span class="p">:</span> <span class="s">"manual"</span><span class="p">,</span>      <span class="c">// manual | guided | auto_pose</span>
+      <span class="s">"rawValue"</span><span class="p">:</span> <span class="n">-3</span><span class="p">,</span>
+      <span class="s">"rawUnit"</span><span class="p">:</span> <span class="s">"cm"</span><span class="p">,</span>
+      <span class="s">"score"</span><span class="p">:</span> <span class="n">2</span><span class="p">,</span>
+      <span class="s">"side"</span><span class="p">:</span> <span class="s">null</span><span class="p">,</span>
+      <span class="s">"notes"</span><span class="p">:</span> <span class="s">""</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s">"id"</span><span class="p">:</span> <span class="s">"m_2026-02-01_002"</span><span class="p">,</span>
+      <span class="s">"kpiId"</span><span class="p">:</span> <span class="s">"f4_knee_to_wall"</span><span class="p">,</span>
+      <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"2026-02-01T09:16:00Z"</span><span class="p">,</span>
+      <span class="s">"method"</span><span class="p">:</span> <span class="s">"manual"</span><span class="p">,</span>
+      <span class="s">"rawValue"</span><span class="p">:</span> <span class="n">11.2</span><span class="p">,</span>
+      <span class="s">"rawUnit"</span><span class="p">:</span> <span class="s">"cm"</span><span class="p">,</span>
+      <span class="s">"score"</span><span class="p">:</span> <span class="n">4</span><span class="p">,</span>
+      <span class="s">"side"</span><span class="p">:</span> <span class="s">"left"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+
+  <span class="s">"sessions"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s">"id"</span><span class="p">:</span> <span class="s">"s_2026-02-02_001"</span><span class="p">,</span>
+      <span class="s">"routineId"</span><span class="p">:</span> <span class="s">"posture_reset"</span><span class="p">,</span>
+      <span class="s">"timestamp"</span><span class="p">:</span> <span class="s">"2026-02-02T08:30:00Z"</span><span class="p">,</span>
+      <span class="s">"durationSec"</span><span class="p">:</span> <span class="n">462</span><span class="p">,</span>
+      <span class="s">"exerciseIds"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s">"shoulder_rolls"</span><span class="p">,</span> <span class="s">"cat_cow"</span><span class="p">,</span> <span class="s">"thread_needle"</span><span class="p">,</span>
+        <span class="s">"chin_tucks"</span><span class="p">,</span> <span class="s">"doorway_pec"</span><span class="p">,</span> <span class="s">"wall_angels"</span>
+      <span class="p">],</span>
+      <span class="s">"kpisTargeted"</span><span class="p">:</span> <span class="p">[</span><span class="s">"f5_apley"</span><span class="p">,</span> <span class="s">"f6_overhead"</span><span class="p">,</span> <span class="s">"f7_tspine"</span><span class="p">],</span>
+      <span class="s">"completed"</span><span class="p">:</span> <span class="s">true</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+
+  <span class="s">"streaks"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">"practice"</span><span class="p">:</span> <span class="p">{</span> <span class="s">"current"</span><span class="p">:</span> <span class="n">11</span><span class="p">,</span> <span class="s">"longest"</span><span class="p">:</span> <span class="n">16</span><span class="p">,</span> <span class="s">"lastActive"</span><span class="p">:</span> <span class="s">"2026-05-22"</span> <span class="p">},</span>
+    <span class="s">"improvement"</span><span class="p">:</span> <span class="p">{</span> <span class="s">"current"</span><span class="p">:</span> <span class="n">3</span><span class="p">,</span> <span class="s">"longest"</span><span class="p">:</span> <span class="n">3</span> <span class="p">}</span>
+  <span class="p">},</span>
+
+  <span class="s">"trophies"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s">"id"</span><span class="p">:</span> <span class="s">"first_session"</span><span class="p">,</span> <span class="s">"unlockedAt"</span><span class="p">:</span> <span class="s">"2026-02-02"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="s">"id"</span><span class="p">:</span> <span class="s">"first_kpi_to_4"</span><span class="p">,</span> <span class="s">"unlockedAt"</span><span class="p">:</span> <span class="s">"2026-04-12"</span><span class="p">,</span> <span class="s">"kpiId"</span><span class="p">:</span> <span class="s">"f4_knee_to_wall"</span> <span class="p">}</span>
+  <span class="p">],</span>
+
+  <span class="s">"preferences"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">"reminderTime"</span><span class="p">:</span> <span class="s">"08:00"</span><span class="p">,</span>
+    <span class="s">"remindersEnabled"</span><span class="p">:</span> <span class="s">true</span><span class="p">,</span>
+    <span class="s">"remeasureCadenceDays"</span><span class="p">:</span> <span class="n">14</span><span class="p">,</span>
+    <span class="s">"voicePrompts"</span><span class="p">:</span> <span class="s">true</span><span class="p">,</span>
+    <span class="s">"transitionSounds"</span><span class="p">:</span> <span class="s">true</span><span class="p">,</span>
+    <span class="s">"showSexAdjusted"</span><span class="p">:</span> <span class="s">true</span><span class="p">,</span>
+    <span class="s">"theme"</span><span class="p">:</span> <span class="s">"dark"</span>
+  <span class="p">}</span>
+<span class="p">}</span></pre>
+<div class="callout"><div class="lbl">Privacy note</div>The exported JSON contains only what the user typed at onboarding (age, sex, optional name) plus their measurements and timestamps. Tell users this clearly on the Export screen. No third party ever sees it unless the user shares it themselves.</div>
+<h3>Schema migration</h3>
+<p>Every schema version increments <code>$schema</code>. On import of an older version, run a migration chain (<code>v1 → v1.1 → v1.2…</code>). Never drop data silently; surface anything that can’t be migrated to the user.</p>
+</section>
+
+<section id="flows">
+<div class="eyebrow">§ 6</div>
+<h2>User flows</h2>
+<h3>Onboarding (12 min with Measure Tests, 3 min without)</h3>
+<ol>
+<li><strong>Welcome.</strong> Splash with wordmark + tagline. Get Started / Sign In.</li>
+<li><strong>CORE info.</strong> Age, sex, height, weight (optional), activity level, injury checkboxes.</li>
+<li><strong>Pick what you want to improve.</strong> 15-area grid; multi-select. Min 1, recommended 3–5.</li>
+<li><strong>Measure Tests intro.</strong> What’s coming, equipment, time.</li>
+<li><strong>Measure Tests session.</strong> Sequential per-KPI; three modes (manual/guided/auto).</li>
+<li><strong>Baseline reveal.</strong> Radar fills in; CORE Index lands; weakest-link nomination.</li>
+</ol>
+<h3>Daily loop (the 95%)</h3>
+<ol>
+<li>Open app → Home.</li>
+<li>Today’s routine card sits at top — already chosen, with duration + areas + KPIs.</li>
+<li>Tap Start. Runtime player opens.</li>
+<li>Stretch for 4–15 minutes. Calm circles, gentle timer, prev/pause/next.</li>
+<li>"Nice." Complete screen shows what was just moved.</li>
+<li>Tap Done. Back to Home.</li>
+</ol>
+<h3>Periodic measurement (~14 days, opt-in)</h3>
+<ol>
+<li>Banner on Home: "3 KPIs ready to re-measure — about 4 min."</li>
+<li>Tap "Quick check."</li>
+<li>Stale KPIs walked through one at a time.</li>
+<li>Scores update; trend lines refresh; back to Home.</li>
+</ol>
+<h3>Progress exploration</h3>
+<ol>
+<li>Tap Progress tab (or the CORE Index on Home).</li>
+<li>See CORE Index, radar, streaks, full KPI list.</li>
+<li>Tap any KPI row → KPI Detail (score, history line, asymmetry, exercises that feed it).</li>
+</ol>
+<h3>Backup / restore</h3>
+<ol>
+<li>Profile tab → Data &amp; Backup.</li>
+<li>"Download my data" → JSON file saved.</li>
+<li>To restore: same screen → "Restore from backup" → file picker → confirm replace.</li>
+</ol>
+</section>
+<section id="areas">
+<div class="eyebrow">§ 7</div>
+<h2>Areas, KPIs &amp; exercises</h2>
+<p class="lead">The complete map. 15 muscle groups / areas, each with its KPIs (test protocol + 1–5 scoring bands) and the simple exercises that improve those KPIs. This is the master content table that drives Area selection, routine generation, and KPI detail screens.</p>
+
+<h3>1. Neck</h3>
+<p><strong>Pastel:</strong> Mist <code>#A5D4D0</code>. <strong>Routine duration:</strong> 4–6 min.</p>
+<h4>KPI: F8 — Cervical Range of Motion (composite of 4)</h4>
+<p>Sit upright, neutral spine. Each sub-test measures one direction. Composite "Neck Score" = average of all four.</p>
+<table class="compact">
+<thead><tr><th>Sub-test</th><th>Protocol</th><th>Norm</th><th>Score 1</th><th>Score 3</th><th>Score 5</th></tr></thead>
+<tbody>
+<tr><td>Flexion</td><td>Chin to chest</td><td>~50°</td><td>&lt;20°</td><td>30–40°</td><td>≥50°</td></tr>
+<tr><td>Extension</td><td>Look up</td><td>~60°</td><td>&lt;24°</td><td>36–48°</td><td>≥60°</td></tr>
+<tr><td>Lateral L+R</td><td>Ear to shoulder</td><td>~45°</td><td>&lt;18°</td><td>27–36°</td><td>≥45°</td></tr>
+<tr><td>Rotation L+R</td><td>Chin over shoulder</td><td>~80°</td><td>&lt;32°</td><td>48–64°</td><td>≥80°</td></tr>
+</tbody>
+</table>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Chin tucks</td><td>Pull chin straight back. Hold 5s × 10.</td><td>Cervical alignment, flexion</td></tr>
+<tr><td>Neck flexion stretch</td><td>Drop chin to chest, gentle hand assist. Hold 30s.</td><td>F8 — Flexion</td></tr>
+<tr><td>Neck extension</td><td>Tilt head back, look up gently. 5s × 5.</td><td>F8 — Extension</td></tr>
+<tr><td>Ear-to-shoulder</td><td>Tilt sideways, hold 30s each side.</td><td>F8 — Lateral flexion</td></tr>
+<tr><td>Neck rotation</td><td>Turn head, hold 20s each side.</td><td>F8 — Rotation</td></tr>
+<tr><td>Upper trap stretch</td><td>Ear toward shoulder + opposite arm pulled down behind back.</td><td>Lateral flexion + trap</td></tr>
+<tr><td>Levator scapulae stretch</td><td>Look down to opposite armpit, gentle hand assist.</td><td>Combined rotation + flexion</td></tr>
+<tr><td>Scalene stretch</td><td>Tilt back and rotate slightly. 20s each side.</td><td>Anterolateral neck</td></tr>
+</tbody>
+</table>
+
+<h3>2. Shoulders</h3>
+<p><strong>Pastel:</strong> Lavender <code>#C8B8E8</code>. <strong>Routine duration:</strong> 6–8 min.</p>
+<h4>KPI: F5 — Shoulder Internal Rotation + Extension (Apley)</h4>
+<p>One hand reaches up over shoulder down the back; other reaches up behind back. Measure fingertip gap in cm. Both sides.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Gap</th></tr></thead><tbody><tr><td>1</td><td>&gt; +20 cm</td></tr><tr><td>2</td><td>+10 to +20 cm</td></tr><tr><td>3</td><td>+1 to +10 cm</td></tr><tr><td>4</td><td>Touch (0)</td></tr><tr><td>5</td><td>Overlap</td></tr></tbody></table>
+<h4>KPI: F6 — Shoulder Flexion / Overhead Reach</h4>
+<p>Supine, knees bent, low back flat. Raise both arms overhead toward floor. Measure gap.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Gap</th></tr></thead><tbody><tr><td>1</td><td>&gt; 20 cm</td></tr><tr><td>2</td><td>10–20 cm</td></tr><tr><td>3</td><td>3–10 cm</td></tr><tr><td>4</td><td>Light touch (0–3 cm)</td></tr><tr><td>5</td><td>Full flat contact, no arching</td></tr></tbody></table>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Shoulder rolls</td><td>Slow full circles, both directions. 30s.</td><td>Warmup, F5/F6</td></tr>
+<tr><td>Cross-body shoulder stretch</td><td>Pull arm across, hold with opposite hand. 30s each.</td><td>Posterior capsule</td></tr>
+<tr><td>Eagle arms</td><td>Wrap arms, lift elbows. 30s each.</td><td>Rear delts, scapular protraction</td></tr>
+<tr><td>Cow face arms</td><td>One hand over, other up behind back; clasp or use strap.</td><td>F5 directly</td></tr>
+<tr><td>Reverse prayer</td><td>Hands together behind back, fingertips up. 30s.</td><td>F5 + wrist</td></tr>
+<tr><td>Doorway pec stretch</td><td>Forearm on doorframe at 90°; step through. 30s each.</td><td>F6 — pec major/minor</td></tr>
+<tr><td>Sleeper stretch</td><td>Side-lying; bottom arm 90°, push hand toward floor.</td><td>F5 — posterior IR</td></tr>
+<tr><td>Wall slides</td><td>Back to wall, arms at 90°, slide up overhead.</td><td>F6 + scapular control</td></tr>
+<tr><td>Thread the needle</td><td>Quadruped; thread arm under across. 30s each.</td><td>Rear delt + T-spine</td></tr>
+<tr><td>Child's pose extended</td><td>Sit on heels; reach arms forward.</td><td>F6 lats + shoulders</td></tr>
+<tr><td>Pendulum swings</td><td>Bend forward, dangle one arm, gentle circles.</td><td>Joint warm-up</td></tr>
+</tbody>
+</table>
+
+<h3>3. Upper Back / Thoracic</h3>
+<p><strong>Pastel:</strong> Lavender <code>#C8B8E8</code>. <strong>Routine duration:</strong> 5–7 min.</p>
+<h4>KPI: F7 — Thoracic Rotation</h4>
+<p>Seated, dowel across collarbones. Rotate as far as possible each direction. Norm ~45°.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Each direction</th></tr></thead><tbody><tr><td>1</td><td>&lt; 15°</td></tr><tr><td>2</td><td>15–29°</td></tr><tr><td>3</td><td>30–44°</td></tr><tr><td>4</td><td>45–59°</td></tr><tr><td>5</td><td>≥ 60°</td></tr></tbody></table>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Cat-cow</td><td>Quadruped, alternate arch and round.</td><td>Full spine mobility</td></tr>
+<tr><td>Thoracic ext. over chair</td><td>Sit, lean back over chair-back, arms overhead.</td><td>T-spine extension</td></tr>
+<tr><td>Open book</td><td>Side-lying, knees bent; open top arm across.</td><td>F7 directly</td></tr>
+<tr><td>Quadruped T-spine rotation</td><td>Hand behind head; rotate elbow up, then under.</td><td>F7 directly</td></tr>
+<tr><td>Wall angels</td><td>Back flat to wall, snow-angel arm motion.</td><td>T-spine + scapular</td></tr>
+<tr><td>Bear hug</td><td>Hug yourself, round upper back, breathe wide.</td><td>Rhomboids + mid-back</td></tr>
+<tr><td>Foam roller T-spine</td><td>Roller across mid-back, arms overhead, extend.</td><td>T-spine extension (with equipment)</td></tr>
+</tbody>
+</table>
+
+<h3>4. Chest</h3>
+<p><strong>Pastel:</strong> Coral <code>#F0B4A8</code>. <strong>Routine duration:</strong> 4–6 min.</p>
+<p>No standalone KPI — pec extensibility is captured indirectly via F6 (Overhead Reach) and F5 (Apley).</p>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Doorway pec stretch</td><td>Forearm on frame at 90°; step through.</td><td>Pec major (sternal)</td></tr>
+<tr><td>Doorway pec (high)</td><td>Same, arm raised higher on frame.</td><td>Pec major (clavicular)</td></tr>
+<tr><td>Doorway pec (low)</td><td>Same, arm lower on frame.</td><td>Pec minor</td></tr>
+<tr><td>Corner stretch</td><td>Forearms on each wall, step into corner.</td><td>Bilateral pec</td></tr>
+<tr><td>Floor "Y" hold</td><td>Prone; arms in Y position, lift slightly. 20s.</td><td>Chest stretch + posture</td></tr>
+<tr><td>Reclined butterfly</td><td>Supine, soles together, arms overhead.</td><td>Chest + hips combined</td></tr>
+</tbody>
+</table>
+
+<h3>5. Lower Back (Lumbar)</h3>
+<p><strong>Pastel:</strong> Cream <code>#F0E2C8</code>. <strong>Routine duration:</strong> 5–8 min.</p>
+<h4>KPI: F1 — Forward Fold Reach</h4>
+<p>Sit-and-reach. Legs straight, feet at wall as zero line. Best of 3 trials.</p>
+<table class="compact"><thead><tr><th>Score</th><th>cm relative to toes</th></tr></thead><tbody><tr><td>1</td><td>&lt; –10</td></tr><tr><td>2</td><td>–10 to –1</td></tr><tr><td>3</td><td>0 to +6</td></tr><tr><td>4</td><td>+7 to +15</td></tr><tr><td>5</td><td>&gt; +15</td></tr></tbody></table>
+<h4>KPI: C4 — Trunk Extensor Endurance (Biering-Sørensen)</h4>
+<p>Prone on bench, upper body unsupported past iliac crest, lower body anchored. Hold horizontal to failure.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Seconds</th></tr></thead><tbody><tr><td>1</td><td>&lt; 30</td></tr><tr><td>2</td><td>30–60</td></tr><tr><td>3</td><td>60–100</td></tr><tr><td>4</td><td>100–150</td></tr><tr><td>5</td><td>&gt; 150</td></tr></tbody></table>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Child's pose</td><td>Sit on heels, fold forward. 60s.</td><td>Lumbar release</td></tr>
+<tr><td>Knee-to-chest</td><td>Supine; pull knee(s) to chest. 30s.</td><td>Lumbar flexion</td></tr>
+<tr><td>Cat-cow</td><td>Quadruped flex/extend cycle.</td><td>Spinal mobility</td></tr>
+<tr><td>Cobra / Sphinx</td><td>Prone, press up on hands or forearms.</td><td>Lumbar extension</td></tr>
+<tr><td>Supine spinal twist</td><td>Lie back, drop knees to one side. 30s each.</td><td>Lumbar rotation</td></tr>
+<tr><td>Bird-dog</td><td>Quadruped, extend opposite arm + leg. 10 reps each.</td><td>C4 + stability</td></tr>
+<tr><td>Glute bridge</td><td>Supine, lift hips. 10 reps.</td><td>Posterior chain</td></tr>
+<tr><td>McKenzie press-ups</td><td>Prone press-ups, hips down. 10 reps slow.</td><td>Disc / lumbar extension</td></tr>
+<tr><td>Superman hold</td><td>Prone, lift arms + legs. 5s × 8.</td><td>C4 directly</td></tr>
+</tbody>
+</table>
+
+<h3>6. Hips</h3>
+<p><strong>Pastel:</strong> Sage <code>#B5D4B5</code>. <strong>Routine duration:</strong> 6–10 min.</p>
+<h4>KPI: F3 — Hip Flexor Length (Modified Thomas Test)</h4>
+<p>Lie on edge of bench, knees to chest. Lower one leg toward floor. Pass = thigh touches surface AND knee flexes ≥80°.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Description</th></tr></thead><tbody><tr><td>1</td><td>Thigh above horizontal, knee fully extended</td></tr><tr><td>2</td><td>Thigh above horizontal OR knee past 80°</td></tr><tr><td>3</td><td>Thigh at horizontal, knee at 80°</td></tr><tr><td>4</td><td>Thigh slightly below horizontal, knee ~90°</td></tr><tr><td>5</td><td>Thigh comfortably below horizontal, knee past 90°</td></tr></tbody></table>
+<h4>KPI: F9 — Hip External Rotation / Adduction (Butterfly)</h4>
+<p>Seated butterfly. Measure knee-to-floor distance.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Knee-to-floor</th></tr></thead><tbody><tr><td>1</td><td>&gt; 25 cm</td></tr><tr><td>2</td><td>15–25 cm</td></tr><tr><td>3</td><td>8–14 cm</td></tr><tr><td>4</td><td>3–7 cm</td></tr><tr><td>5</td><td>&lt; 3 cm</td></tr></tbody></table>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Kneeling hip flexor stretch</td><td>Lunge with back knee down, drive hips forward.</td><td>F3 — Iliopsoas</td></tr>
+<tr><td>Couch stretch</td><td>Same, back foot up on couch/wall.</td><td>F3 — Iliopsoas + rectus femoris</td></tr>
+<tr><td>Pigeon pose</td><td>One shin forward, back leg extended. 60s.</td><td>F9 — Hip ER + glutes</td></tr>
+<tr><td>Half pigeon (supine)</td><td>Figure-4 supine; pull thigh to chest.</td><td>F9 — accessible variant</td></tr>
+<tr><td>Frog stretch</td><td>Quadruped, knees wide, sit hips back.</td><td>F9 — Adductors</td></tr>
+<tr><td>Butterfly stretch</td><td>Seated, soles together, gentle pressure.</td><td>F9 directly</td></tr>
+<tr><td>90/90 stretch</td><td>Both legs at 90°; one in front, one to side.</td><td>F9 — rotation L+R</td></tr>
+<tr><td>Lizard pose</td><td>Low lunge with forearms inside front foot.</td><td>F3 + F9 combined</td></tr>
+<tr><td>Reclined figure-4</td><td>Supine, ankle on opposite knee, pull thigh in.</td><td>Glute + piriformis</td></tr>
+<tr><td>Deep squat hold</td><td>Full depth squat, heels down. 30–60s.</td><td>Composite hip + ankle</td></tr>
+</tbody>
+</table>
+<h3>7. Glutes</h3>
+<p><strong>Pastel:</strong> Sage <code>#B5D4B5</code>. <strong>Routine duration:</strong> 4–6 min.</p>
+<p>No standalone KPI. Glute activation feeds C4 (trunk extensor endurance) and contributes to F10 (deep squat) and overall posterior-chain function.</p>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Glute bridge</td><td>Supine, knees bent, drive hips up. 12 reps.</td><td>Glute max</td></tr>
+<tr><td>Single-leg glute bridge</td><td>One foot down, other extended. 8 reps each.</td><td>Glute max + asymmetry check</td></tr>
+<tr><td>Clamshells</td><td>Side-lying, knees bent, open top knee. 12 reps.</td><td>Glute med</td></tr>
+<tr><td>Fire hydrants</td><td>Quadruped, lift bent knee out to side.</td><td>Glute med, hip ER</td></tr>
+<tr><td>Side-lying hip abduction</td><td>Side-lying, straight top leg, lift up. 12 reps.</td><td>Glute med (key for C2)</td></tr>
+<tr><td>Donkey kicks</td><td>Quadruped, push bent leg up to ceiling.</td><td>Glute max</td></tr>
+<tr><td>Pigeon stretch</td><td>(see Hips)</td><td>Glute release</td></tr>
+<tr><td>Figure-4 stretch</td><td>(see Hips)</td><td>Glute + piriformis</td></tr>
+</tbody>
+</table>
+
+<h3>8. Hamstrings</h3>
+<p><strong>Pastel:</strong> Peach <code>#F0C9A8</code>. <strong>Routine duration:</strong> 5–7 min.</p>
+<h4>KPI: F2 — Passive Straight Leg Raise (isolated hamstring)</h4>
+<p>Supine, opposite leg flat. Lift one straight leg until first resistance. Hip flexion angle. L/R separately.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Hip flexion angle</th></tr></thead><tbody><tr><td>1</td><td>&lt; 50°</td></tr><tr><td>2</td><td>50–64°</td></tr><tr><td>3</td><td>65–79°</td></tr><tr><td>4</td><td>80–90°</td></tr><tr><td>5</td><td>&gt; 90°</td></tr></tbody></table>
+<p>L/R asymmetry &gt; 10° flagged.</p>
+<h4>KPI: F1 — Forward Fold (shared with Lower Back)</h4>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Standing forward fold</td><td>Stand, fold over, hang. 60s.</td><td>F1 + F2</td></tr>
+<tr><td>Seated forward fold</td><td>Sit with legs straight, reach to toes. 60s.</td><td>F1 + F2</td></tr>
+<tr><td>Supine hamstring with strap</td><td>Lie back, strap around foot, raise straight leg.</td><td>F2 — isolated</td></tr>
+<tr><td>Wide-leg forward fold</td><td>Sit with legs wide, fold forward.</td><td>Inner hamstring + adductors</td></tr>
+<tr><td>Single-leg forward fold</td><td>Sit; one leg out, one bent. Fold over straight.</td><td>F2 per side</td></tr>
+<tr><td>Standing hamstring on chair</td><td>Heel on chair, hinge from hips.</td><td>F2 — accessible</td></tr>
+<tr><td>Down dog</td><td>Hips up; pedal feet to deepen.</td><td>Hamstrings + calves</td></tr>
+<tr><td>Toe-to-wall</td><td>Toes against wall, hinge to reach floor.</td><td>F1 standing variant</td></tr>
+</tbody>
+</table>
+
+<h3>9. Quads</h3>
+<p><strong>Pastel:</strong> Peach <code>#F0C9A8</code>. <strong>Routine duration:</strong> 4–6 min.</p>
+<p>No standalone KPI — quad / rectus-femoris extensibility is captured by F3 (Modified Thomas; the knee-flexion component).</p>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Standing quad stretch</td><td>Hold ankle behind, knees together.</td><td>Quads (rectus femoris)</td></tr>
+<tr><td>Side-lying quad stretch</td><td>Pull top ankle behind. 30s each.</td><td>Quads (easier on knee)</td></tr>
+<tr><td>Kneeling quad stretch</td><td>Lunge with back foot up on wall behind.</td><td>F3 — Rectus femoris</td></tr>
+<tr><td>Hero pose</td><td>Sit on heels (or block between heels). 30s.</td><td>Quads + ankles</td></tr>
+<tr><td>Couch stretch</td><td>(see Hips) — hits rectus femoris hard.</td><td>F3 — Quads + iliopsoas</td></tr>
+</tbody>
+</table>
+
+<h3>10. Ankles &amp; Calves</h3>
+<p><strong>Pastel:</strong> Mist <code>#A5D4D0</code>. <strong>Routine duration:</strong> 3–5 min.</p>
+<h4>KPI: F4 — Ankle Dorsiflexion (Knee-to-Wall)</h4>
+<p>Lunge stance facing wall. Slide foot back until knee just touches wall heel-down. Big-toe-to-wall in cm. L/R separately.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Distance</th></tr></thead><tbody><tr><td>1</td><td>&lt; 3 cm</td></tr><tr><td>2</td><td>3–6 cm</td></tr><tr><td>3</td><td>6–9 cm</td></tr><tr><td>4</td><td>9–12 cm</td></tr><tr><td>5</td><td>&gt; 12 cm</td></tr></tbody></table>
+<p>L/R asymmetry &gt; 1.5 cm flagged.</p>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Standing calf stretch</td><td>Hands on wall, back leg straight, heel down. 30s.</td><td>Gastrocnemius</td></tr>
+<tr><td>Bent-knee calf stretch</td><td>Same, back knee bent.</td><td>Soleus (deeper for ankle ROM)</td></tr>
+<tr><td>Down dog with pedaling</td><td>Alternate heel drops in down dog.</td><td>Both calf heads + hamstrings</td></tr>
+<tr><td>Heel drops on step</td><td>Stand on step, drop heels below level. 15 reps slow.</td><td>Calf eccentric + ankle ROM</td></tr>
+<tr><td>Ankle circles</td><td>10 circles each direction, each foot.</td><td>Joint warm-up</td></tr>
+<tr><td>Toe-to-wall</td><td>Toes touching wall, lean shins forward.</td><td>F4 directly</td></tr>
+<tr><td>Deep squat hold</td><td>Full depth, heels down, 30–60s.</td><td>F4 + composite</td></tr>
+<tr><td>Banded ankle distraction</td><td>Band around ankle, anchored low; drive knee forward.</td><td>F4 — joint capsule</td></tr>
+</tbody>
+</table>
+
+<h3>11. Core — Anterior</h3>
+<p><strong>Pastel:</strong> Coral <code>#F0B4A8</code>. <strong>Routine duration:</strong> 4–6 min.</p>
+<h4>KPI: C1 — Front Plank Hold</h4>
+<p>Forearm plank, body straight. Hold to failure or 4:00 cap.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Seconds</th></tr></thead><tbody><tr><td>1</td><td>&lt; 20</td></tr><tr><td>2</td><td>20–45</td></tr><tr><td>3</td><td>45–90</td></tr><tr><td>4</td><td>90–180</td></tr><tr><td>5</td><td>&gt; 180</td></tr></tbody></table>
+<h4>KPI: C3 — Trunk Flexor Endurance (McGill 60°)</h4>
+<p>Sit on floor, back at 60° from horizontal, knees bent, feet anchored. Hold to failure.</p>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Forearm plank</td><td>Body straight on forearms + toes.</td><td>C1 directly</td></tr>
+<tr><td>Knee plank</td><td>Same, on knees (regression).</td><td>C1 — entry-level</td></tr>
+<tr><td>Dead bug</td><td>Supine, opposite arm + leg extend; back flat.</td><td>Anti-extension control</td></tr>
+<tr><td>Hollow body hold</td><td>Supine, low back pinned, arms + legs raised ~20°.</td><td>C1 + C3</td></tr>
+<tr><td>Hollow body rocks</td><td>Same position, rock back and forth.</td><td>Anterior chain dynamic</td></tr>
+<tr><td>Toe taps (marching)</td><td>Supine, knees up; alternate toe taps to floor.</td><td>C3 — entry-level</td></tr>
+<tr><td>Leg lowers</td><td>Supine, straight legs lowered slowly.</td><td>Anterior chain eccentric</td></tr>
+<tr><td>V-sit hold</td><td>Seated V; balance with arms forward.</td><td>C3 directly</td></tr>
+</tbody>
+</table>
+
+<h3>12. Core — Lateral</h3>
+<p><strong>Pastel:</strong> Coral <code>#F0B4A8</code>. <strong>Routine duration:</strong> 4–6 min.</p>
+<h4>KPI: C2 — Side Plank Hold (L + R separately)</h4>
+<p>McGill side-bridge protocol. Hold to failure each side.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Seconds per side</th></tr></thead><tbody><tr><td>1</td><td>&lt; 20</td></tr><tr><td>2</td><td>20–45</td></tr><tr><td>3</td><td>45–75</td></tr><tr><td>4</td><td>75–120</td></tr><tr><td>5</td><td>&gt; 120</td></tr></tbody></table>
+<h4>KPI: C2-Asym — L/R asymmetry (derived)</h4>
+<table class="compact"><thead><tr><th>Score</th><th>L/R difference</th></tr></thead><tbody><tr><td>1</td><td>&gt; 30%</td></tr><tr><td>3</td><td>10–20%</td></tr><tr><td>5</td><td>&lt; 5%</td></tr></tbody></table>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Side plank (forearm)</td><td>Forearm + outside foot; hips up.</td><td>C2 directly</td></tr>
+<tr><td>Side plank from knees</td><td>Bottom knee down (regression).</td><td>C2 — entry-level</td></tr>
+<tr><td>Side-lying hip abduction</td><td>(see Glutes)</td><td>Glute med supports C2</td></tr>
+<tr><td>Side bend (standing)</td><td>Reach overhead and to opposite side. 30s each.</td><td>Lateral chain mobility</td></tr>
+<tr><td>Standing oblique reach</td><td>Reach one arm over head, lengthen that side.</td><td>Oblique mobility</td></tr>
+<tr><td>Pallof press</td><td>Band to side, press straight out.</td><td>Anti-rotation (with band)</td></tr>
+</tbody>
+</table>
+
+<h3>13. Core — Posterior</h3>
+<p><strong>Pastel:</strong> Cream <code>#F0E2C8</code>. <strong>Routine duration:</strong> 4–6 min.</p>
+<h4>KPI: C4 — Trunk Extensor Endurance</h4>
+<p>(See Lower Back. Same KPI; both areas use it.)</p>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Bird-dog</td><td>Quadruped, extend opposite arm + leg, hold 3s × 8.</td><td>C4 + stability</td></tr>
+<tr><td>Superman hold</td><td>Prone, lift arms + legs, hold 5s × 8.</td><td>C4 directly</td></tr>
+<tr><td>Reverse plank</td><td>Sit, hands behind, lift hips; body straight.</td><td>Full posterior chain</td></tr>
+<tr><td>Glute bridge</td><td>(see Glutes)</td><td>Glutes + posterior chain</td></tr>
+<tr><td>Quadruped opp. raise</td><td>Slow alternating; 10 each side.</td><td>C4 — beginner</td></tr>
+<tr><td>Prone Y-T-W</td><td>Prone, arms in Y / T / W, lift slightly.</td><td>Upper back + posterior shoulder</td></tr>
+</tbody>
+</table>
+
+<h3>14. Full-Body Mobility</h3>
+<p><strong>Pastel:</strong> Lavender <code>#C8B8E8</code>. <strong>Routine duration:</strong> 8–12 min.</p>
+<h4>KPI: F10 — Deep Squat (FMS)</h4>
+<p>Feet shoulder-width, dowel overhead with elbows locked, descend as deep as possible heels-down, dowel stacked over feet.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Description</th></tr></thead><tbody><tr><td>1</td><td>Cannot reach parallel even with heel elevation</td></tr><tr><td>2</td><td>Below parallel with heels elevated, dowel forward</td></tr><tr><td>3</td><td>Below parallel heels-down, but dowel drifts forward</td></tr><tr><td>4</td><td>Full depth, dowel slightly forward</td></tr><tr><td>5</td><td>Full depth, dowel over midfoot, torso upright</td></tr></tbody></table>
+<h4>KPI: F11 — Active Straight-Leg Raise (FMS)</h4>
+<p>Supine, opposite leg flat. Active leg raise with knee straight, toes up. Scored against opposite-leg landmark.</p>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Bodyweight squat (tempo)</td><td>3s down, 2s pause, 3s up. 10 reps.</td><td>F10 directly</td></tr>
+<tr><td>Goblet squat hold</td><td>Weight at chest, sit deep. 30s.</td><td>F10 + posture</td></tr>
+<tr><td>Lunge variants</td><td>Forward, reverse, lateral. 8 each side.</td><td>Hip mobility + stability</td></tr>
+<tr><td>World's greatest stretch</td><td>Lunge + T-spine rotation + hamstring reach. 5×.</td><td>Combined F3 + F7 + F2</td></tr>
+<tr><td>Cossack squat</td><td>Wide stance, shift side-to-side keeping low.</td><td>F9 + ankle</td></tr>
+<tr><td>Down dog flow</td><td>Down dog → plank → up dog, slow.</td><td>Full chain</td></tr>
+</tbody>
+</table>
+
+<h3>15. Balance &amp; Aging Well</h3>
+<p><strong>Pastel:</strong> Mist <code>#A5D4D0</code>. <strong>Routine duration:</strong> 4–6 min.</p>
+<h4>KPI: B2 — One-leg balance, eyes closed</h4>
+<p>Stand on one leg, arms crossed, eyes closed. Time to first touch-down. L/R separately.</p>
+<table class="compact"><thead><tr><th>Score</th><th>Seconds</th></tr></thead><tbody><tr><td>1</td><td>&lt; 5</td></tr><tr><td>2</td><td>5–10</td></tr><tr><td>3</td><td>10–20</td></tr><tr><td>4</td><td>20–30</td></tr><tr><td>5</td><td>&gt; 30</td></tr></tbody></table>
+<h4>KPI: B3 — Sit-to-stand without hands</h4>
+<p>From cross-legged seated on floor, stand without using hands, knees, or external support. Published as predictive of all-cause mortality in 50+ adults.</p>
+<table class="compact"><thead><tr><th>Score</th><th>How you got up</th></tr></thead><tbody><tr><td>1</td><td>Required full assistance (hands + knee)</td></tr><tr><td>2</td><td>One hand or knee touch</td></tr><tr><td>3</td><td>Brief hand-touch or wobble</td></tr><tr><td>4</td><td>No assistance, slight wobble</td></tr><tr><td>5</td><td>Clean and controlled, no support</td></tr></tbody></table>
+<h4>Exercises</h4>
+<table class="compact">
+<thead><tr><th>Exercise</th><th>How</th><th>Targets</th></tr></thead>
+<tbody>
+<tr><td>Single-leg balance</td><td>30s each. Progress to eyes closed.</td><td>B2 directly</td></tr>
+<tr><td>Tree pose</td><td>Sole on inner thigh/calf, arms overhead.</td><td>Balance + hip ER</td></tr>
+<tr><td>Heel-to-toe walk</td><td>Walk straight line, heel touching toe.</td><td>Dynamic balance</td></tr>
+<tr><td>Sit-to-stand practice</td><td>From floor, practice rising. 5 reps.</td><td>B3 directly</td></tr>
+<tr><td>Single-leg deadlift</td><td>Hinge on one leg, opposite leg back.</td><td>Posterior chain + balance</td></tr>
+<tr><td>Eyes-closed Romberg</td><td>Feet together, eyes closed. 30s.</td><td>Proprioception</td></tr>
+</tbody>
+</table>
+
+<h3>Area → KPI summary matrix</h3>
+<table class="compact">
+<thead><tr><th>Area</th><th>Primary KPIs</th><th>Secondary KPIs</th></tr></thead>
+<tbody>
+<tr><td>Neck</td><td>F8 Cervical ROM</td><td>—</td></tr>
+<tr><td>Shoulders</td><td>F5 Apley, F6 Overhead</td><td>F7 T-spine</td></tr>
+<tr><td>Upper Back</td><td>F7 T-spine</td><td>F5, F6</td></tr>
+<tr><td>Chest</td><td>—</td><td>F6 Overhead, F5 Apley</td></tr>
+<tr><td>Lower Back</td><td>F1 Forward Fold, C4 Extensor Endurance</td><td>C2 Side Plank</td></tr>
+<tr><td>Hips</td><td>F3 Hip Flexor, F9 Butterfly</td><td>F10 Deep Squat</td></tr>
+<tr><td>Glutes</td><td>—</td><td>C4, F10</td></tr>
+<tr><td>Hamstrings</td><td>F2 SLR, F1 Forward Fold</td><td>F11 ASLR</td></tr>
+<tr><td>Quads</td><td>—</td><td>F3 (rectus femoris)</td></tr>
+<tr><td>Ankles &amp; Calves</td><td>F4 Knee-to-Wall</td><td>F10 Deep Squat</td></tr>
+<tr><td>Core — Anterior</td><td>C1 Plank, C3 Flexor Endurance</td><td>—</td></tr>
+<tr><td>Core — Lateral</td><td>C2 Side Plank L+R, C2-Asym</td><td>—</td></tr>
+<tr><td>Core — Posterior</td><td>C4 Extensor Endurance</td><td>—</td></tr>
+<tr><td>Full-Body</td><td>F10 Deep Squat, F11 ASLR</td><td>F4, F6, F9</td></tr>
+<tr><td>Balance</td><td>B2 Eyes-closed, B3 Sit-to-stand</td><td>F10</td></tr>
+</tbody>
+</table>
+</section>
+<section id="exercises">
+<div class="eyebrow">§ 8</div>
+<h2>Exercise library</h2>
+<p class="lead">Every exercise from §7, deduplicated with IDs for the data model, primary &amp; secondary KPI tags (used by the routine engine), and equipment requirements.</p>
+<h3>Exercise object schema</h3>
+<pre><span class="p">{</span>
+  <span class="s">"id"</span><span class="p">:</span> <span class="s">"shoulder_rolls"</span><span class="p">,</span>
+  <span class="s">"name"</span><span class="p">:</span> <span class="s">"Shoulder Rolls"</span><span class="p">,</span>
+  <span class="s">"category"</span><span class="p">:</span> <span class="s">"warmup"</span><span class="p">,</span>          <span class="c">// warmup | stretch | strength | balance</span>
+  <span class="s">"area"</span><span class="p">:</span> <span class="s">"shoulders"</span><span class="p">,</span>
+  <span class="s">"durationSec"</span><span class="p">:</span> <span class="n">30</span><span class="p">,</span>
+  <span class="s">"sideSpecific"</span><span class="p">:</span> <span class="s">false</span><span class="p">,</span>
+  <span class="s">"equipment"</span><span class="p">:</span> <span class="p">[],</span>                 <span class="c">// [] | ["mat"] | ["wall"] | ["strap"] | ["chair"]</span>
+  <span class="s">"primaryKpis"</span><span class="p">:</span> <span class="p">[</span><span class="s">"f5_apley"</span><span class="p">,</span> <span class="s">"f6_overhead"</span><span class="p">],</span>
+  <span class="s">"secondaryKpis"</span><span class="p">:</span> <span class="p">[</span><span class="s">"f7_tspine"</span><span class="p">],</span>
+  <span class="s">"cues"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s">"Stand tall, arms relaxed"</span><span class="p">,</span>
+    <span class="s">"Roll shoulders up, back, and down"</span><span class="p">,</span>
+    <span class="s">"Slow and full circles"</span>
+  <span class="p">],</span>
+  <span class="s">"contraindications"</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="s">"illustration"</span><span class="p">:</span> <span class="s">"svg/shoulder_rolls.svg"</span>
+<span class="p">}</span></pre>
+<h3>V1 exercise IDs by area (~95 total)</h3>
+<table class="compact">
+<thead><tr><th>Area</th><th>Exercise IDs</th></tr></thead>
+<tbody>
+<tr><td>Neck</td><td><code>chin_tucks, neck_flexion, neck_extension, ear_to_shoulder, neck_rotation, upper_trap_stretch, levator_scapulae_stretch, scalene_stretch</code></td></tr>
+<tr><td>Shoulders</td><td><code>shoulder_rolls, cross_body_shoulder, eagle_arms, cow_face_arms, reverse_prayer, doorway_pec, sleeper_stretch, wall_slides, thread_needle, child_pose_extended, pendulum_swings</code></td></tr>
+<tr><td>Upper Back</td><td><code>cat_cow, thoracic_extension_chair, open_book, quadruped_tspine_rotation, wall_angels, bear_hug, foam_roller_tspine</code></td></tr>
+<tr><td>Chest</td><td><code>doorway_pec, doorway_pec_high, doorway_pec_low, corner_stretch, floor_y_hold, reclined_butterfly</code></td></tr>
+<tr><td>Lower Back</td><td><code>childs_pose, knee_to_chest, cat_cow, cobra, sphinx, supine_spinal_twist, bird_dog, glute_bridge, mckenzie_press_ups, superman_hold</code></td></tr>
+<tr><td>Hips</td><td><code>kneeling_hip_flexor, couch_stretch, pigeon_pose, half_pigeon_supine, frog_stretch, butterfly_stretch, ninety_ninety, lizard_pose, reclined_figure4, deep_squat_hold</code></td></tr>
+<tr><td>Glutes</td><td><code>glute_bridge, single_leg_glute_bridge, clamshells, fire_hydrants, side_lying_hip_abduction, donkey_kicks, pigeon_pose, figure4_stretch</code></td></tr>
+<tr><td>Hamstrings</td><td><code>standing_forward_fold, seated_forward_fold, supine_hamstring_strap, wide_leg_forward_fold, single_leg_forward_fold, standing_hamstring_chair, down_dog, toe_to_wall</code></td></tr>
+<tr><td>Quads</td><td><code>standing_quad, side_lying_quad, kneeling_quad, hero_pose, couch_stretch</code></td></tr>
+<tr><td>Ankles &amp; Calves</td><td><code>standing_calf, bent_knee_calf, down_dog_pedal, heel_drops, ankle_circles, toe_to_wall, deep_squat_hold, banded_ankle_distraction</code></td></tr>
+<tr><td>Core — Anterior</td><td><code>forearm_plank, knee_plank, dead_bug, hollow_body_hold, hollow_body_rocks, toe_taps, leg_lowers, v_sit_hold</code></td></tr>
+<tr><td>Core — Lateral</td><td><code>side_plank, side_plank_knees, side_lying_hip_abduction, side_bend, standing_oblique_reach, pallof_press</code></td></tr>
+<tr><td>Core — Posterior</td><td><code>bird_dog, superman_hold, reverse_plank, glute_bridge, quadruped_opp_raise, prone_ytw</code></td></tr>
+<tr><td>Full-Body</td><td><code>bodyweight_squat, goblet_squat_hold, forward_lunge, reverse_lunge, lateral_lunge, worlds_greatest_stretch, cossack_squat, down_dog_flow</code></td></tr>
+<tr><td>Balance</td><td><code>single_leg_balance, tree_pose, heel_toe_walk, sit_to_stand_practice, single_leg_deadlift, eyes_closed_romberg</code></td></tr>
+</tbody>
+</table>
+<p>Many exercises (<code>doorway_pec</code>, <code>bird_dog</code>, <code>glute_bridge</code>, <code>couch_stretch</code>) are shared across areas — they appear once in the library and are tagged with all relevant KPIs.</p>
+</section>
+
+<section id="screens">
+<div class="eyebrow">§ 9</div>
+<h2>Screen specifications</h2>
+<p class="lead">Every screen in V1. Each has a written spec; mockups are inlined in §10.</p>
+<h3>Navigation</h3>
+<p>Four-tab bottom bar: <strong>Today / Routines / Progress / Profile</strong>. No "Measure" tab. Measurement is something you do from Progress or onboarding, not a primary destination.</p>
+<h3>1. Home (Today)</h3>
+<ul>
+<li><strong>Greeting</strong> — "Good morning, [name]" + practice day counter.</li>
+<li><strong>Hero card</strong> (~45% viewport) — today's routine. Pastel background rotates by Area. Friendly illustration. Title, duration, areas. Single black Start pill.</li>
+<li><strong>Progress strip</strong> — dark card. CORE Index numeral on left, horizontally-scrolling KPI chips on right. Each chip: name, score, sparkline.</li>
+<li>"Try something else →" text link.</li>
+<li><strong>Re-measure banner</strong> when stale — dismissable, never pushy.</li>
+</ul>
+<h3>2. Routine Player (Runtime)</h3>
+<ul>
+<li>Black background.</li>
+<li>Top bar: X (close), "3 of 8" counter, Free badge.</li>
+<li>Large pastel circle (~55% vertical), friendly cartoon stretch illustration inside. Thin teal progress arc on outer ring shows position in routine.</li>
+<li>Swap icon (centered), exercise name with (i) info button.</li>
+<li>Very large countdown timer.</li>
+<li>Three circular buttons: prev, pause/play (larger, white), next.</li>
+<li><strong>Wake lock active</strong> — screen stays on.</li>
+</ul>
+<h3>3. Routine Complete</h3>
+<ul>
+<li>"Nice." headline.</li>
+<li>Session summary: stretches, minutes, areas.</li>
+<li><strong>Progress sneak</strong> — small chips of KPIs this routine nudged. The moment that proves the daily ritual matters.</li>
+<li>Two CTAs: Done (primary), "Re-measure one of these?" (secondary).</li>
+<li>No fireworks. No badges flying in.</li>
+</ul>
+<h3>4. Progress</h3>
+<ul>
+<li>CORE Index hero card (large numeral, delta from baseline, mini radar).</li>
+<li>Two streaks side-by-side (Practice + Improvement; latter emphasized).</li>
+<li>KPI list — each row: name, score, sparkline, trend. Filter chips.</li>
+<li>Bottom-pinned Re-measure button.</li>
+</ul>
+<h3>5. KPI Detail</h3>
+<ul>
+<li>Title + plain-language description.</li>
+<li>Hero score block (current 1–5, band label, delta vs baseline).</li>
+<li>Score band visualization (5 segments).</li>
+<li>History line chart (90 days default). Annotation pins for routine changes.</li>
+<li>Asymmetry card when applicable — L/R bars, warm coral if asymmetric.</li>
+<li>Bottom-pinned Re-measure button.</li>
+</ul>
+<h3>6. Baseline Reveal (onboarding hero moment)</h3>
+<ul>
+<li>"Baseline complete" eyebrow.</li>
+<li>Animated radar fills in axis by axis (400ms) then polygon (600ms).</li>
+<li>CORE Index lands in the center.</li>
+<li>Weakest-link card: "Your weakest link is X — let's start there."</li>
+<li>Single CTA: "Build my first routine."</li>
+</ul>
+<h3>7. Area Selection</h3>
+<ul>
+<li>Onboarding step 3 of 6.</li>
+<li>2-column grid of 15 Area cards.</li>
+<li>Each card: anatomical line icon, area name, one-line KPI subtext.</li>
+<li>Selected = teal border + check badge + pastel gradient.</li>
+<li>Counter at bottom: "5 areas selected · recommended 3–5."</li>
+</ul>
+<h3>8. Measure Test</h3>
+<ul>
+<li>Progress segment bar at top.</li>
+<li>KPI title + plain-language description.</li>
+<li>Video demo of correct form.</li>
+<li>Setup checklist (tappable).</li>
+<li>Measurement input: large numeric, unit toggle, "How to measure" link.</li>
+<li>Record Score CTA.</li>
+<li>Three modes available: manual / guided / auto pose-estimation.</li>
+</ul>
+<h3>9. Profile (with Data &amp; Backup)</h3>
+<ul>
+<li>Name + avatar placeholder.</li>
+<li>CORE info: age, sex, height, weight, activity — editable.</li>
+<li>Areas &amp; KPIs section.</li>
+<li><strong>Data &amp; Backup section</strong> — Download my data (JSON export); Restore from backup (JSON import); "Last backup: 14 days ago" if applicable.</li>
+<li>Preferences: reminder time, units, voice prompts, transition sounds.</li>
+<li>About: version, privacy policy, support.</li>
+</ul>
+</section>
+
+<section id="mockups">
+<div class="eyebrow">§ 10</div>
+<h2>Mockups</h2>
+<p class="lead">Nine phone mockups, grouped by user moment. All are static representations of the spec above. Colors, type weights, and spacing match the §3 design system and are authoritative.</p>
+
+<h3>The daily loop</h3>
+<div class="mockup-grid">
+
+<div class="mock">
+<div class="phone"><div class="phone-screen"><div class="notch"></div><div class="screen">
+<div class="sb"><span>9:41</span><span class="r"><span style="font-size:10px;">5G</span><svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"></rect><rect x="3" y="4" width="2" height="5" rx="0.5"></rect><rect x="6" y="2" width="2" height="7" rx="0.5"></rect><rect x="9" y="0" width="2" height="9" rx="0.5"></rect></svg><svg width="16" height="9" viewBox="0 0 16 9"><rect x="0.5" y="0.5" width="13" height="8" rx="2" fill="none" stroke="currentColor"></rect><rect x="14" y="3" width="1.5" height="3" rx="0.5" fill="currentColor"></rect><rect x="2" y="2" width="10" height="5" rx="1" fill="currentColor"></rect></svg></span></div>
+<div class="cnt">
+<div class="greet"><div class="h">Good morning, Matteo</div><div class="s">Day 12 of practice</div></div>
+<div class="hero">
+<div class="rib"><span class="pu"></span>Today's pick</div>
+<div class="hero-ill"><svg width="120" height="120" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="58" fill="none" stroke="rgba(26,26,26,0.08)" stroke-width="1"></circle><g transform="translate(60 60)"><circle cx="0" cy="20" r="9" fill="#3a2520"></circle><path d="M -8 18 Q -10 12 -5 10 Q 0 6 5 10 Q 10 12 8 18" fill="#1a0f08"></path><path d="M -8 22 L -6 -10 L 6 -10 L 8 22 Z" fill="#d65a40"></path><path d="M -6 -8 Q -14 5 -10 22 Q -9 25 -7 25" stroke="#3a2520" stroke-width="4" fill="none" stroke-linecap="round"></path><path d="M 6 -8 Q 14 5 10 22 Q 9 25 7 25" stroke="#3a2520" stroke-width="4" fill="none" stroke-linecap="round"></path><rect x="-7" y="-30" width="5" height="22" fill="#1a3a52" rx="2"></rect><rect x="2" y="-30" width="5" height="22" fill="#1a3a52" rx="2"></rect><ellipse cx="-4.5" cy="-32" rx="4" ry="2" fill="#1a3a52"></ellipse><ellipse cx="4.5" cy="-32" rx="4" ry="2" fill="#1a3a52"></ellipse></g></svg></div>
+<div><div class="ti">Hips &amp; Hamstrings</div><div class="me">8 min · 8 stretches</div></div>
+<div class="sb-btn"><span>Start</span><svg viewBox="0 0 12 12" fill="currentColor"><path d="M3 1l7 5-7 5V1z"></path></svg></div>
+</div>
+<div class="pst"><div class="row">
+<div class="cim"><div class="l">CORE</div><div class="v">3.2<span class="d">/5</span></div></div>
+<div class="kc-r">
+<div class="kc"><div class="n">FORWARD FOLD</div><div class="r2"><div class="sc">3</div><svg viewBox="0 0 30 14" fill="none"><polyline points="0,11 6,9 12,10 18,7 24,6 30,4" stroke="#5bc0a7" stroke-width="1.5" fill="none"></polyline></svg></div></div>
+<div class="kc"><div class="n">KNEE-TO-WALL</div><div class="r2"><div class="sc">4</div><svg viewBox="0 0 30 14" fill="none"><polyline points="0,8 6,7 12,8 18,6 24,5 30,3" stroke="#5bc0a7" stroke-width="1.5" fill="none"></polyline></svg></div></div>
+<div class="kc"><div class="n">SHOULDER IR</div><div class="r2"><div class="sc">2</div><svg viewBox="0 0 30 14" fill="none"><polyline points="0,9 6,9 12,8 18,9 24,7 30,7" stroke="#5bc0a7" stroke-width="1.5" fill="none"></polyline></svg></div></div>
+</div></div></div>
+<div class="alt"><span>Try something else →</span></div>
+<div class="rmb"><div class="dt"></div><div class="tx">2 KPIs ready to re-measure <span class="mu">· about 3 min</span></div><div class="ct">Check →</div></div>
+</div>
+<div class="tb">
+<div class="tab a"><svg viewBox="0 0 22 22" fill="none"><path d="M3 9l8-6 8 6v10H3V9z" stroke="currentColor" stroke-width="1.5"></path></svg><span>Today</span></div>
+<div class="tab"><svg viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"></rect><line x1="3" y1="9" x2="19" y2="9" stroke="currentColor" stroke-width="1.5"></line></svg><span>Routines</span></div>
+<div class="tab"><svg viewBox="0 0 22 22" fill="none"><polyline points="3,15 8,10 12,13 19,5" stroke="currentColor" stroke-width="1.5" fill="none"></polyline><circle cx="3" cy="15" r="1.5" fill="currentColor"></circle><circle cx="19" cy="5" r="1.5" fill="currentColor"></circle></svg><span>Progress</span></div>
+<div class="tab"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M3 19c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.5"></path></svg><span>Profile</span></div>
+</div>
+</div></div></div>
+<div class="mock-caption"><div class="t">Home (Today)</div><div class="d">Routine first, progress always visible. The strip below the hero — CORE Index + KPI chips with sparklines — is the key bet.</div></div>
+</div>
+
+<div class="mock">
+<div class="phone"><div class="phone-screen"><div class="notch"></div><div class="screen run">
+<div class="sb"><span>9:42</span><span class="r"><span style="font-size:10px;">5G</span><svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"></rect><rect x="3" y="4" width="2" height="5" rx="0.5"></rect><rect x="6" y="2" width="2" height="7" rx="0.5"></rect><rect x="9" y="0" width="2" height="9" rx="0.5"></rect></svg><svg width="16" height="9" viewBox="0 0 16 9"><rect x="0.5" y="0.5" width="13" height="8" rx="2" fill="none" stroke="currentColor"></rect><rect x="14" y="3" width="1.5" height="3" rx="0.5" fill="currentColor"></rect><rect x="2" y="2" width="10" height="5" rx="1" fill="currentColor"></rect></svg></span></div>
+<div class="run-top">
+<div class="run-x"><svg viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></div>
+<div class="run-co">3 of 8</div>
+<div class="run-fr">FREE</div>
+</div>
+<div class="run-cw"><div class="run-c">
+<div class="run-cb"></div>
+<svg class="run-ar" viewBox="0 0 254 254"><circle cx="127" cy="127" r="125" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3"></circle><circle cx="127" cy="127" r="125" fill="none" stroke="#5bc0a7" stroke-width="3" stroke-dasharray="785" stroke-dashoffset="490" transform="rotate(-90 127 127)" stroke-linecap="round"></circle></svg>
+<div class="run-il"><svg width="170" height="170" viewBox="0 0 170 170" fill="none"><g transform="translate(85 85)"><ellipse cx="0" cy="-32" rx="18" ry="20" fill="#2a1810"></ellipse><circle cx="0" cy="-30" r="15" fill="#e8b890"></circle><path d="M 12 -32 Q 22 -22 18 -8" stroke="#2a1810" stroke-width="6" fill="none" stroke-linecap="round"></path><circle cx="-4" cy="-30" r="1.5" fill="#2a1810"></circle><circle cx="4" cy="-30" r="1.5" fill="#2a1810"></circle><path d="M -3 -25 Q 0 -23 3 -25" stroke="#2a1810" stroke-width="1.2" fill="none" stroke-linecap="round"></path><path d="M -22 -10 L -18 30 L 18 30 L 22 -10 Q 18 -16 0 -16 Q -18 -16 -22 -10 Z" fill="#d65a40"></path><path d="M -22 -8 Q -32 -2 -28 12 Q -26 18 -20 18" stroke="#e8b890" stroke-width="9" fill="none" stroke-linecap="round"></path><path d="M 22 -8 Q 32 -2 28 12 Q 26 18 20 18" stroke="#e8b890" stroke-width="9" fill="none" stroke-linecap="round"></path><path d="M -18 30 L -16 60 L -4 60 L -2 30 Z" fill="#1a3a52"></path><path d="M 18 30 L 16 60 L 4 60 L 2 30 Z" fill="#1a3a52"></path><path d="M -36 -14 Q -42 -8 -38 0" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"></path><path d="M -36 -14 L -34 -16 M -36 -14 L -38 -11" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"></path><path d="M 36 -14 Q 42 -8 38 0" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"></path><path d="M 36 -14 L 34 -16 M 36 -14 L 38 -11" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"></path></g></svg></div>
+</div></div>
+<div class="run-bs">
+<div class="run-sw"><svg viewBox="0 0 16 16" fill="none"><path d="M3 5h8M3 5l2-2M3 5l2 2M13 11H5M13 11l-2-2M13 11l-2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></div>
+<div class="run-nm">Shoulder Rolls<span class="run-i">i</span></div>
+<div class="run-tm">0:28</div>
+<div class="run-ct">
+<div class="run-b"><svg viewBox="0 0 22 22" fill="currentColor"><path d="M14 3v16l-9-8 9-8z"></path><rect x="3" y="3" width="2" height="16" rx="0.5"></rect></svg></div>
+<div class="run-b pa"><svg viewBox="0 0 22 22" fill="#000"><rect x="5" y="4" width="4" height="14" rx="1"></rect><rect x="13" y="4" width="4" height="14" rx="1"></rect></svg></div>
+<div class="run-b"><svg viewBox="0 0 22 22" fill="currentColor"><path d="M8 3v16l9-8-9-8z"></path><rect x="17" y="3" width="2" height="16" rx="0.5"></rect></svg></div>
+</div>
+</div>
+</div></div></div>
+<div class="mock-caption"><div class="t">Routine Player</div><div class="d">Matches the Bend reference. Same circle, swap icon, three big buttons. Only addition: thin teal progress arc on the outer ring.</div></div>
+</div>
+
+<div class="mock">
+<div class="phone"><div class="phone-screen"><div class="notch"></div><div class="screen">
+<div class="sb"><span>9:49</span><span class="r"><span style="font-size:10px;">5G</span><svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"></rect><rect x="3" y="4" width="2" height="5" rx="0.5"></rect><rect x="6" y="2" width="2" height="7" rx="0.5"></rect><rect x="9" y="0" width="2" height="9" rx="0.5"></rect></svg><svg width="16" height="9" viewBox="0 0 16 9"><rect x="0.5" y="0.5" width="13" height="8" rx="2" fill="none" stroke="currentColor"></rect><rect x="14" y="3" width="1.5" height="3" rx="0.5" fill="currentColor"></rect><rect x="2" y="2" width="10" height="5" rx="1" fill="currentColor"></rect></svg></span></div>
+<div class="cmp">
+<div class="cmp-ic"><svg viewBox="0 0 28 28" fill="none"><path d="M5 14l6 6 12-14" stroke="#5bc0a7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+<h1>Nice.</h1>
+<div class="cmp-s">Your hips will thank you tomorrow.</div>
+<div class="cmp-sm">
+<div class="l">Session</div>
+<div class="st">
+<div class="stt"><div class="nu">8</div><div class="sb">stretches</div></div>
+<div class="stt"><div class="nu">7:42</div><div class="sb">minutes</div></div>
+<div class="stt"><div class="nu">2</div><div class="sb">areas</div></div>
+</div>
+</div>
+<div class="psn">
+<div class="l">What you just moved</div>
+<div class="snk"><div class="sm">3</div><div class="n">Forward Fold</div><div class="dl"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 8V2M2 5l3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>nudged</div></div>
+<div class="snk"><div class="sm">2</div><div class="n">Hip Flexor (Thomas)</div><div class="dl"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 8V2M2 5l3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>nudged</div></div>
+<div class="snk"><div class="sm">3</div><div class="n">Butterfly</div><div class="dl"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 8V2M2 5l3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>nudged</div></div>
+<div class="wm">"You're building up your forward fold."</div>
+</div>
+<div class="cmp-a"><div class="btn-p">Done</div><div class="btn-l">Re-measure one of these?</div></div>
+</div>
+</div></div></div>
+<div class="mock-caption"><div class="t">Routine Complete</div><div class="d">Ties the daily ritual back to the measurable promise. No fireworks — just "what you moved today".</div></div>
+</div>
+
+<div class="mock">
+<div class="phone"><div class="phone-screen"><div class="notch"></div><div class="screen">
+<div class="sb"><span>9:41</span><span class="r"><span style="font-size:10px;">5G</span><svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"></rect><rect x="3" y="4" width="2" height="5" rx="0.5"></rect><rect x="6" y="2" width="2" height="7" rx="0.5"></rect><rect x="9" y="0" width="2" height="9" rx="0.5"></rect></svg><svg width="16" height="9" viewBox="0 0 16 9"><rect x="0.5" y="0.5" width="13" height="8" rx="2" fill="none" stroke="currentColor"></rect><rect x="14" y="3" width="1.5" height="3" rx="0.5" fill="currentColor"></rect><rect x="2" y="2" width="10" height="5" rx="1" fill="currentColor"></rect></svg></span></div>
+<div class="cnt scr">
+<div class="pgh"><div class="pgt">Progress</div></div>
+<div class="cic">
+<div class="l">CORE Index</div>
+<div class="v">3.2<span class="d">/5</span></div>
+<div class="dl">↑ 0.4 since you started</div>
+<div class="rp"><svg width="110" height="110" viewBox="0 0 110 110"><g transform="translate(55 55)"><polygon points="0,-42 36,-21 36,21 0,42 -36,21 -36,-21" fill="none" stroke="rgba(91,192,167,0.15)" stroke-width="0.8"></polygon><polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="none" stroke="rgba(91,192,167,0.15)" stroke-width="0.8"></polygon><polygon points="0,-14 12,-7 12,7 0,14 -12,7 -12,-7" fill="none" stroke="rgba(91,192,167,0.15)" stroke-width="0.8"></polygon><polygon points="0,-25 28,-16 24,14 0,32 -20,12 -20,-13" fill="rgba(91,192,167,0.35)" stroke="#5bc0a7" stroke-width="1.5"></polygon></g></svg></div>
+</div>
+<div class="str">
+<div class="stc">
+<div class="ir"><svg viewBox="0 0 16 16" fill="#e89b7c"><path d="M8 1c1 3-2 4 0 7 1.5 2 3 1 3 4a3 3 0 01-6 0c0-2 1-3 2-5-1 0-2 1-2 2C5 6 6 4 8 1z"></path></svg><span class="l">Practice</span></div>
+<div class="v">11<span style="font-size:14px;color:var(--text-muted);font-weight:400;"> days</span></div>
+<div class="s">Longest: 16</div>
+</div>
+<div class="stc im">
+<div class="ir"><svg viewBox="0 0 16 16" fill="none"><path d="M3 10l5-5 5 5" stroke="#5bc0a7" stroke-width="2" stroke-linecap="round"></path><path d="M3 13l5-5 5 5" stroke="#5bc0a7" stroke-width="2" stroke-linecap="round" opacity="0.4"></path></svg><span class="l" style="color:var(--accent);">Improvement</span></div>
+<div class="v">3<span style="font-size:14px;color:var(--text-muted);font-weight:400;"> checks</span></div>
+<div class="s">All going up</div>
+</div>
+</div>
+<div class="klh"><div class="he">Your KPIs</div><div class="fl"><div class="ch a">All</div><div class="ch">Mobility</div><div class="ch">Core</div></div></div>
+<div class="kr"><div class="n">Forward Fold<div class="ar">Hamstrings</div></div><svg class="sp" viewBox="0 0 36 14"><polyline points="0,11 9,9 18,10 27,7 36,4" stroke="#5bc0a7" stroke-width="1.5" fill="none"></polyline></svg><div class="di">↑</div><div class="sb go">3</div></div>
+<div class="kr"><div class="n">Knee-to-Wall<div class="ar">Ankles</div></div><svg class="sp" viewBox="0 0 36 14"><polyline points="0,8 9,7 18,6 27,5 36,3" stroke="#5bc0a7" stroke-width="1.5" fill="none"></polyline></svg><div class="di">↑</div><div class="sb go">4</div></div>
+<div class="kr"><div class="n">Shoulder IR (Apley)<div class="ar">Shoulders</div></div><svg class="sp" viewBox="0 0 36 14"><polyline points="0,9 9,9 18,8 27,9 36,7" stroke="#5bc0a7" stroke-width="1.5" fill="none"></polyline></svg><div class="di fl">→</div><div class="sb">2</div></div>
+<div class="kr"><div class="n">Front Plank<div class="ar">Core · Anterior</div></div><svg class="sp" viewBox="0 0 36 14"><polyline points="0,10 9,8 18,7 27,6 36,4" stroke="#5bc0a7" stroke-width="1.5" fill="none"></polyline></svg><div class="di">↑</div><div class="sb go">3</div></div>
+<div class="kr"><div class="n">Side Plank · L+R<div class="ar">Core · Lateral</div></div><svg class="sp" viewBox="0 0 36 14"><polyline points="0,9 9,8 18,9 27,7 36,6" stroke="#5bc0a7" stroke-width="1.5" fill="none"></polyline></svg><div class="di">↑</div><div class="sb go">3</div></div>
+<div class="kr"><div class="n">Hip Flexor<div class="ar">Hips</div></div><svg class="sp" viewBox="0 0 36 14"><polyline points="0,11 9,10 18,11 27,11 36,10" stroke="#5bc0a7" stroke-width="1.5" fill="none"></polyline></svg><div class="di fl">→</div><div class="sb">2</div></div>
+</div>
+<div class="tb">
+<div class="tab"><svg viewBox="0 0 22 22" fill="none"><path d="M3 9l8-6 8 6v10H3V9z" stroke="currentColor" stroke-width="1.5"></path></svg><span>Today</span></div>
+<div class="tab"><svg viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"></rect><line x1="3" y1="9" x2="19" y2="9" stroke="currentColor" stroke-width="1.5"></line></svg><span>Routines</span></div>
+<div class="tab a"><svg viewBox="0 0 22 22" fill="none"><polyline points="3,15 8,10 12,13 19,5" stroke="currentColor" stroke-width="1.5" fill="none"></polyline><circle cx="3" cy="15" r="1.5" fill="currentColor"></circle><circle cx="19" cy="5" r="1.5" fill="currentColor"></circle></svg><span>Progress</span></div>
+<div class="tab"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M3 19c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.5"></path></svg><span>Profile</span></div>
+</div>
+</div></div></div>
+<div class="mock-caption"><div class="t">Progress</div><div class="d">CORE Index hero, mini radar, two streaks (Improvement emphasized). Every KPI as a row with score, sparkline, and trend.</div></div>
+</div>
+
+</div>
+
+<h3>Data &amp; onboarding moments</h3>
+<div class="mockup-grid">
+
+<div class="mock">
+<div class="phone"><div class="phone-screen"><div class="notch"></div><div class="screen">
+<div class="sb"><span>9:54</span><span class="r"><span style="font-size:10px;">5G</span><svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"></rect><rect x="3" y="4" width="2" height="5" rx="0.5"></rect><rect x="6" y="2" width="2" height="7" rx="0.5"></rect><rect x="9" y="0" width="2" height="9" rx="0.5"></rect></svg><svg width="16" height="9" viewBox="0 0 16 9"><rect x="0.5" y="0.5" width="13" height="8" rx="2" fill="none" stroke="currentColor"></rect><rect x="14" y="3" width="1.5" height="3" rx="0.5" fill="currentColor"></rect><rect x="2" y="2" width="10" height="5" rx="1" fill="currentColor"></rect></svg></span></div>
+<div class="rv">
+<div class="rv-l">Baseline complete</div>
+<h1>Here's where you are.</h1>
+<div class="rv-s">You've measured 8 KPIs across 4 areas. This is your starting point.</div>
+<div class="rv-r">
+<svg width="260" height="260" viewBox="0 0 260 260"><g transform="translate(130 130)"><polygon points="0,-100 87,-50 87,50 0,100 -87,50 -87,-50" fill="none" stroke="rgba(91,192,167,0.1)" stroke-width="1"></polygon><polygon points="0,-75 65,-37 65,37 0,75 -65,37 -65,-37" fill="none" stroke="rgba(91,192,167,0.1)" stroke-width="1"></polygon><polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25" fill="none" stroke="rgba(91,192,167,0.1)" stroke-width="1"></polygon><polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12" fill="none" stroke="rgba(91,192,167,0.1)" stroke-width="1"></polygon><line x1="0" y1="0" x2="0" y2="-100" stroke="rgba(91,192,167,0.15)" stroke-width="1"></line><line x1="0" y1="0" x2="87" y2="-50" stroke="rgba(91,192,167,0.15)" stroke-width="1"></line><line x1="0" y1="0" x2="87" y2="50" stroke="rgba(91,192,167,0.15)" stroke-width="1"></line><line x1="0" y1="0" x2="0" y2="100" stroke="rgba(91,192,167,0.15)" stroke-width="1"></line><line x1="0" y1="0" x2="-87" y2="50" stroke="rgba(91,192,167,0.15)" stroke-width="1"></line><line x1="0" y1="0" x2="-87" y2="-50" stroke="rgba(91,192,167,0.15)" stroke-width="1"></line><polygon points="0,-60 70,-40 43,25 0,60 -52,30 -43,-25" fill="rgba(91,192,167,0.25)" stroke="#5bc0a7" stroke-width="2"></polygon><circle cx="0" cy="-60" r="3" fill="#5bc0a7"></circle><circle cx="70" cy="-40" r="3" fill="#5bc0a7"></circle><circle cx="43" cy="25" r="3" fill="#5bc0a7"></circle><circle cx="0" cy="60" r="3" fill="#5bc0a7"></circle><circle cx="-52" cy="30" r="3" fill="#5bc0a7"></circle><circle cx="-43" cy="-25" r="3" fill="#5bc0a7"></circle><text x="0" y="-110" text-anchor="middle" fill="#8a8a95" font-size="9" font-family="Outfit" font-weight="600">FORWARD FOLD</text><text x="100" y="-50" text-anchor="start" fill="#8a8a95" font-size="9" font-family="Outfit" font-weight="600">KNEE-WALL</text><text x="100" y="55" text-anchor="start" fill="#8a8a95" font-size="9" font-family="Outfit" font-weight="600">SHOULDER</text><text x="0" y="118" text-anchor="middle" fill="#8a8a95" font-size="9" font-family="Outfit" font-weight="600">HIP FLEXOR</text><text x="-100" y="55" text-anchor="end" fill="#8a8a95" font-size="9" font-family="Outfit" font-weight="600">PLANK</text><text x="-100" y="-50" text-anchor="end" fill="#8a8a95" font-size="9" font-family="Outfit" font-weight="600">BUTTERFLY</text></g></svg>
+<div class="rv-i"><div class="nu">2.8</div><div class="de">/ 5</div></div>
+</div>
+<div class="rv-w"><div class="ic"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="4" stroke="#7a4a30" stroke-width="1.5"></circle><path d="M9 1v3M9 14v3M1 9h3M14 9h3" stroke="#7a4a30" stroke-width="1.5"></path></svg></div><div class="tx">Your weakest link is <strong>your hips</strong>. Let's start there.</div></div>
+<div class="rv-ct"><div class="btn-p">Build my first routine</div></div>
+</div>
+</div></div></div>
+<div class="mock-caption"><div class="t">Baseline Reveal</div><div class="d">The onboarding hero. Radar fills in, CORE Index lands, app nominates a starting area.</div></div>
+</div>
+
+<div class="mock">
+<div class="phone"><div class="phone-screen"><div class="notch"></div><div class="screen">
+<div class="sb"><span>9:43</span><span class="r"><span style="font-size:10px;">5G</span><svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"></rect><rect x="3" y="4" width="2" height="5" rx="0.5"></rect><rect x="6" y="2" width="2" height="7" rx="0.5"></rect><rect x="9" y="0" width="2" height="9" rx="0.5"></rect></svg><svg width="16" height="9" viewBox="0 0 16 9"><rect x="0.5" y="0.5" width="13" height="8" rx="2" fill="none" stroke="currentColor"></rect><rect x="14" y="3" width="1.5" height="3" rx="0.5" fill="currentColor"></rect><rect x="2" y="2" width="10" height="5" rx="1" fill="currentColor"></rect></svg></span></div>
+<div class="cnt scr">
+<div class="kdh">
+<div class="kdb"><svg viewBox="0 0 14 14" fill="none"><path d="M8 3L4 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>Progress</div>
+<div class="kdt">Knee-to-Wall</div>
+<div class="kds">How much your ankle bends — the foundation of squats, lunges, and pain-free knees.</div>
+</div>
+<div class="ksh">
+<div class="le"><div class="l">Current score</div><div class="sc">4<span class="d">/5</span></div><div class="ba">Good — top 30%</div></div>
+<div style="text-align:right;"><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:4px;">vs. start</div><div style="color:var(--accent);font-size:14px;font-weight:600;">↑ +2</div></div>
+</div>
+<div class="sbv" style="margin-bottom:14px;"><div class="se"></div><div class="se"></div><div class="se fi"></div><div class="se fi"></div><div class="se"></div></div>
+<div class="hc">
+<div class="hr"><div class="he">History</div><div class="pe">90 days</div></div>
+<svg width="100%" height="100" viewBox="0 0 280 100"><line x1="0" y1="20" x2="280" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line><line x1="0" y1="40" x2="280" y2="40" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line><line x1="0" y1="60" x2="280" y2="60" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line><line x1="0" y1="80" x2="280" y2="80" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line><rect x="0" y="35" width="280" height="20" fill="rgba(255,255,255,0.03)"></rect><polyline points="20,75 70,65 120,55 170,35 220,30 260,15" fill="none" stroke="#5bc0a7" stroke-width="2"></polyline><circle cx="20" cy="75" r="3" fill="#5bc0a7"></circle><circle cx="70" cy="65" r="3" fill="#5bc0a7"></circle><circle cx="120" cy="55" r="3" fill="#5bc0a7"></circle><circle cx="170" cy="35" r="3" fill="#5bc0a7"></circle><circle cx="220" cy="30" r="3" fill="#5bc0a7"></circle><circle cx="260" cy="15" r="4" fill="#5bc0a7" stroke="#0a0a0f" stroke-width="2"></circle><line x1="170" y1="35" x2="170" y2="92" stroke="#e89b7c" stroke-width="0.5" stroke-dasharray="2 2"></line><text x="172" y="98" fill="#e89b7c" font-size="7" font-family="Outfit">Added calf stretch</text><text x="0" y="18" fill="#5a5a64" font-size="8" font-family="Outfit">5</text><text x="0" y="98" fill="#5a5a64" font-size="8" font-family="Outfit">1</text></svg>
+</div>
+<div class="asy">
+<div class="hr"><div class="l">Left vs Right</div><div class="pc">8% asymmetric</div></div>
+<div class="abr"><div class="si">L</div><div class="ba"><div class="fi wa" style="width:85%;"></div></div><div class="va">11.2cm</div></div>
+<div class="abr"><div class="si">R</div><div class="ba"><div class="fi" style="width:92%;"></div></div><div class="va">12.4cm</div></div>
+<div class="no">"Your left is a bit tighter. Try a few extra reps on that side."</div>
+</div>
+<div class="btn-p" style="margin-top:6px;">Re-measure now</div>
+</div>
+</div></div></div>
+<div class="mock-caption"><div class="t">KPI Detail</div><div class="d">Reached from any KPI chip. Score, trend, asymmetry, gentle guidance. Asymmetry is coral — never red.</div></div>
+</div>
+
+</div>
+
+<h3>Onboarding screens</h3>
+<div class="mockup-grid">
+
+<div class="mock">
+<div class="phone"><div class="phone-screen"><div class="notch"></div><div class="screen">
+<div class="sb"><span>9:38</span><span class="r"><span style="font-size:10px;">5G</span><svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"></rect><rect x="3" y="4" width="2" height="5" rx="0.5"></rect><rect x="6" y="2" width="2" height="7" rx="0.5"></rect><rect x="9" y="0" width="2" height="9" rx="0.5"></rect></svg><svg width="16" height="9" viewBox="0 0 16 9"><rect x="0.5" y="0.5" width="13" height="8" rx="2" fill="none" stroke="currentColor"></rect><rect x="14" y="3" width="1.5" height="3" rx="0.5" fill="currentColor"></rect><rect x="2" y="2" width="10" height="5" rx="1" fill="currentColor"></rect></svg></span></div>
+<div class="cnt" style="display:flex;flex-direction:column;">
+<div class="oh">
+<div class="os">Step 3 of 6</div>
+<div class="ot">What do you want<br>to work on?</div>
+<div class="ou">Pick one or a few. You can change this anytime.</div>
+</div>
+<div class="ag">
+<div class="ac se"><div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#07120e" stroke-width="2" stroke-linecap="round"></path></svg></div><div class="ico"><svg viewBox="0 0 20 20" fill="none"><path d="M10 3v8M6 7l4-4 4 4M5 14h10" stroke="#5bc0a7" stroke-width="1.5" stroke-linecap="round"></path></svg></div><div class="nm">Neck</div><div class="kl">Cervical movement in 4 directions</div></div>
+<div class="ac se"><div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#07120e" stroke-width="2" stroke-linecap="round"></path></svg></div><div class="ico"><svg viewBox="0 0 20 20" fill="none"><circle cx="6" cy="6" r="2.5" stroke="#5bc0a7" stroke-width="1.5"></circle><circle cx="14" cy="6" r="2.5" stroke="#5bc0a7" stroke-width="1.5"></circle><path d="M6 9v3M14 9v3" stroke="#5bc0a7" stroke-width="1.5" stroke-linecap="round"></path></svg></div><div class="nm">Shoulders</div><div class="kl">Back-scratch, overhead reach</div></div>
+<div class="ac"><div class="ico"><svg viewBox="0 0 20 20" fill="none"><path d="M10 3v14M6 8h8M5 14h10" stroke="#8a8a95" stroke-width="1.5" stroke-linecap="round"></path></svg></div><div class="nm">Upper Back</div><div class="kl">T-spine rotation, posture</div></div>
+<div class="ac se"><div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#07120e" stroke-width="2" stroke-linecap="round"></path></svg></div><div class="ico"><svg viewBox="0 0 20 20" fill="none"><path d="M3 10h14M6 14h8M8 6h4" stroke="#5bc0a7" stroke-width="1.5" stroke-linecap="round"></path></svg></div><div class="nm">Lower Back</div><div class="kl">Forward fold, extensor endurance</div></div>
+<div class="ac se"><div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#07120e" stroke-width="2" stroke-linecap="round"></path></svg></div><div class="ico"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="8" r="3" stroke="#5bc0a7" stroke-width="1.5"></circle><path d="M7 11l-2 6M13 11l2 6" stroke="#5bc0a7" stroke-width="1.5" stroke-linecap="round"></path></svg></div><div class="nm">Hips</div><div class="kl">Hip flexor, butterfly</div></div>
+<div class="ac"><div class="ico"><svg viewBox="0 0 20 20" fill="none"><line x1="10" y1="3" x2="10" y2="17" stroke="#8a8a95" stroke-width="1.5" stroke-linecap="round"></line><circle cx="10" cy="7" r="2" stroke="#8a8a95" stroke-width="1.5"></circle></svg></div><div class="nm">Hamstrings</div><div class="kl">Straight-leg raise</div></div>
+<div class="ac"><div class="ico"><svg viewBox="0 0 20 20" fill="none"><path d="M5 15l5-10 5 10" stroke="#8a8a95" stroke-width="1.5" stroke-linecap="round"></path></svg></div><div class="nm">Ankles &amp; Calves</div><div class="kl">Knee-to-wall</div></div>
+<div class="ac se"><div class="ck"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#07120e" stroke-width="2" stroke-linecap="round"></path></svg></div><div class="ico"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="8" width="14" height="4" rx="2" stroke="#5bc0a7" stroke-width="1.5"></rect></svg></div><div class="nm">Core — Anterior</div><div class="kl">Plank, trunk flexor endurance</div></div>
+</div>
+<div class="of">
+<div class="oc"><strong>5</strong> areas selected · recommended 3–5</div>
+<div class="btn-p">Continue</div>
+</div>
+</div>
+</div></div></div>
+<div class="mock-caption"><div class="t">Area Selection</div><div class="d">Onboarding step 3. Each card shows the KPIs it'll measure. Selected = teal border + check + soft gradient.</div></div>
+</div>
+
+<div class="mock">
+<div class="phone"><div class="phone-screen"><div class="notch"></div><div class="screen">
+<div class="sb"><span>9:48</span><span class="r"><span style="font-size:10px;">5G</span><svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"></rect><rect x="3" y="4" width="2" height="5" rx="0.5"></rect><rect x="6" y="2" width="2" height="7" rx="0.5"></rect><rect x="9" y="0" width="2" height="9" rx="0.5"></rect></svg><svg width="16" height="9" viewBox="0 0 16 9"><rect x="0.5" y="0.5" width="13" height="8" rx="2" fill="none" stroke="currentColor"></rect><rect x="14" y="3" width="1.5" height="3" rx="0.5" fill="currentColor"></rect><rect x="2" y="2" width="10" height="5" rx="1" fill="currentColor"></rect></svg></span></div>
+<div class="cnt" style="display:flex;flex-direction:column;">
+<div class="mh">
+<div class="mp"><div class="se do"></div><div class="se do"></div><div class="se ac"></div><div class="se"></div><div class="se"></div><div class="se"></div><div class="se"></div><div class="se"></div></div>
+<div class="msl">Test 3 of 8</div>
+<div class="mt">Forward Fold</div>
+<div class="md">How far you can reach past your toes when seated with straight legs.</div>
+</div>
+<div class="mv">
+<div class="di">
+<svg width="120" height="80" viewBox="0 0 120 80" fill="none"><line x1="10" y1="55" x2="110" y2="55" stroke="#5bc0a7" stroke-width="1" stroke-dasharray="2 2"></line><g transform="translate(50 30)"><rect x="0" y="22" width="50" height="6" fill="#1a3a52" rx="2"></rect><rect x="48" y="18" width="6" height="10" fill="#1a3a52" rx="1"></rect><ellipse cx="8" cy="14" rx="10" ry="6" fill="#d65a40"></ellipse><path d="M 10 16 Q 25 26 40 28" stroke="#e8b890" stroke-width="3" fill="none" stroke-linecap="round"></path><circle cx="14" cy="20" r="4" fill="#e8b890"></circle></g><path d="M 95 50 L 110 50" stroke="#5bc0a7" stroke-width="1.5" stroke-linecap="round"></path><path d="M 108 48 L 110 50 L 108 52" stroke="#5bc0a7" stroke-width="1.5" stroke-linecap="round"></path></svg>
+</div>
+<div class="pl"><svg viewBox="0 0 14 14" fill="#000"><path d="M3 1l9 6-9 6V1z"></path></svg></div>
+</div>
+<div class="mcl">
+<div class="mck do"><div class="bx"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#07120e" stroke-width="2" stroke-linecap="round"></path></svg></div><div class="tx">Sit on the floor</div></div>
+<div class="mck do"><div class="bx"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#07120e" stroke-width="2" stroke-linecap="round"></path></svg></div><div class="tx">Legs straight, feet against wall</div></div>
+<div class="mck"><div class="bx"></div><div class="tx">Reach forward, hold 2 seconds</div></div>
+</div>
+<div class="mm">
+<div class="l">Distance past your toes</div>
+<div class="ir"><div class="va">+7.0</div><div class="un"><div class="u a">cm</div><div class="u">in</div></div></div>
+<div class="he">How to measure →</div>
+</div>
+<div class="ma"><div class="btn-p">Record Score</div></div>
+</div>
+</div></div></div>
+<div class="mock-caption"><div class="t">Measure Test</div><div class="d">One KPI at a time. Video demo, setup checklist, large numeric input. Manual mode shown; guided + auto pose modes also available.</div></div>
+</div>
+
+<div class="mock">
+<div class="phone"><div class="phone-screen"><div class="notch"></div><div class="screen">
+<div class="sb"><span>9:55</span><span class="r"><span style="font-size:10px;">5G</span><svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor"><rect x="0" y="6" width="2" height="3" rx="0.5"></rect><rect x="3" y="4" width="2" height="5" rx="0.5"></rect><rect x="6" y="2" width="2" height="7" rx="0.5"></rect><rect x="9" y="0" width="2" height="9" rx="0.5"></rect></svg><svg width="16" height="9" viewBox="0 0 16 9"><rect x="0.5" y="0.5" width="13" height="8" rx="2" fill="none" stroke="currentColor"></rect><rect x="14" y="3" width="1.5" height="3" rx="0.5" fill="currentColor"></rect><rect x="2" y="2" width="10" height="5" rx="1" fill="currentColor"></rect></svg></span></div>
+<div class="cnt scr">
+<div class="pgh"><div class="pgt">Profile</div></div>
+<div style="background:var(--surface);border-radius:16px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+<div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#5bc0a7,#3a8770);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:20px;font-weight:500;color:#07120e;">M</div>
+<div style="flex:1;"><div style="font-family:var(--serif);font-size:18px;font-weight:500;">Matteo</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Since Feb 2026</div></div>
+</div>
+<div class="psec">
+<div class="l">Your CORE info</div>
+<div class="pr"><div class="ib"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="5" r="2.5"></circle><path d="M2 12c0-2.5 2.5-4 5-4s5 1.5 5 4"></path></svg></div><div class="ls"><div class="ti">Age &amp; sex</div><div class="su">36 · Male</div></div><div class="ch"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5"></path></svg></div></div>
+<div class="pr"><div class="ib"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12V2M11 12V2M3 7h8"></path></svg></div><div class="ls"><div class="ti">Height &amp; weight</div><div class="su">178 cm · 76 kg</div></div><div class="ch"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5"></path></svg></div></div>
+<div class="pr"><div class="ib"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l3-3 3 3 4-4"></path><path d="M9 3h3v3"></path></svg></div><div class="ls"><div class="ti">Activity</div><div class="su">Moderate</div></div><div class="ch"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5"></path></svg></div></div>
+</div>
+<div class="psec" style="border:1px solid rgba(91,192,167,0.3);background:linear-gradient(160deg,rgba(91,192,167,0.08) 0%,var(--surface) 100%);">
+<div class="l" style="color:var(--accent);">Data &amp; Backup</div>
+<div class="pr act"><div class="ib"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 1v8M3.5 5.5L7 9l3.5-3.5M2 12h10"></path></svg></div><div class="ls"><div class="ti">Download my data</div><div class="su">JSON · 47 measurements</div></div><div class="ch"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5"></path></svg></div></div>
+<div class="pr act"><div class="ib"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7 13V5M3.5 8.5L7 5l3.5 3.5M2 2h10"></path></svg></div><div class="ls"><div class="ti">Restore from backup</div><div class="su">Last backup: 14 days ago</div></div><div class="ch"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5"></path></svg></div></div>
+</div>
+<div class="psec">
+<div class="l">Preferences</div>
+<div class="pr"><div class="ib"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"></circle><path d="M7 4v3l2 2"></path></svg></div><div class="ls"><div class="ti">Daily reminder</div><div class="su">8:00 AM</div></div><div class="ch"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5"></path></svg></div></div>
+<div class="pr"><div class="ib"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h8v4H3z"></path><path d="M11 7h2"></path></svg></div><div class="ls"><div class="ti">Units</div><div class="su">Metric (cm, kg)</div></div><div class="ch"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5"></path></svg></div></div>
+</div>
+<div style="font-size:10px;color:var(--text-faint);text-align:center;padding:16px 0;">CORE v1.0.3 · Privacy · Support</div>
+</div>
+<div class="tb">
+<div class="tab"><svg viewBox="0 0 22 22" fill="none"><path d="M3 9l8-6 8 6v10H3V9z" stroke="currentColor" stroke-width="1.5"></path></svg><span>Today</span></div>
+<div class="tab"><svg viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"></rect><line x1="3" y1="9" x2="19" y2="9" stroke="currentColor" stroke-width="1.5"></line></svg><span>Routines</span></div>
+<div class="tab"><svg viewBox="0 0 22 22" fill="none"><polyline points="3,15 8,10 12,13 19,5" stroke="currentColor" stroke-width="1.5" fill="none"></polyline><circle cx="3" cy="15" r="1.5" fill="currentColor"></circle><circle cx="19" cy="5" r="1.5" fill="currentColor"></circle></svg><span>Progress</span></div>
+<div class="tab a"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M3 19c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.5"></path></svg><span>Profile</span></div>
+</div>
+</div></div></div>
+<div class="mock-caption"><div class="t">Profile + Data &amp; Backup</div><div class="d">Data &amp; Backup section is visually highlighted (subtle teal border + gradient). One tap to export the full JSON; one tap to restore.</div></div>
+</div>
+
+</div>
+</section>
+
+<section id="prompts">
+<div class="eyebrow">§ 11</div>
+<h2>Visual prompts</h2>
+<p class="lead">Prompts for every visual asset, written so they can be pasted into Figma AI, Midjourney, claude.design, or handed to a designer as a brief.</p>
+
+<div class="callout"><div class="lbl">Default visual direction (applies to all prompts unless overridden)</div>A warm, calm wellness app. Black or very dark navy background (#0A0A0F) for chrome. Friendly cartoon-style anatomical illustrations inside large rounded circles using soft pastel fills (rotate hues per Area: mist teal for Neck, sage for Hips, warm coral for Core, peach for Hamstrings, lavender for Shoulders, cream for Lower Back). Off-white type (#F4F0E8) on dark. Single accent: calm teal (#5BC0A7). Secondary coral (#E89B7C) for warnings and L/R asymmetry only. Generous spacing. Rounded corners 16px. Fraunces serif + Outfit sans typography. Aesthetic: Bend's calmness plus Whoop's data clarity, minus anything clinical or aggressive. No stock photos of people — cartoon line illustrations only.</div>
+
+<h3>Brand &amp; identity</h3>
+<div class="prompt-card"><div class="id">V-01</div><div class="name">App icon</div><div class="prompt">iOS app icon for "CORE." Concentric rings on a dark background suggesting a radar chart, with a subtle abstract human figure forming one ring (e.g. a forward-fold silhouette as the inner ring). Single teal accent. No text on the icon. Must read at 60×60 and 1024×1024.</div></div>
+<div class="prompt-card"><div class="id">V-02</div><div class="name">Wordmark</div><div class="prompt">"CORE" as a logotype. Fraunces medium, slightly extended caps, tracking +4%. The "O" can subtly suggest a concentric ring / radar chart. Works in single-color and in teal.</div></div>
+<div class="prompt-card"><div class="id">V-03</div><div class="name">PWA install banner illustration</div><div class="prompt">Small inline illustration: a phone outline with a home-screen icon dropping onto it from above. Teal accent on the icon. 1:1 ratio, minimal style, sits comfortably inside a 120×120 px area.</div></div>
+
+<h3>Onboarding</h3>
+<div class="prompt-card"><div class="id">V-04</div><div class="name">Welcome / splash</div><div class="prompt">Full-bleed dark screen. Centered CORE wordmark with slow ambient pulse on a ring behind the O. Below: tagline "Measure what you move." in off-white. Two CTAs pinned to bottom: primary filled teal pill "Get Started," secondary text link "Sign In." Calm, confident, no marketing language.</div></div>
+<div class="prompt-card"><div class="id">V-05</div><div class="name">CORE info form</div><div class="prompt">Single scrollable screen titled "Tell us about you." Subtitle in muted gray: "Helps us score you fairly. Nothing is shared." Fields in order, spacious: Age (numeric stepper), Sex (segmented control with 3 options including "Prefer not to say"), Height/Weight (numeric with unit toggle), Activity (5-position slider), Injury history (collapsed accordion). Single bottom-pinned Continue. No more than one field visible without scrolling on a 6.1" phone.</div></div>
+<div class="prompt-card"><div class="id">V-06</div><div class="name">Area selection grid</div><div class="prompt">Title: "What do you want to work on?" Subtitle: "Pick one or a few. You can change this anytime." 2-column grid of 15 Area cards. Each card: friendly anatomical line icon at top (stylized neck, hip joint, plank silhouette), Area name, one-line subtext naming the KPI. Selected state: teal border, check badge top-right, soft teal gradient. Counter at bottom: "5 areas selected · recommended 3–5."</div></div>
+<div class="prompt-card"><div class="id">V-07</div><div class="name">Measure Tests intro</div><div class="prompt">Full-screen calm dark layout. Headline: "Let's see where you are." Sub: "8 short tests, about 10 minutes. You'll do them once, then again every 2 weeks." Three icons in a row showing: measuring tape, stopwatch, body silhouette. Bottom: "Start tests" primary, "Skip for now" secondary.</div></div>
+<div class="prompt-card"><div class="id">V-08</div><div class="name">Measure Test — manual mode</div><div class="prompt">Progress segments at top (e.g. 3 of 8). KPI name in Fraunces. Plain-language description. Video demo block (16:10) with a friendly cartoon figure performing the test inside a dark gradient frame. Tappable setup checklist (3 items). Large numeric input with unit toggle (cm/in). "How to measure" link. Bottom-pinned "Record Score" teal pill.</div></div>
+<div class="prompt-card"><div class="id">V-09</div><div class="name">Measure Test — guided mode (timer)</div><div class="prompt">Same chrome as V-08, but instead of numeric input, a large circular countdown timer for endurance tests (plank, side plank). Calm teal arc fills counterclockwise. "Hold steady. Tap when you fail." Tap-to-stop button below.</div></div>
+<div class="prompt-card"><div class="id">V-10</div><div class="name">Measure Test — auto pose mode (V2)</div><div class="prompt">Phone in landscape mockup-within-portrait: small instructional ghost figure showing where to place camera, dotted line for distance. Caption: "Prop your phone 2 m away, hit start." Live keypoint dots appear on a sketched body diagram. Calm, never gamified.</div></div>
+<div class="prompt-card"><div class="id">V-11</div><div class="name">Per-KPI result card</div><div class="prompt">After each Measure Test: a clean card with the KPI name, the raw measurement (e.g. "+7 cm"), and the resulting 1–5 score in a 5-segment bar. Friendly score-language line below (e.g. "Solid base. Average for your age."). Continue CTA.</div></div>
+<div class="prompt-card"><div class="id">V-12</div><div class="name">Baseline reveal</div><div class="prompt">The onboarding hero. Eyebrow "Baseline complete." H1: "Here's where you are." Large radar chart (6 axes for the user's chosen KPIs) animating in axis-by-axis, then polygon. CORE Index numeral lands in the center over 300ms. Below: weakest-link card with a tiny peach circle icon and the line "Your weakest link is your hips. Let's start there." Single primary CTA: "Build my first routine."</div></div>
+
+<h3>Daily loop</h3>
+<div class="prompt-card"><div class="id">V-13</div><div class="name">Home (Today)</div><div class="prompt">Top: warm greeting "Good morning, [name]" in Fraunces with "Day N of practice" subtitle. Hero card (~45% viewport) with a soft pastel gradient (rotates per area: sage, peach, mist, lavender, coral, cream). Inside hero: "Today's pick" ribbon, friendly cartoon figure inside circle, routine title in Fraunces, duration + count, black Start pill bottom-right. Below: dark Progress Strip card — CORE Index numeral on left (divider line), horizontally-scrolling KPI chips on right each with score numeral + tiny sparkline. "Try something else →" link. Bottom: subtle re-measure banner (dot + text + Check). Tab bar: Today / Routines / Progress / Profile.</div></div>
+<div class="prompt-card"><div class="id">V-14</div><div class="name">Routine player (runtime)</div><div class="prompt">Critical: must match the Bend reference exactly. Black background. Top row: small X circle, "3 of 8" centered, Free pill. Center: very large circle (~250 px) filled with a soft pastel gradient (lavender shown), thin teal progress arc on the outer ring. Inside the circle: a friendly cartoon figure performing the stretch (warm skin, dark hair, coral-red top, dark-blue pants, white motion arrows where relevant). Below circle: small circular swap-icon button. Exercise name in large Fraunces with a small (i) circle for info. Very large light-gray countdown timer "0:28" in Fraunces. Three circular buttons: prev (dark, 56 px), pause (white, 72 px), next (dark, 56 px). Wake-lock active so the screen stays on.</div></div>
+<div class="prompt-card"><div class="id">V-15</div><div class="name">Exercise info sheet</div><div class="prompt">Bottom sheet that slides up from the player. Exercise name in Fraunces, then 3 bullet cues from the exercise schema. Below: which KPIs this targets (small teal chips), a short safety note if any. Single "Got it" CTA closes the sheet.</div></div>
+<div class="prompt-card"><div class="id">V-16</div><div class="name">Routine complete</div><div class="prompt">Calm dark screen. Centered teal-soft circle with a checkmark icon. Headline in big Fraunces: "Nice." One muted subtitle: "Your hips will thank you tomorrow." Stats card: 3 columns (stretches / minutes / areas). Progress sneak card titled "What you just moved" — rows for each KPI: small score numeral on left, KPI name in the middle, "nudged" with up-arrow on the right in teal. Italic Fraunces quote at the bottom of the card: "You're building up your forward fold." Two CTAs: primary "Done" pill, secondary text link "Re-measure one of these?"</div></div>
+<div class="prompt-card"><div class="id">V-17</div><div class="name">Re-measure banner</div><div class="prompt">Slim dark card on Home, appears when KPIs are stale. Small pulsing teal dot on the left. Text: "2 KPIs ready to re-measure · about 3 min." Right side: "Check →" in teal. Dismissable with a swipe. Never blocks the routine.</div></div>
+
+<h3>Progress &amp; measurement</h3>
+<div class="prompt-card"><div class="id">V-18</div><div class="name">Progress tab</div><div class="prompt">Scrollable. Title "Progress" in big Fraunces. CORE Index hero card with subtle teal-tinted gradient: large numeral (e.g. 3.2/5), delta line "↑ 0.4 since you started," and a small radar chart floating right. Below: two streak cards side by side — Practice (flame icon, warm coral tint) and Improvement (up-arrows icon, teal tint with subtle border emphasis). Filter chip row: All / Mobility / Core. KPI list — each row: name + tiny area label, sparkline center, trend arrow, score chip on the right (teal-tinted if ≥3). Bottom-pinned Re-measure pill.</div></div>
+<div class="prompt-card"><div class="id">V-19</div><div class="name">KPI detail</div><div class="prompt">Back arrow + "Progress" label. KPI title in Fraunces, then a plain-language one-line description. Hero score block: large numeral with band label ("Good — top 30%"), "vs. start +2" badge on the right. 5-segment score bar below. History card: 90-day line chart in teal with a faint score-band background, annotation pins for routine changes. Asymmetry card (when L/R applies): "8% asymmetric" in coral, two horizontal bars labeled L and R with values, italic note: "Your left is a bit tighter. Try a few extra reps on that side." Bottom-pinned "Re-measure now."</div></div>
+<div class="prompt-card"><div class="id">V-20</div><div class="name">Asymmetry visualization</div><div class="prompt">Inline component used on KPI Detail and on Routine Complete when an asymmetric KPI was nudged. Two horizontal bars (L on top, R on bottom), warm coral fill on the shorter side, teal on the longer. Tabular-num values aligned right. Single italic line below in muted text encouraging extra reps on the tight side. Never red, never alarming.</div></div>
+<div class="prompt-card"><div class="id">V-21</div><div class="name">Radar chart component</div><div class="prompt">Reusable component. 6 axes (default) for the user's selected KPIs. Faint concentric polygons at 1, 2, 3, 4, 5. Teal-soft fill polygon over the values; small teal dots at each vertex. Axis labels in small Outfit 600 caps muted gray. Animates axes-first then polygon fill. Used at 110×110 (Home/Progress thumbnail) and 260×260 (Baseline Reveal).</div></div>
+<div class="prompt-card"><div class="id">V-22</div><div class="name">Sparkline component</div><div class="prompt">Tiny 30×14 inline SVG line in teal. No axes, no grid, no labels — just the trend. Renders the last 6–8 measurements for that KPI. Sits inside KPI chips on Home and KPI rows on Progress.</div></div>
+<div class="prompt-card"><div class="id">V-23</div><div class="name">Score band component</div><div class="prompt">5 horizontal segments with 4-px gaps. Filled segments are teal; empty are dark surface-3. Current score = N filled segments. Used on KPI Detail under the hero score block.</div></div>
+
+<h3>Profile &amp; data</h3>
+<div class="prompt-card"><div class="id">V-24</div><div class="name">Profile screen</div><div class="prompt">Scrollable. Title "Profile" in Fraunces. Top card: avatar circle (gradient teal placeholder with initial), name + "Since [month year]." CORE Info section (3 editable rows). Data &amp; Backup section — visually elevated with a soft teal-tinted background and a 1-px teal border. Two rows with teal-tinted icon backgrounds: "Download my data" (JSON, N measurements) and "Restore from backup" (last backup date). Preferences section below. Footer: small app version + privacy + support links.</div></div>
+<div class="prompt-card"><div class="id">V-25</div><div class="name">Export confirmation</div><div class="prompt">Modal sheet that slides up. Headline: "Download your data." Body: "We'll create a JSON file called core-backup-[date].json with everything: profile info, measurements, sessions, preferences. Only you can access it." Two CTAs: primary "Download" teal pill, secondary "Cancel" text. iOS uses Web Share API; Android triggers a normal browser download.</div></div>
+<div class="prompt-card"><div class="id">V-26</div><div class="name">Import confirmation</div><div class="prompt">After file picker. Headline: "Restore from this backup?" Body shows a diff: "Replacing 47 measurements with 62 from your backup. Restoring 8 sessions, 3 trophies." Warm coral callout: "This can't be undone. Want to back up your current data first?" Two CTAs: secondary "Back up first," primary "Restore."</div></div>
+
+<h3>Empty &amp; edge states</h3>
+<div class="prompt-card"><div class="id">V-27</div><div class="name">Empty progress</div><div class="prompt">When user has no measurements yet (skipped Measure Tests). Centered illustration: a faded radar outline. Headline: "No baseline yet." Body: "Take a few quick measurements to see your progress fill in." Single CTA: "Start Measure Tests."</div></div>
+<div class="prompt-card"><div class="id">V-28</div><div class="name">Offline indicator</div><div class="prompt">When network is down: small slim banner above the tab bar. "You're offline. Your work is saved on this phone." No teal — muted gray. Auto-dismisses when back online.</div></div>
+<div class="prompt-card"><div class="id">V-29</div><div class="name">Landscape lock</div><div class="prompt">Full-screen overlay shown when user rotates to landscape. Centered: a phone icon with a curved rotation arrow. Text: "CORE works best in portrait." No CTA — auto-dismisses on rotation.</div></div>
+<div class="prompt-card"><div class="id">V-30</div><div class="name">Lapse welcome-back</div><div class="prompt">First Home screen after a 7+ day gap. Hero swapped for a smaller card with a warm message: "Welcome back, [name]. We picked a gentle 5-minute routine to ease in." No streak shame, no "you lost N days." One Start pill.</div></div>
+</section>
+
+<section id="metrics">
+<div class="eyebrow">§ 12</div>
+<h2>Metrics &amp; risks</h2>
+
+<h3>Success metrics (6-month targets)</h3>
+<table class="compact">
+<thead><tr><th>Metric</th><th>Target</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td>Measure Tests completion (onboarding)</td><td>&gt; 70%</td><td>Without a baseline, the measurement promise breaks. Drop-off here kills the whole hypothesis.</td></tr>
+<tr><td>Routines completed per active user per week</td><td>4+</td><td>Validates the daily ritual is sticky.</td></tr>
+<tr><td>Re-assessment completion at day 14</td><td>&gt; 50%</td><td>Tests whether the periodic-measurement loop actually closes.</td></tr>
+<tr><td>Average KPI delta at day 60</td><td>+0.5</td><td>The product must visibly work. If users don't move, nothing else matters.</td></tr>
+<tr><td>Day-30 retention</td><td>25%</td><td>Stretching apps notoriously bleed users. Our measurement layer should help.</td></tr>
+<tr><td>NPS</td><td>40+</td><td>Word-of-mouth is our primary growth lever in V1.</td></tr>
+<tr><td>JSON export usage</td><td>&gt; 10% of D30 users</td><td>Validates that "your data is yours" is a real value, not just a slogan.</td></tr>
+</tbody>
+</table>
+
+<h3>Risks &amp; mitigations</h3>
+<table class="compact">
+<thead><tr><th>ID</th><th>Risk</th><th>Mitigation</th></tr></thead>
+<tbody>
+<tr><td>R1</td><td>Onboarding too heavy — Measure Tests scare users off</td><td>Allow "Skip for now" on the Measure Tests intro. App still works without a baseline, just shows empty Progress with a gentle CTA to come back.</td></tr>
+<tr><td>R2</td><td>Self-administered tests are noisy — users distrust the score</td><td>Three modes (manual / guided / auto) with explicit "How to measure" links. Show trend over single value — one outlier doesn't change the story.</td></tr>
+<tr><td>R3</td><td>Measurement framing encourages disordered exercise</td><td>Voice rules: never "below average" or "behind." Scores 1–2 framed as "room to grow," not deficits. No leaderboards, no public sharing in V1.</td></tr>
+<tr><td>R4</td><td>Plateau churn — user stops improving and quits</td><td>"Improvement streak" recognizes any KPI nudge, not absolute progress. Routine engine rotates targets to avoid plateauing on the same KPI.</td></tr>
+<tr><td>R5</td><td>Pose estimation accuracy in V2</td><td>Always offer manual fallback. Show confidence indicator. Don't gate the score on auto-detection.</td></tr>
+<tr><td>R6</td><td>Data loss — user wipes browser / loses phone</td><td>JSON export is the V1 backup. Auto-prompt every 30 days. V2 adds optional cloud sync.</td></tr>
+<tr><td>R7</td><td>iOS PWA limitations (no push, limited storage)</td><td>In-app reminders only in V1 (visible when user opens the app). For richer notifications, native app is V3.</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="open">
+<div class="eyebrow">§ 13</div>
+<h2>Open decisions</h2>
+<p class="lead">Decisions deferred until we have user data or stronger conviction. Each one would change a meaningful piece of the product.</p>
+<table class="compact">
+<thead><tr><th>ID</th><th>Decision</th><th>Options</th><th>When to decide</th></tr></thead>
+<tbody>
+<tr><td>D1</td><td>Home hero card — single or two-choice?</td><td>(a) Single algorithm-picked routine. (b) Two-choice: today's pick + an alternative.</td><td>After 4 weeks of usage data — do users actually swap?</td></tr>
+<tr><td>D2</td><td>Pose estimation in V1?</td><td>(a) Ship V1 with manual + guided only. (b) Include experimental auto-pose for 2 KPIs (forward fold, plank).</td><td>Before beta — depends on MediaPipe accuracy in our testing.</td></tr>
+<tr><td>D3</td><td>Re-measure cadence: 14 or 21 days?</td><td>14 days catches change faster but may feel naggy. 21 days is calmer but risks stale data.</td><td>A/B test in V1.1 with two cohorts.</td></tr>
+<tr><td>D4</td><td>Show sex-adjusted norms by default?</td><td>(a) Show. (b) Hide unless user opts in.</td><td>Pre-launch — user research with 10 testers.</td></tr>
+<tr><td>D5</td><td>L/R asymmetry — own KPI or modifier?</td><td>(a) Treat C2-Asym as a standalone scored KPI. (b) Surface it only as context inside the parent KPI (C2 Side Plank).</td><td>Before launch — affects radar shape.</td></tr>
+<tr><td>D6</td><td>Minimum areas required at onboarding?</td><td>(a) 1 minimum. (b) 3 minimum. (c) No minimum.</td><td>Pre-launch — test with both setups.</td></tr>
+<tr><td>D7</td><td>Account creation — optional or required for V2 sync?</td><td>If we add cloud sync, do we require email or use anonymous device IDs?</td><td>V2 planning — depends on backup-pain feedback in V1.</td></tr>
+<tr><td>D8</td><td>Custom routine builder?</td><td>(a) V1 ships algorithm-only. (b) Add "Build your own" as a power-user feature.</td><td>After 2 months of V1 usage — do users ask for it?</td></tr>
+</tbody>
+</table>
+
+<div class="callout warm" style="margin-top:24px;"><div class="lbl">Document scope</div>This is the V1 PRD. It defines what ships in the first public release. V1.5 (merge-mode backup, voice-guided pose checks) and V2 (camera pose estimation, optional account sync) are noted but not specified here.</div>
+</section>
+
+</main>
+</div>
+
+
+</body></html>

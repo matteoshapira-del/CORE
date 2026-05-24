@@ -1,0 +1,92 @@
+:root {
+  /* Chrome */
+  --bg: #0a0a0f;
+  --surface: #16161f;
+  --surface-2: #1e1e29;
+  --surface-3: #2a2a37;
+
+  --text: #f4f0e8;
+  --text-muted: #8a8a95;
+  --text-faint: #5a5a64;
+
+  /* Accents */
+  --accent: #5bc0a7;
+  --accent-dim: #3a8770;
+  --accent-soft: rgba(91, 192, 167, 0.15);
+  --accent-warm: #e89b7c;
+  --accent-warm-soft: rgba(232, 155, 124, 0.15);
+
+  /* Area pastels (rotate per area) */
+  --pastel-lavender: #c8b8e8;
+  --pastel-sage: #b5d4b5;
+  --pastel-peach: #f0c9a8;
+  --pastel-mist: #a5d4d0;
+  --pastel-coral: #f0b4a8;
+  --pastel-cream: #f0e2c8;
+
+  /* Typography */
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Spacing */
+  --pad-screen: 20px;
+  --pad-card: 16px;
+  --gap-section: 16px;
+
+  /* Radius */
+  --r-card: 16px;
+  --r-card-lg: 22px;
+  --r-chip: 12px;
+  --r-pill: 100px;
+  --r-screen: 34px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --t-page: 240ms;
+  --t-fade: 400ms;
+  --t-quick: 180ms;
+
+  /* Safe areas */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Tab bar */
+  --tab-h: 70px;
+
+  /* Score colors (1-5) */
+  --score-1: #e89b7c;
+  --score-2: #e8b89b;
+  --score-3: #d4cba0;
+  --score-4: #8fc5a0;
+  --score-5: #5bc0a7;
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+body {
+  /* prevent iOS auto-zoom on form fields by default */
+  font-size: 14px;
+  line-height: 1.5;
+}
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px; /* iOS no-zoom */
+}
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+a { color: var(--accent); text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+ol, ul { list-style: none; }

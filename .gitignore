@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node / Vercel (just in case anyone adds them later)
+node_modules/
+.vercel/
+.next/
+dist/
+build/
+
+# Local dev
+.env
+.env.local
+.env.*.local
+*.log
+
+# Python
+__pycache__/
+*.pyc

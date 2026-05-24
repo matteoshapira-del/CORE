@@ -1,0 +1,253 @@
+/* ----- App frame: emulates a portrait phone on desktop ----- */
+.app-frame {
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* On wider viewports, clamp the app into a phone-shaped column so the
+   portrait-only design is honored when emulating on a Mac. */
+@media (min-width: 480px) {
+  body {
+    background: #050507;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 0;
+  }
+  .app-frame {
+    width: 390px;
+    height: 844px;
+    min-height: 844px;
+    max-height: calc(100dvh - 48px);
+    border-radius: 36px;
+    box-shadow:
+      0 0 0 8px #15151a,
+      0 0 0 9px #2a2a37,
+      0 40px 80px rgba(0, 0, 0, 0.55),
+      0 16px 40px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+}
+
+/* Landscape lock — show overlay if the user rotates */
+.landscape-lock {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  color: var(--text);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  text-align: center;
+  padding: 32px;
+}
+.landscape-lock .ll-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  color: var(--text-muted);
+}
+.landscape-lock svg { color: var(--accent); }
+.landscape-lock p { font-family: var(--serif); font-size: 18px; font-weight: 400; }
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .landscape-lock { display: flex; }
+}
+
+/* ----- Screen container shared by all routes ----- */
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  position: relative;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+.screen.scroll { overflow-y: auto; }
+.screen-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--pad-screen);
+  min-height: 0;
+}
+.screen-body.scroll { overflow-y: auto; padding-bottom: 12px; }
+
+/* Status bar (fake) — only shown when emulating */
+.status-bar {
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+}
+.status-bar .right { display: flex; gap: 4px; align-items: center; font-size: 10px; }
+
+/* ----- Tab bar ----- */
+.tab-bar {
+  height: var(--tab-h);
+  flex-shrink: 0;
+  background: rgba(15, 15, 22, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  border-top: 0.5px solid var(--surface-3);
+  padding-bottom: 12px;
+}
+.tab-bar .tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-faint);
+  background: none;
+}
+.tab-bar .tab svg { width: 22px; height: 22px; color: currentColor; }
+.tab-bar .tab.active { color: var(--accent); }
+
+/* ----- Typography helpers ----- */
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.eyebrow.muted { color: var(--text-muted); }
+.serif { font-family: var(--serif); }
+.mono { font-family: var(--mono); }
+.muted { color: var(--text-muted); }
+.faint { color: var(--text-faint); }
+
+/* ----- Buttons ----- */
+.btn-primary {
+  width: 100%;
+  background: var(--accent);
+  color: #07120e;
+  border-radius: var(--r-pill);
+  padding: 14px 18px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform var(--t-quick) var(--ease), opacity var(--t-quick) var(--ease);
+}
+.btn-primary:active { transform: scale(0.985); opacity: 0.92; }
+.btn-primary[disabled] { opacity: 0.4; pointer-events: none; }
+
+.btn-secondary {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--surface-3);
+  color: var(--text);
+  border-radius: var(--r-pill);
+  padding: 14px 18px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.btn-link {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 10px;
+  background: none;
+  display: block;
+  width: 100%;
+}
+
+.btn-dark {
+  background: #1a1a1a;
+  color: var(--text);
+  padding: 12px 22px;
+  border-radius: var(--r-pill);
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Tap target floor */
+button, [role="button"] { min-height: 44px; min-width: 44px; }
+button.bare { min-height: 0; min-width: 0; }
+
+/* ----- Page transitions ----- */
+.fade-in {
+  animation: fadeIn var(--t-page) var(--ease) both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Exercise cross-fade in the player */
+.ill-fade {
+  animation: illFade var(--t-fade) var(--ease) both;
+}
+@keyframes illFade {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Score reveal scale-up */
+.score-pop {
+  animation: scorePop 300ms var(--ease) both;
+  display: inline-block;
+}
+@keyframes scorePop {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Radar polygon fill */
+.radar-poly {
+  animation: radarFill 600ms var(--ease) 400ms both;
+  transform-origin: center;
+}
+@keyframes radarFill {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+.radar-axis {
+  stroke-dasharray: 110;
+  stroke-dashoffset: 110;
+  animation: drawAxis 400ms var(--ease) both;
+}
+@keyframes drawAxis {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ----- Misc ----- */
+.divider { height: 0.5px; background: var(--surface-3); margin: 12px 0; }
+.spacer { flex: 1; }
+
+/* Hide scrollbars but keep functionality */
+.scroll::-webkit-scrollbar { width: 0; height: 0; }
+.scroll { scrollbar-width: none; }
