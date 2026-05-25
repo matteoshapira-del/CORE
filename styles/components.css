@@ -247,6 +247,62 @@
   color: var(--text-muted);
 }
 
+/* ----- Exercise PNG illustrations ----- */
+.ex-png {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* PNGs are ~683x800 with figure in upper ~75% and caption in lower ~25%.
+     Cover-crop favoring the top so the figure dominates and the caption is
+     mostly hidden at icon scales. */
+  object-fit: cover;
+  object-position: center 25%;
+  border-radius: inherit;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* In the runtime player, the PNG sits inside a pastel circle. Make it fully
+   round and scaled to fit, with the caption strip cropped out. */
+.player .ill-inside .ex-png {
+  border-radius: 50%;
+  width: 92%;
+  height: 92%;
+  object-position: center 20%;
+}
+
+/* KPI Detail "Exercises that build this" thumbnails — 44x44 rounded square. */
+.kpi-detail .ex-row .thumb .ex-png {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-position: center 30%;
+}
+
+/* Test-illustration variant used in measure-test screen.
+   The container is 16:10 aspect — show the WHOLE figure, no cropping. */
+.measure-test .video .ex-png-test {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* Home hero card illustration. Show the whole figure inside the pastel hero
+   (no cropping like the player circle); add a soft drop-shadow for contrast. */
+.hero .ill .ex-hero {
+  width: 100%;
+  height: 100%;
+  max-width: 180px;
+  max-height: 180px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+}
+
 /* ----- Onboarding progress dots ----- */
 .onb-progress {
   display: flex;

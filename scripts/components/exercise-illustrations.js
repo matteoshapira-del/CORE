@@ -2045,9 +2045,15 @@ export const POSE_MAP = {
   pilates_bridge: posePilatesBridge,
 };
 
+import { imgHtmlForExercise, imgHtmlForKpiTest, imgHtmlForAreaHero } from './exercise-icons.js';
+
 export function illustrationFor(exerciseId, size = 170) {
+  // Prefer the real PNG illustration when one exists for this exercise.
+  const png = imgHtmlForExercise(exerciseId, size);
+  if (png) return png;
+  // Otherwise fall back to the inline-SVG cartoon pose.
   const fn = POSE_MAP[exerciseId];
-  if (!fn) return poseShoulderRolls(size); // gentle fallback
+  if (!fn) return poseShoulderRolls(size);
   return fn(size);
 }
 
@@ -2074,6 +2080,10 @@ const KPI_TEST_POSE = {
 };
 
 export function testIllustrationFor(kpiId, size = 150) {
+  // Prefer a real PNG of the actual test when one exists
+  const png = imgHtmlForKpiTest(kpiId, size);
+  if (png) return png;
+  // Fall back to inline-SVG cartoon pose
   const fn = KPI_TEST_POSE[kpiId];
   return fn ? fn(size) : poseShoulderRolls(size);
 }
@@ -2098,6 +2108,10 @@ const AREA_HERO_POSE = {
 };
 
 export function heroIllustration(areaId, size = 120) {
+  // Prefer a real PNG for the area
+  const png = imgHtmlForAreaHero(areaId, size);
+  if (png) return png;
+  // Fall back to inline SVG cartoon
   const fn = AREA_HERO_POSE[areaId];
   return fn ? fn(size) : poseShoulderRolls(size);
 }

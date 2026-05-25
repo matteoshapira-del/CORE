@@ -27,7 +27,7 @@ export function renderHome(state) {
 
         <a class="hero" href="#/player/${routine.id}" style="background: linear-gradient(160deg, ${routine.pastel} 0%, color-mix(in srgb, ${routine.pastel} 70%, #2a3a30) 100%); text-decoration:none;">
           <div class="ribbon"><span class="dot"></span>Today's pick</div>
-          <div class="ill">${heroIllustration(routine.areas[0], 150)}</div>
+          <div class="ill">${heroIllustration(routine.areas[0], 180)}</div>
           <div>
             <div class="title">${escape(routine.title)}</div>
             <div class="meta">${Math.round(routine.durationSec/60)} min · ${routine.exercises.length} stretches</div>
