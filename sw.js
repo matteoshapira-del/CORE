@@ -1,6 +1,6 @@
 // Minimal offline-first service worker.
 // Strategy: cache-first for app shell, stale-while-revalidate for everything else.
-const VERSION = 'core-v1.1.0';
+const VERSION = 'core-v1.2.0';
 const APP_SHELL = [
   './',
   'index.html',
@@ -15,6 +15,7 @@ const APP_SHELL = [
   'scripts/data/kpis.js',
   'scripts/data/exercises.js',
   'scripts/engine/routine.js',
+  'scripts/engine/flex.js',
   'scripts/engine/score.js',
   'scripts/components/icons.js',
   'scripts/components/sparkline.js',

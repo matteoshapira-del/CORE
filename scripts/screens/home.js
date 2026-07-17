@@ -4,6 +4,7 @@ import { heroIllustration } from '../components/exercise-illustrations.js';
 import { sparklineSvg } from '../components/sparkline.js';
 import { coreIndex, activeKpiIds, staleKpis } from '../engine/score.js';
 import { pickTodayRoutine } from '../engine/routine.js';
+import { FLEX_LEVELS, newFlexSeed } from '../engine/flex.js';
 import { getKpi, compositeScore, historyForKpi } from '../data/kpis.js';
 
 export function renderHome(state) {
@@ -25,6 +26,8 @@ export function renderHome(state) {
           <div class="sub">Day ${dayN} of practice</div>
         </div>
 
+        ${streakGauge(state)}
+
         <a class="hero" href="#/player/${routine.id}" style="background: linear-gradient(160deg, ${routine.pastel} 0%, color-mix(in srgb, ${routine.pastel} 70%, #2a3a30) 100%); text-decoration:none;">
           <div class="ribbon"><span class="dot"></span>Today's pick</div>
           <div class="ill">${heroIllustration(routine.areas[0], 180)}</div>
@@ -34,6 +37,22 @@ export function renderHome(state) {
           </div>
           <div class="btn-dark"><span>Start</span>${Icon.play()}</div>
         </a>
+
+        <div class="flex-card">
+          <div class="flex-head">
+            <div class="flex-title">CORE FLEX</div>
+            <div class="flex-sub">A fresh random mix, every time</div>
+          </div>
+          <div class="flex-levels" role="group" aria-label="Flex difficulty">
+            ${Object.entries(FLEX_LEVELS).map(([key, l]) => `
+              <button class="flex-lvl${key === 'medium' ? ' active' : ''}" data-lvl="${key}">
+                <span class="lvl-name">${l.label}</span>
+                <span class="lvl-count">${l.min}–${l.max}</span>
+              </button>
+            `).join('')}
+          </div>
+          <button class="btn-dark flex-start" data-action="start-flex"><span>Flex</span>${Icon.play()}</button>
+        </div>
 
         <div class="progress-strip">
           <div class="row">
@@ -66,6 +85,17 @@ export function renderHome(state) {
     html,
     onMount(root) {
       root.querySelector('[data-action="goto-progress"]')?.addEventListener('click', () => { location.hash = '#/progress'; });
+
+      let flexLevel = 'medium';
+      root.querySelectorAll('.flex-lvl').forEach(btn => {
+        btn.addEventListener('click', () => {
+          flexLevel = btn.dataset.lvl;
+          root.querySelectorAll('.flex-lvl').forEach(b => b.classList.toggle('active', b === btn));
+        });
+      });
+      root.querySelector('[data-action="start-flex"]')?.addEventListener('click', () => {
+        location.hash = `#/player/r_flex_${flexLevel}_${newFlexSeed()}`;
+      });
     },
   };
 }
@@ -82,6 +112,27 @@ function renderKpiChip(id, state) {
       ${sparklineSvg(hist, 38, 14)}
     </div>
   </a>`;
+}
+
+// Stars for consecutive days with a completed full routine. The stored
+// streak only resets on the next completion, so treat it as 0 when the
+// last active day is older than yesterday.
+function streakGauge(state) {
+  const p = (state.streaks && state.streaks.practice) || {};
+  const today = new Date().toISOString().slice(0, 10);
+  const y = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const streak = (p.lastActive === today || p.lastActive === y) ? (p.current || 0) : 0;
+  const slots = 7;
+  const filled = Math.min(streak, slots);
+  const stars = Array.from({ length: slots }, (_, i) =>
+    `<span class="star${i < filled ? ' filled' : ''}">★</span>`).join('');
+  const label = streak > 0
+    ? `${streak}-day streak${streak > slots ? ' 🔥' : ''}`
+    : 'Complete a routine to start a streak';
+  return `<div class="streak-gauge" aria-label="Practice streak: ${streak} days">
+    <div class="stars">${stars}</div>
+    <div class="streak-label${streak > 0 ? '' : ' muted'}">${label}</div>
+  </div>`;
 }
 
 function greeting() {

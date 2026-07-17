@@ -377,6 +377,10 @@ export const EXERCISES = [
     primaryKpis: ['c4_extensor'], secondaryKpis: ['f7_tspine'] },
 
   // ===== Full body =====
+  { id: 'sun_salute', name: 'Sun Salute', area: 'full_body', category: 'warmup', durationSec: 45,
+    cues: ['Stand tall, sweep arms overhead', 'Exhale, hinge and fold forward', 'Rise and repeat slowly'],
+    oneLiner: 'Stand tall; sweep both arms overhead, then exhale and fold forward; rise and repeat.',
+    primaryKpis: ['f1_forward_fold'], secondaryKpis: ['f6_overhead'] },
   { id: 'bodyweight_squat', name: 'Bodyweight Squat', area: 'full_body', category: 'strength', durationSec: 60,
     cues: ['3s down, 2s pause', '3s up · 10 reps'],
     oneLiner: 'Stand feet shoulder-width; squat down for 3s, hold 2s, stand for 3s — 10 reps.',

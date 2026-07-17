@@ -18,6 +18,71 @@
 }
 .home .alt-link span { color: var(--accent); font-weight: 500; }
 
+/* ---- Streak gauge ---- */
+.home .streak-gauge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: -6px 0 14px;
+}
+.home .streak-gauge .stars { display: flex; gap: 3px; }
+.home .streak-gauge .star {
+  font-size: 15px;
+  line-height: 1;
+  color: var(--surface-3);
+  transition: color var(--t-quick) var(--ease);
+}
+.home .streak-gauge .star.filled {
+  color: #f0c94c;
+  text-shadow: 0 0 8px rgba(240, 201, 76, 0.35);
+}
+.home .streak-gauge .streak-label { font-size: 12px; color: var(--text); font-weight: 500; }
+.home .streak-gauge .streak-label.muted { color: var(--text-faint); font-weight: 400; }
+
+/* ---- Core Flex card ---- */
+.home .flex-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-3);
+  border-radius: var(--r-card-lg);
+  padding: var(--pad-card);
+  margin-top: 12px;
+}
+.home .flex-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+.home .flex-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.home .flex-sub { font-size: 11px; color: var(--text-muted); }
+.home .flex-levels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.home .flex-lvl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 8px 4px;
+  border-radius: var(--r-chip);
+  background: var(--surface-2);
+  border: 1px solid transparent;
+  transition: background var(--t-quick) var(--ease), border-color var(--t-quick) var(--ease);
+}
+.home .flex-lvl .lvl-name { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+.home .flex-lvl .lvl-count { font-size: 10px; color: var(--text-faint); }
+.home .flex-lvl.active {
+  background: var(--accent-soft);
+  border-color: var(--accent-dim);
+}
+.home .flex-lvl.active .lvl-name { color: var(--accent); }
+.home .flex-lvl.active .lvl-count { color: var(--accent-dim); }
+.home .flex-start { width: 100%; justify-content: center; }
+.home .flex-start svg { width: 14px; height: 14px; flex-shrink: 0; }
+
 /* ===== Routine Player ===== */
 .player {
   background: #000;

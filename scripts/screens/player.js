@@ -2,13 +2,17 @@ import { statusBarHtml } from '../components/shell.js';
 import { Icon } from '../components/icons.js';
 import { illustrationFor } from '../components/exercise-illustrations.js';
 import { pickTodayRoutine, listRoutineOptions } from '../engine/routine.js';
+import { getFlexRoutine } from '../engine/flex.js';
 import { recordSession } from '../store.js';
 
 export function renderPlayer(state, routineId) {
-  // Resolve routine: today's pick, or one of the alternates by id
-  const today = pickTodayRoutine(state);
-  let routine = today.id === routineId ? today : listRoutineOptions(state).find(r => r.id === routineId);
-  if (!routine) routine = today;
+  // Resolve routine: a Core Flex build, today's pick, or an alternate by id
+  let routine = getFlexRoutine(routineId);
+  if (!routine) {
+    const today = pickTodayRoutine(state);
+    routine = today.id === routineId ? today : listRoutineOptions(state).find(r => r.id === routineId);
+    if (!routine) routine = today;
+  }
 
   let idx = 0;
   let secondsLeft = routine.exercises[0].durationSec;

@@ -1,11 +1,14 @@
 import { statusBarHtml } from '../components/shell.js';
 import { Icon } from '../components/icons.js';
 import { pickTodayRoutine, listRoutineOptions } from '../engine/routine.js';
+import { getFlexRoutine } from '../engine/flex.js';
 import { getKpi, compositeScore } from '../data/kpis.js';
 
 export function renderComplete(state, routineId) {
   const today = pickTodayRoutine(state);
-  const routine = today.id === routineId ? today : listRoutineOptions(state).find(r => r.id === routineId) || today;
+  const routine = getFlexRoutine(routineId)
+    || (today.id === routineId ? today : listRoutineOptions(state).find(r => r.id === routineId))
+    || today;
   const last = state.sessions[state.sessions.length - 1];
   const mins = ((last && last.durationSec) || routine.durationSec) / 60;
   const areas = routine.areas.length;
