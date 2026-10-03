@@ -2,7 +2,7 @@
 const DB_NAME = 'core_app';
 const STORE = 'kv';
 const KEY = 'core_data_v1';
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.3.0';
 const SCHEMA = 'core/v1';
 
 let _dbPromise = null;
@@ -53,6 +53,7 @@ export function defaultState() {
       units: 'metric',
       activityLevel: 'moderate',
       injuries: [],
+      sciaticaSafe: true,
       createdAt: new Date().toISOString(),
     },
     selectedAreas: [],
@@ -75,6 +76,14 @@ export function defaultState() {
     },
     routinesLastShown: {},
     bannerDismissedUntil: null,
+    // Bookends (Post-Sea 7 / Beach 3 / Car Reset 60)
+    tingles: [],   // { move, side, date, timestamp }
+    checkins: [],  // { kind: 'morning_stiffness'|'drive_stiffness', value 1..5, date, timestamp }
+    bookends: {
+      startedAt: new Date().toISOString(),
+      reviewBy: '2026-11-01',
+      tingleResets: {}, // moveId -> ISO; tingles before this don't count
+    },
   };
 }
 
@@ -97,9 +106,11 @@ export function getState() { return _state; }
 export function subscribe(fn) { _subs.add(fn); return () => _subs.delete(fn); }
 function emit() { _subs.forEach(fn => fn(_state)); }
 
-export function setState(updater) {
+// `silent` persists without re-rendering — used by the player so logging
+// a tingle mid-routine doesn't restart the screen.
+export function setState(updater, { silent = false } = {}) {
   _state = typeof updater === 'function' ? updater(_state) : { ..._state, ...updater };
-  emit();
+  if (!silent) emit();
   scheduleSave();
 }
 
@@ -112,8 +123,12 @@ function scheduleSave() {
 function migrate(data) {
   if (!data) return null;
   if (!data.$schema) data.$schema = SCHEMA;
-  // future migrations chain here
-  return { ...defaultState(), ...data };
+  const base = defaultState();
+  const out = { ...base, ...data };
+  // Bookends refactor (Oct 2026): sciatica-safe defaults ON.
+  if (out.profile && out.profile.sciaticaSafe === undefined) out.profile = { ...out.profile, sciaticaSafe: true };
+  out.bookends = { ...base.bookends, ...(data.bookends || {}) };
+  return out;
 }
 
 // ----- Convenience mutators -----
@@ -134,7 +149,7 @@ export function recordMeasurement(m) {
   }));
 }
 
-export function recordSession(session) {
+export function recordSession(session, opts) {
   setState(s => {
     const sessions = [
       ...s.sessions,
@@ -166,7 +181,7 @@ export function recordSession(session) {
         practice: { current, longest, lastActive: today },
       },
     };
-  });
+  }, opts);
 }
 
 function todayKey() { return new Date().toISOString().slice(0, 10); }

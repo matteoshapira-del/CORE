@@ -44,6 +44,7 @@ export function renderMeasureTest(state, params) {
             <button class="play bare" title="Demo">${Icon.play()}</button>
           </div>
 
+          ${state.profile && state.profile.sciaticaSafe && ['f1_forward_fold', 'f2_slr', 'f11_aslr'].includes(k.id) ? `<div class="sc-warn" style="margin-bottom:10px;">Sciatica-safe: move slowly and stop at the <b>first nerve sensation</b>. Take the reading there; this is a test, not a hold.</div>` : ''}
           <div class="checklist" id="check-list">
             ${k.setup.map((s, idx) => `<button class="check-item bare" data-idx="${idx}"><div class="bx">${Icon.check()}</div><div class="tx">${s}</div></button>`).join('')}
           </div>

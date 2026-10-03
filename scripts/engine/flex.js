@@ -1,4 +1,5 @@
 import { getExercise } from '../data/exercises.js';
+import { isAllowed, applySafety } from './safety.js';
 
 // CORE FLEX — a quick randomized full-body routine drawn from 12 movement
 // families. Every family maps to one or more exercises in the library;
@@ -44,12 +45,18 @@ function shuffle(arr, rand) {
   return arr;
 }
 
-export function buildFlexRoutine(difficulty, seed) {
+// `state` applies sciatica-safe mode and tingle swaps: excluded ids are
+// removed from their family before picking, and swaps (e.g. seated forward
+// fold → nerve slider + bent-knee hamstring) happen after.
+export function buildFlexRoutine(difficulty, seed, state) {
   const level = FLEX_LEVELS[difficulty] || FLEX_LEVELS.medium;
   const rand = mulberry32(seed);
   const count = level.min + Math.floor(rand() * (level.max - level.min + 1));
 
-  const groups = shuffle([...FLEX_GROUPS], rand);
+  const families = state
+    ? FLEX_GROUPS.map(g => ({ ...g, ids: g.ids.filter(id => isAllowed(state, id)) })).filter(g => g.ids.length)
+    : FLEX_GROUPS;
+  const groups = shuffle([...families], rand);
   const picks = [];
   for (const g of groups) {
     if (picks.length >= count) break;
@@ -57,11 +64,12 @@ export function buildFlexRoutine(difficulty, seed) {
   }
   if (picks.length < count) {
     const used = new Set(picks);
-    const rest = shuffle(FLEX_GROUPS.flatMap(g => g.ids).filter(id => !used.has(id)), rand);
+    const rest = shuffle(families.flatMap(g => g.ids).filter(id => !used.has(id)), rand);
     while (picks.length < count && rest.length) picks.push(rest.shift());
   }
 
-  const exercises = picks.map(getExercise).filter(Boolean);
+  let exercises = picks.map(getExercise).filter(Boolean);
+  if (state) exercises = applySafety(state, exercises);
   // Warmups open the routine; everything else keeps its shuffled order.
   exercises.sort((a, b) => (a.category === 'warmup' ? 0 : 1) - (b.category === 'warmup' ? 0 : 1));
 
@@ -77,10 +85,10 @@ export function buildFlexRoutine(difficulty, seed) {
 }
 
 // Resolve a flex routine from its id; null if the id isn't a flex routine.
-export function getFlexRoutine(routineId) {
+export function getFlexRoutine(routineId, state) {
   const m = /^r_flex_(easy|medium|hard)_(\d+)$/.exec(routineId || '');
   if (!m) return null;
-  return buildFlexRoutine(m[1], Number(m[2]));
+  return buildFlexRoutine(m[1], Number(m[2]), state);
 }
 
 export function newFlexSeed() {

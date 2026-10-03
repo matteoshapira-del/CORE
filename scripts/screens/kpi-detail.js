@@ -5,6 +5,7 @@ import { asymmetryHtml } from '../components/asymmetry.js';
 import { illustrationFor } from '../components/exercise-illustrations.js';
 import { getKpi, compositeScore, deltaSinceBaseline, historyForKpi, recentForKpi, bandLabel } from '../data/kpis.js';
 import { exercisesForKpi } from '../data/exercises.js';
+import { applySafety } from '../engine/safety.js';
 
 export function renderKpiDetail(state, kpiId) {
   const k = getKpi(kpiId);
@@ -17,7 +18,7 @@ export function renderKpiDetail(state, kpiId) {
   const delta = deltaSinceBaseline(kpiId, state.measurements);
   const hist = historyForKpi(kpiId, state.measurements);
   const band = score ? bandLabel(score) : '';
-  const related = exercisesForKpi(kpiId).slice(0, 6);
+  const related = applySafety(state, exercisesForKpi(kpiId)).slice(0, 6);
 
   const html = `
     ${statusBarHtml('9:43')}

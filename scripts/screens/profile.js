@@ -45,6 +45,15 @@ export function renderProfile(state) {
         </div>
 
         <div class="pref-section">
+          <div class="card-label">Safety</div>
+          <button class="pref-row bare" data-edit="sciatica">
+            <div class="icon-box">${Icon.bodyPerson()}</div>
+            <div class="text"><div class="title">Sciatica-safe mode</div><div class="sub">${state.profile.sciaticaSafe ? 'On · no straight-leg folds or slumps · Tingle button' : 'Off'}</div></div>
+            <div class="chev">${Icon.chevR()}</div>
+          </button>
+        </div>
+
+        <div class="pref-section">
           <div class="card-label">Areas & KPIs</div>
           <button class="pref-row bare" data-action="reselect-areas">
             <div class="icon-box">${Icon.list()}</div>
@@ -116,6 +125,7 @@ export function renderProfile(state) {
       root.querySelector('[data-edit="reminder"]').addEventListener('click', () => openEditSheet('reminder', state, root));
       root.querySelector('[data-edit="units"]').addEventListener('click', () => openEditSheet('units', state, root));
       root.querySelector('[data-edit="sounds"]').addEventListener('click', () => openEditSheet('sounds', state, root));
+      root.querySelector('[data-edit="sciatica"]').addEventListener('click', () => openEditSheet('sciatica', state, root));
     },
   };
 }
@@ -211,6 +221,16 @@ function openEditSheet(kind, state, root) {
       </div></div>
       <button class="btn-primary" data-save>Save</button>
     `;
+  } else if (kind === 'sciatica') {
+    body = `
+      <h3>Sciatica-safe mode</h3>
+      <p>Swaps Seated Forward Fold for a nerve slider + bent-knee hamstring, and keeps standing toe-touch holds, long straight-leg folds and slump positions out of FLEX and Today's pick. Adds a <b>Tingle</b> button to the player: it skips the move and logs it; three tingles on the same move swap it for a gentler variant.</p>
+      <div class="field"><div class="seg-control">
+        <button data-sc="1" class="${state.profile.sciaticaSafe ? 'active' : ''}">On</button>
+        <button data-sc="0" class="${!state.profile.sciaticaSafe ? 'active' : ''}">Off</button>
+      </div></div>
+      <button class="btn-primary" data-save>Save</button>
+    `;
   }
   sheet.innerHTML = `<div class="sheet" onclick="event.stopPropagation()"><div class="handle"></div>${body}</div>`;
   root.appendChild(sheet);
@@ -222,6 +242,11 @@ function openEditSheet(kind, state, root) {
   let pendingReminder = state.preferences.remindersEnabled;
   let pendingUnits = state.profile.units;
   let pendingSounds = state.preferences.transitionSounds;
+  let pendingSciatica = !!state.profile.sciaticaSafe;
+  sheet.querySelectorAll('[data-sc]').forEach(b => b.addEventListener('click', () => {
+    pendingSciatica = b.dataset.sc === '1';
+    sheet.querySelectorAll('[data-sc]').forEach(x => x.classList.toggle('active', x === b));
+  }));
 
   sheet.querySelectorAll('[data-sex]').forEach(b => b.addEventListener('click', () => {
     pendingSex = b.dataset.sex;
@@ -260,6 +285,8 @@ function openEditSheet(kind, state, root) {
       updates.preferences = { ...state.preferences, reminderTime, remindersEnabled: pendingReminder };
     } else if (kind === 'units') {
       updates.profile = { ...state.profile, units: pendingUnits };
+    } else if (kind === 'sciatica') {
+      updates.profile = { ...state.profile, sciaticaSafe: pendingSciatica };
     } else if (kind === 'sounds') {
       updates.preferences = { ...state.preferences, transitionSounds: pendingSounds };
     }

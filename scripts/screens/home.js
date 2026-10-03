@@ -6,6 +6,10 @@ import { coreIndex, activeKpiIds, staleKpis } from '../engine/score.js';
 import { pickTodayRoutine } from '../engine/routine.js';
 import { FLEX_LEVELS, newFlexSeed } from '../engine/flex.js';
 import { getKpi, compositeScore, historyForKpi } from '../data/kpis.js';
+import { BEACH_3, streakInfo, recentDays, todaySummary, logBeach, undoBeachToday, setCheckin, shareLine } from '../engine/bookends.js';
+import { getExercise } from '../data/exercises.js';
+import { getState } from '../store.js';
+import { illustrationFor } from '../components/exercise-illustrations.js';
 
 export function renderHome(state) {
   const name = state.profile.displayName || 'friend';
@@ -17,8 +21,11 @@ export function renderHome(state) {
   const bannerHidden = state.bannerDismissedUntil && Date.now() < new Date(state.bannerDismissedUntil).getTime();
   const showBanner = stale.length > 0 && !bannerHidden;
 
+  const today = todaySummary(state);
+
   const html = chromeWrap({
     activeTab: 'home',
+    scroll: true,
     body: `
       <div class="home" style="display:flex;flex-direction:column;min-height:0;flex:1;">
         <div class="greeting">
@@ -27,6 +34,41 @@ export function renderHome(state) {
         </div>
 
         ${streakGauge(state)}
+
+        <div class="bookends" role="group" aria-label="Daily bookends">
+          <a class="bookend${today.postSea === 'full' ? ' done' : today.postSea ? ' part' : ''}" href="#/player/r_post_sea7">
+            <div class="be-main">
+              <div class="be-title">Post-Sea 7</div>
+              <div class="be-when">After the sea, before the shower · ~7 min</div>
+            </div>
+            <div class="be-state">${today.postSea === 'full' ? '★' : today.postSea ? '☆' : Icon.play()}</div>
+          </a>
+          <div class="bookend beach${today.beach ? ' done' : ''}">
+            <button class="be-main bare" data-action="beach">
+              <div class="be-title">Beach 3 ${today.beach ? '✓' : ''}</div>
+              <div class="be-when">${today.beach ? 'Logged today · tap to undo' : 'Done on the sand? One tap to log'}</div>
+            </button>
+            <button class="be-card bare" data-action="beach-card" aria-label="Show the Beach 3 moves">3 moves</button>
+          </div>
+          <a class="bookend${today.car ? ' done' : ''}" href="#/player/r_car60">
+            <div class="be-main">
+              <div class="be-title">Car Reset 60</div>
+              <div class="be-when">After a 45+ min drive, or hourly at the desk</div>
+            </div>
+            <div class="be-state">${today.car ? `×${today.car}` : Icon.play()}</div>
+          </a>
+        </div>
+
+        <div class="stiff-row">
+          <div class="stiff-label">Morning stiffness</div>
+          <div class="stiff-picks" role="group" aria-label="Morning stiffness 1 to 5">
+            ${[1, 2, 3, 4, 5].map(v => `<button class="stiff-pick bare${today.morningStiff === v ? ' active' : ''}" data-stiff="${v}">${v}</button>`).join('')}
+          </div>
+        </div>
+
+        <button class="share-day bare" data-action="share">Share day <span>→ coach</span></button>
+
+        <div class="bonus-label">Bonus · after the core</div>
 
         <a class="hero" href="#/player/${routine.id}" style="background: linear-gradient(160deg, ${routine.pastel} 0%, color-mix(in srgb, ${routine.pastel} 70%, #2a3a30) 100%); text-decoration:none;">
           <div class="ribbon"><span class="dot"></span>Today's pick</div>
@@ -41,7 +83,7 @@ export function renderHome(state) {
         <div class="flex-card">
           <div class="flex-head">
             <div class="flex-title">CORE FLEX</div>
-            <div class="flex-sub">A fresh random mix, every time</div>
+            <div class="flex-sub">Bonus: a fresh random mix${state.profile.sciaticaSafe ? ' · sciatica-safe' : ''}</div>
           </div>
           <div class="flex-levels" role="group" aria-label="Flex difficulty">
             ${Object.entries(FLEX_LEVELS).map(([key, l]) => `
@@ -86,6 +128,20 @@ export function renderHome(state) {
     onMount(root) {
       root.querySelector('[data-action="goto-progress"]')?.addEventListener('click', () => { location.hash = '#/progress'; });
 
+      root.querySelector('[data-action="beach"]').addEventListener('click', () => {
+        if (today.beach) {
+          if (confirm("Undo today's Beach 3 log?")) undoBeachToday();
+          return;
+        }
+        logBeach();
+        window.toast?.('Beach 3 logged · day saved');
+      });
+      root.querySelector('[data-action="beach-card"]').addEventListener('click', () => showBeachCard(root));
+      root.querySelectorAll('[data-stiff]').forEach(b => b.addEventListener('click', () => {
+        setCheckin('morning_stiffness', Number(b.dataset.stiff));
+      }));
+      root.querySelector('[data-action="share"]').addEventListener('click', () => shareDay(root, shareLine(getState())));
+
       let flexLevel = 'medium';
       root.querySelectorAll('.flex-lvl').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -114,25 +170,70 @@ function renderKpiChip(id, state) {
   </a>`;
 }
 
-// Stars for consecutive days with a completed full routine. The stored
-// streak only resets on the next completion, so treat it as 0 when the
-// last active day is older than yesterday.
+// Last 7 days as stars: solid = full Post-Sea 7, hollow = any bookend
+// (even one move — the floor rule), grey = nothing. Today stays open until
+// midnight, so it doesn't break the streak count.
 function streakGauge(state) {
-  const p = (state.streaks && state.streaks.practice) || {};
-  const today = new Date().toISOString().slice(0, 10);
-  const y = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-  const streak = (p.lastActive === today || p.lastActive === y) ? (p.current || 0) : 0;
-  const slots = 7;
-  const filled = Math.min(streak, slots);
-  const stars = Array.from({ length: slots }, (_, i) =>
-    `<span class="star${i < filled ? ' filled' : ''}">★</span>`).join('');
+  const info = streakInfo(state);
+  const days = recentDays(state, 7, info.map);
+  const letters = 'SMTWTFS';
+  const stars = days.map((d, i) => {
+    const today = i === days.length - 1;
+    const cls = d.status === 'solid' ? ' filled' : d.status === 'hollow' ? ' hollow' : '';
+    return `<span class="day${today ? ' today' : ''}"><span class="star${cls}">${d.status === 'hollow' ? '☆' : '★'}</span><span class="dl">${letters[d.date.getDay()]}</span></span>`;
+  }).join('');
+  const streak = info.current;
   const label = streak > 0
-    ? `${streak}-day streak${streak > slots ? ' 🔥' : ''}`
-    : 'Complete a routine to start a streak';
+    ? `${streak}-day streak${streak >= 7 ? ' 🔥' : ''}${info.todayDone ? '' : ' · today open'}`
+    : 'One move saves the day';
   return `<div class="streak-gauge" aria-label="Practice streak: ${streak} days">
     <div class="stars">${stars}</div>
     <div class="streak-label${streak > 0 ? '' : ' muted'}">${label}</div>
   </div>`;
+}
+
+function showBeachCard(root) {
+  const sheet = document.createElement('div');
+  sheet.className = 'sheet-backdrop';
+  sheet.innerHTML = `
+    <div class="sheet" onclick="event.stopPropagation()">
+      <div class="handle"></div>
+      <h3>Beach 3</h3>
+      <p>On the sand before surf or foil · ~3 min. No phone needed: memorise these, log with one tap when you're home.</p>
+      <div class="beach-card">
+        ${BEACH_3.map((m, i) => `
+          <div class="beach-move">
+            <div class="thumb">${illustrationFor(m.id, 56)}</div>
+            <div class="info"><div class="nm">${i + 1}. ${escape(m.label)}</div><div class="dose">${escape(m.dose)}</div>
+            <div class="ol">${escape((getExercise(m.id) || {}).oneLiner || '')}</div></div>
+          </div>`).join('')}
+      </div>
+      <button class="btn-primary" data-dismiss>Got it</button>
+    </div>`;
+  root.appendChild(sheet);
+  sheet.addEventListener('click', () => sheet.remove());
+  sheet.querySelector('[data-dismiss]').addEventListener('click', () => sheet.remove());
+}
+
+// Copy the one-line day summary for the LONGEVITY coach chat. Clipboard
+// needs a secure context + user gesture; fall back to a selectable sheet.
+export async function shareDay(root, line) {
+  try {
+    await navigator.clipboard.writeText(line);
+    window.toast?.('Copied · paste into the coach chat');
+    return;
+  } catch {}
+  const sheet = document.createElement('div');
+  sheet.className = 'sheet-backdrop';
+  sheet.innerHTML = `<div class="sheet" onclick="event.stopPropagation()"><div class="handle"></div>
+    <h3>Share day</h3><p>Copy this line into the coach chat:</p>
+    <textarea class="share-text" readonly rows="3">${escape(line)}</textarea>
+    <button class="btn-primary" data-dismiss>Done</button></div>`;
+  root.appendChild(sheet);
+  const ta = sheet.querySelector('textarea');
+  ta.focus(); ta.select();
+  sheet.addEventListener('click', () => sheet.remove());
+  sheet.querySelector('[data-dismiss]').addEventListener('click', () => sheet.remove());
 }
 
 function greeting() {

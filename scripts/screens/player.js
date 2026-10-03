@@ -1,24 +1,29 @@
 import { statusBarHtml } from '../components/shell.js';
 import { Icon } from '../components/icons.js';
 import { illustrationFor } from '../components/exercise-illustrations.js';
-import { pickTodayRoutine, listRoutineOptions } from '../engine/routine.js';
-import { getFlexRoutine } from '../engine/flex.js';
-import { recordSession } from '../store.js';
+import { resolveRoutine } from '../engine/resolve.js';
+import { recordTingle } from '../engine/bookends.js';
+import { isSafeMode, tingleCount, TINGLE_LIMIT, tingleAlternate } from '../engine/safety.js';
+import { recordSession, getState } from '../store.js';
 
 export function renderPlayer(state, routineId) {
-  // Resolve routine: a Core Flex build, today's pick, or an alternate by id
-  let routine = getFlexRoutine(routineId);
-  if (!routine) {
-    const today = pickTodayRoutine(state);
-    routine = today.id === routineId ? today : listRoutineOptions(state).find(r => r.id === routineId);
-    if (!routine) routine = today;
-  }
+  const routine = resolveRoutine(state, routineId);
+  const safe = isSafeMode(state);
 
   let idx = 0;
   let secondsLeft = routine.exercises[0].durationSec;
   let paused = true;
   let tickHandle = null;
+  let startHandle = null;
   let wakeLock = null;
+  let recorded = false;
+  // Floor rule: a move counts as done once its timer runs out, or once at
+  // least half of it has elapsed before tapping Next. Skips don't count;
+  // tingle-skips don't count but don't spoil a "full" session either.
+  const done = new Set();
+  const skipped = new Set();
+  const tingled = new Set();
+  let elapsed = 0;
 
   const html = `
     ${statusBarHtml('9:42')}
@@ -26,7 +31,7 @@ export function renderPlayer(state, routineId) {
       <div class="top-row">
         <button class="close-btn bare" data-action="close" aria-label="Close">${Icon.close()}</button>
         <div class="counter"><span id="ct-i">1</span> of ${routine.exercises.length}</div>
-        <div class="free-pill">FREE</div>
+        ${safe ? `<button class="tingle-btn bare" data-action="tingle" aria-label="Tingle: skip this move and log it">⚡ Tingle</button>` : `<div class="free-pill">${escapeOneLiner(routine.title.toUpperCase())}</div>`}
       </div>
       <div class="circle-wrap">
         <div class="circle">
@@ -41,9 +46,10 @@ export function renderPlayer(state, routineId) {
       <div class="bottom">
         <button class="swap-btn bare" data-action="skip" aria-label="Skip" title="Skip exercise">${Icon.swap()}</button>
         <div class="ex-name">
-          <span id="ex-name">${routine.exercises[0].name}</span>
+          <span id="ex-name">${escapeOneLiner(routine.exercises[0].name)}</span>
           <button class="info-circle bare" data-action="info" aria-label="Info">i</button>
         </div>
+        <div class="ex-meta" id="ex-meta">${stepMeta(routine.exercises[0])}</div>
         <div class="ex-oneliner" id="ex-oneliner">${escapeOneLiner(routine.exercises[0].oneLiner || '')}</div>
         <div class="timer" id="timer">${fmtTime(secondsLeft)}</div>
         <div class="controls">
@@ -64,7 +70,9 @@ export function renderPlayer(state, routineId) {
       function setUiFor(i) {
         const ex = routine.exercises[i];
         secondsLeft = ex.durationSec;
-        $('#ex-name').textContent = ex.name + (ex.sideSpecific ? ` · L+R` : '');
+        elapsed = 0;
+        $('#ex-name').textContent = ex.name;
+        $('#ex-meta').textContent = stepMeta(ex);
         $('#ex-oneliner').textContent = ex.oneLiner || '';
         $('#ct-i').textContent = i + 1;
         $('#timer').textContent = fmtTime(secondsLeft);
@@ -87,7 +95,9 @@ export function renderPlayer(state, routineId) {
         clearInterval(tickHandle);
         tickHandle = setInterval(() => {
           secondsLeft -= 1;
+          elapsed += 1;
           if (secondsLeft < 0) {
+            done.add(idx);
             advance(1);
             return;
           }
@@ -117,39 +127,74 @@ export function renderPlayer(state, routineId) {
           clearInterval(tickHandle);
           tickHandle = setInterval(() => {
             secondsLeft -= 1;
-            if (secondsLeft < 0) { advance(1); return; }
+            elapsed += 1;
+            if (secondsLeft < 0) { done.add(idx); advance(1); return; }
             $('#timer').textContent = fmtTime(secondsLeft);
           }, 1000);
         }
       }
+      function markIfHalfway() {
+        if (elapsed * 2 >= routine.exercises[idx].durationSec) done.add(idx);
+      }
+      function save(completed) {
+        if (recorded) return;
+        recorded = true;
+        const total = routine.exercises.length;
+        // Silent: the next hash change re-renders with fresh state.
+        recordSession({
+          routineId: routine.id,
+          kind: routine.kind || (routine.id.startsWith('r_flex_') ? 'flex' : 'routine'),
+          completed,
+          full: completed && done.size + tingled.size >= total && skipped.size === 0,
+          movesDone: done.size,
+          totalMoves: total,
+          durationSec: routine.exercises.filter((_, i) => done.has(i)).reduce((a, e) => a + e.durationSec, 0) || (completed ? routine.durationSec : 0),
+          exerciseIds: routine.exercises.map(e => e.id),
+          kpisTargeted: routine.kpisTargeted,
+        }, { silent: true });
+      }
       function finish() {
         clearInterval(tickHandle);
         releaseWakeLock();
-        recordSession({
-          routineId: routine.id,
-          durationSec: routine.durationSec,
-          exerciseIds: routine.exercises.map(e => e.id),
-          kpisTargeted: routine.kpisTargeted,
-        });
+        save(true);
         location.hash = `#/complete/${routine.id}`;
       }
 
       root.querySelector('[data-action="close"]').addEventListener('click', () => {
         clearInterval(tickHandle);
         releaseWakeLock();
+        markIfHalfway();
+        if (done.size > 0) {
+          save(false);
+          if (routine.kind) window.toast?.(`Day saved ☆ · ${done.size} move${done.size > 1 ? 's' : ''}`);
+        }
         history.length > 1 ? history.back() : (location.hash = '#/home');
+      });
+      root.querySelector('[data-action="tingle"]')?.addEventListener('click', () => {
+        const ex = routine.exercises[idx];
+        recordTingle(ex.id, ex.side);
+        tingled.add(idx);
+        done.delete(idx);
+        const n = tingleCount(getState(), ex.id);
+        if (n >= TINGLE_LIMIT) {
+          const alt = tingleAlternate(ex.id);
+          window.toast?.(`${ex.name}: ${n} tingles · ${alt ? 'swapped for a gentler variant' : 'removed'} from now on`);
+        } else {
+          window.toast?.(`Tingle logged (${n}/${TINGLE_LIMIT}) · skipping`);
+        }
+        advance(1);
       });
       root.querySelector('[data-action="toggle"]').addEventListener('click', () => {
         if (paused) play(); else pause();
       });
       root.querySelector('[data-action="prev"]').addEventListener('click', () => advance(-1));
-      root.querySelector('[data-action="next"]').addEventListener('click', () => advance(1));
-      root.querySelector('[data-action="skip"]').addEventListener('click', () => advance(1));
+      root.querySelector('[data-action="next"]').addEventListener('click', () => { markIfHalfway(); advance(1); });
+      root.querySelector('[data-action="skip"]').addEventListener('click', () => { if (!done.has(idx) && !tingled.has(idx)) skipped.add(idx); advance(1); });
       root.querySelector('[data-action="info"]').addEventListener('click', () => showInfoSheet(root, routine.exercises[idx]));
 
       // Auto-start after a beat
       setUiFor(0);
-      setTimeout(play, 350);
+      startHandle = setTimeout(play, 350);
 
       async function requestWakeLock() {
         if (!('wakeLock' in navigator)) return;
@@ -174,7 +219,7 @@ export function renderPlayer(state, routineId) {
         } catch {}
       }
 
-      return () => { clearInterval(tickHandle); releaseWakeLock(); };
+      return () => { clearTimeout(startHandle); clearInterval(tickHandle); releaseWakeLock(); };
     },
   };
 }
@@ -198,6 +243,11 @@ function showInfoSheet(root, exercise) {
   root.appendChild(sheet);
   sheet.addEventListener('click', () => sheet.remove());
   sheet.querySelector('[data-dismiss]').addEventListener('click', () => sheet.remove());
+}
+
+function stepMeta(ex) {
+  const side = ex.side === 'left' ? 'Left side' : ex.side === 'right' ? 'Right side' : ex.sideSpecific ? 'Both sides' : '';
+  return [side, ex.reps ? `×${ex.reps} reps` : ''].filter(Boolean).join(' · ');
 }
 
 function escapeOneLiner(s) {

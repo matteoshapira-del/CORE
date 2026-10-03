@@ -1,6 +1,7 @@
 import { AREAS, getArea } from '../data/areas.js';
 import { EXERCISES, exercisesForArea } from '../data/exercises.js';
 import { getKpi } from '../data/kpis.js';
+import { applySafety } from './safety.js';
 
 // Pick today's routine. Rotation: cycle through selected areas day by day,
 // pair two complementary areas, target ~7–10 minutes total.
@@ -10,7 +11,7 @@ export function pickTodayRoutine(state) {
   const primary = selected[dayIndex % selected.length];
   const secondary = selected[(dayIndex + 1) % selected.length];
   const areas = primary === secondary ? [primary] : [primary, secondary];
-  return buildRoutine(areas, { targetSec: 8 * 60 });
+  return buildRoutine(areas, { targetSec: 8 * 60, state });
 }
 
 // Suggest a few alternate routine options
@@ -22,7 +23,7 @@ export function listRoutineOptions(state) {
     const a = selected[(dayIndex + i) % selected.length];
     const b = selected[(dayIndex + i + 1) % selected.length];
     const areas = a === b ? [a] : [a, b];
-    options.push(buildRoutine(areas, { targetSec: 7 * 60, seed: i }));
+    options.push(buildRoutine(areas, { targetSec: 7 * 60, seed: i, state }));
   }
   return options;
 }
@@ -49,7 +50,8 @@ function buildRoutine(areaIds, opts = {}) {
 
   // Group: 1 warmup, then a mix of stretch+strength balanced by area, end with longer stretch
   const seen = new Set();
-  const unique = pool.filter(e => { if (seen.has(e.id)) return false; seen.add(e.id); return true; });
+  let unique = pool.filter(e => { if (seen.has(e.id)) return false; seen.add(e.id); return true; });
+  if (opts.state) unique = applySafety(opts.state, unique);
   const warmups = unique.filter(e => e.category === 'warmup');
   const stretches = unique.filter(e => e.category === 'stretch');
   const strengths = unique.filter(e => e.category === 'strength');

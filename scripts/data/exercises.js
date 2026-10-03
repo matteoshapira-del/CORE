@@ -503,7 +503,54 @@ export const EXERCISES = [
     primaryKpis: [], secondaryKpis: ['c4_extensor'] },
 ];
 
-export function getExercise(id) { return EXERCISES.find(e => e.id === id); }
+// Bookend-only moves (Post-Sea 7 / Beach 3 / Car Reset 60, sciatica-safe
+// swap-ins and their gentler tingle alternates). Kept out of EXERCISES so
+// they never leak into the area-based Today's pick pool; getExercise()
+// still resolves them.
+export const EXTRA_EXERCISES = [
+  { id: 'knees_to_chest_rock', name: 'Knees-to-Chest Rock', area: 'lower_back', category: 'stretch', durationSec: 45,
+    cues: ['Lie on your back', 'Hug both knees', 'Rock gently side to side'],
+    oneLiner: 'Hug both knees, rock gently side to side.',
+    primaryKpis: [], secondaryKpis: ['f1_forward_fold'] },
+  { id: 'sciatic_nerve_slider', name: 'Sciatic Nerve Slider', area: 'hamstrings', category: 'stretch', durationSec: 40, sideSpecific: true,
+    cues: ['Sit tall on a chair', 'Straighten the knee AND look up', 'Bend the knee AND look down', 'A glide, never a pull'],
+    oneLiner: 'Seated tall. Straighten the knee AND look up; bend the knee AND look down. A glide, never a pull.',
+    primaryKpis: ['f2_slr'], secondaryKpis: ['f1_forward_fold'] },
+  { id: 'sciatic_slider_gentle', name: 'Nerve Slider (Small Range)', area: 'hamstrings', category: 'stretch', durationSec: 40, sideSpecific: true,
+    cues: ['Sit tall, head neutral', 'Straighten the knee only halfway', 'Small, easy range'],
+    oneLiner: 'Seated tall, head still. Straighten the knee only halfway and back. Small, easy range.',
+    primaryKpis: [], secondaryKpis: ['f2_slr'] },
+  { id: 'supine_hamstring_towel', name: 'Supine Hamstring (Towel)', area: 'hamstrings', category: 'stretch', durationSec: 45, sideSpecific: true,
+    cues: ['Lie back, towel around foot', 'Knee soft, foot relaxed', 'Stop before any tingling'],
+    oneLiner: 'Knee soft, foot relaxed, stop before any tingling.',
+    primaryKpis: ['f2_slr'], secondaryKpis: [] },
+  { id: 'supine_9090_hamstring', name: '90/90 Hamstring Hold', area: 'hamstrings', category: 'stretch', durationSec: 45, sideSpecific: true,
+    cues: ['Lie back, hold thigh at 90°', 'Knee stays bent', 'Ease the shin up only a little'],
+    oneLiner: 'Hold the thigh at 90°, knee bent; ease the shin up a little. No tension down the leg.',
+    primaryKpis: [], secondaryKpis: ['f2_slr'] },
+  { id: 'figure4_wall', name: 'Figure-4 (Feet on Wall)', area: 'glutes', category: 'stretch', durationSec: 45, sideSpecific: true,
+    cues: ['Lie back, foot on a wall', 'Ankle over knee', 'Let gravity do it'],
+    oneLiner: 'Foot on the wall, ankle over knee; let the knee fall away. No pulling.',
+    primaryKpis: [], secondaryKpis: ['f9_butterfly'] },
+  { id: 'childs_pose_supported', name: "Child's Pose (Supported)", area: 'lower_back', category: 'stretch', durationSec: 30,
+    cues: ['Knees wide', 'Pillow under chest', 'Breathe into the low back'],
+    oneLiner: 'Knees wide, pillow under your chest; breathe into the low back.',
+    primaryKpis: [], secondaryKpis: ['f1_forward_fold'] },
+  { id: 'leg_swings', name: 'Leg Swings (Front/Back)', area: 'hips', category: 'warmup', durationSec: 30, sideSpecific: true,
+    cues: ['Hold something for balance', 'Swing front to back', '10 per side'],
+    oneLiner: 'Hand on support; swing one leg front and back, 10 per side.',
+    primaryKpis: [], secondaryKpis: ['f3_hip_flexor'] },
+  { id: 'standing_back_extension', name: 'Standing Back Extension', area: 'lower_back', category: 'stretch', durationSec: 20,
+    cues: ['Hands on low back', 'Lean back gently', '×5'],
+    oneLiner: 'Hands on your low back, hips forward; lean back gently. ×5.',
+    primaryKpis: [], secondaryKpis: [] },
+  { id: 'standing_hip_flexor', name: 'Standing Hip Flexor', area: 'hips', category: 'stretch', durationSec: 20, sideSpecific: true,
+    cues: ['Split stance', 'Squeeze back-leg glute', 'Tuck pelvis, shift forward'],
+    oneLiner: 'Split stance; squeeze the back-leg glute, tuck the pelvis, shift forward.',
+    primaryKpis: ['f3_hip_flexor'], secondaryKpis: [] },
+];
+
+export function getExercise(id) { return EXERCISES.find(e => e.id === id) || EXTRA_EXERCISES.find(e => e.id === id); }
 
 export function exercisesForArea(areaId) {
   return EXERCISES.filter(e => e.area === areaId);

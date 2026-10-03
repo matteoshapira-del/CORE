@@ -1,17 +1,20 @@
 import { statusBarHtml } from '../components/shell.js';
 import { Icon } from '../components/icons.js';
-import { pickTodayRoutine, listRoutineOptions } from '../engine/routine.js';
-import { getFlexRoutine } from '../engine/flex.js';
+import { resolveRoutine } from '../engine/resolve.js';
+import { isSunday, sundayCheckDone, shareLine, streakInfo } from '../engine/bookends.js';
 import { getKpi, compositeScore } from '../data/kpis.js';
+import { getState } from '../store.js';
+import { shareDay } from './home.js';
 
 export function renderComplete(state, routineId) {
-  const today = pickTodayRoutine(state);
-  const routine = getFlexRoutine(routineId)
-    || (today.id === routineId ? today : listRoutineOptions(state).find(r => r.id === routineId))
-    || today;
+  const routine = resolveRoutine(state, routineId);
   const last = state.sessions[state.sessions.length - 1];
   const mins = ((last && last.durationSec) || routine.durationSec) / 60;
   const areas = routine.areas.length;
+  const isBookend = !!routine.kind;
+  const full = !!(last && last.routineId === routine.id && last.full);
+  const streak = streakInfo(state).current;
+  const showSunday = routine.kind === 'post_sea' && isSunday() && !sundayCheckDone(state);
   const nudged = (routine.kpisTargeted || []).slice(0, 4);
   const wisdomQuote = pickQuote(nudged, state);
 
@@ -19,13 +22,18 @@ export function renderComplete(state, routineId) {
     ${statusBarHtml('9:49')}
     <div class="screen">
       <div class="complete">
-        <div class="check">${Icon.checkLg()}</div>
-        <h1>Nice.</h1>
-        <div class="sub-message">${pickSubMsg(routine.areas)}</div>
+        <div class="check">${isBookend ? `<span class="big-star${full ? '' : ' hollow'}">${full ? '★' : '☆'}</span>` : Icon.checkLg()}</div>
+        <h1>${isBookend ? (full ? 'Solid star.' : 'Day saved.') : 'Nice.'}</h1>
+        <div class="sub-message">${isBookend ? `${routine.title} · ${streak}-day streak` : pickSubMsg(routine.areas)}</div>
+        ${showSunday ? `
+          <a class="sunday-cta" href="#/sunday-check">
+            <div><div class="t">Sunday check · ~3 min</div><div class="s">Forward Fold · Thomas test · driving stiffness</div></div>
+            <div class="go">Start →</div>
+          </a>` : ''}
         <div class="session-stats">
           <div class="card-label">Session</div>
           <div class="stats-row">
-            <div class="stat"><div class="num">${routine.exercises.length}</div><div class="lbl">stretches</div></div>
+            <div class="stat"><div class="num">${last && last.routineId === routine.id && last.movesDone != null ? last.movesDone : routine.exercises.length}</div><div class="lbl">${isBookend ? 'moves' : 'stretches'}</div></div>
             <div class="stat"><div class="num">${formatMin(mins)}</div><div class="lbl">minutes</div></div>
             <div class="stat"><div class="num">${areas}</div><div class="lbl">area${areas>1?'s':''}</div></div>
           </div>
@@ -39,12 +47,18 @@ export function renderComplete(state, routineId) {
         ` : ''}
         <div class="actions">
           <a class="btn-primary" href="#/home" style="text-decoration:none;display:block;">Done</a>
+          ${isBookend ? `<button class="btn-link" data-action="share">Share day → coach</button>` : ''}
           ${nudged.length ? `<a class="btn-link" href="#/kpi/${nudged[0]}" style="text-decoration:none;display:block;">Re-measure one of these?</a>` : ''}
         </div>
       </div>
     </div>
   `;
-  return { html };
+  return {
+    html,
+    onMount(root) {
+      root.querySelector('[data-action="share"]')?.addEventListener('click', () => shareDay(root, shareLine(getState())));
+    },
+  };
 }
 
 function renderNudge(kpiId, state) {

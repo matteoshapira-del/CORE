@@ -7,6 +7,7 @@ import { renderPlayer } from './screens/player.js';
 import { renderComplete } from './screens/complete.js';
 import { renderKpiDetail } from './screens/kpi-detail.js';
 import { renderOnboarding } from './screens/onboarding/index.js';
+import { renderSundayCheck } from './screens/sunday-check.js';
 
 const mount = document.getElementById('app');
 
@@ -18,6 +19,7 @@ const routes = [
   { match: /^#\/profile$/, render: renderProfile },
   { match: /^#\/player\/(.+)$/, render: (state, m) => renderPlayer(state, m[1]) },
   { match: /^#\/complete\/(.+)$/, render: (state, m) => renderComplete(state, m[1]) },
+  { match: /^#\/sunday-check$/, render: renderSundayCheck },
   { match: /^#\/kpi\/(.+)$/, render: (state, m) => renderKpiDetail(state, m[1]) },
   { match: /^#\/onboarding\/?(.*)$/, render: (state, m) => renderOnboarding(state, m[1]) },
 ];
