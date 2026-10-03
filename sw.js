@@ -1,6 +1,6 @@
 // Minimal offline-first service worker.
 // Strategy: cache-first for app shell, stale-while-revalidate for everything else.
-const VERSION = 'core-v1.3.0';
+const VERSION = 'core-v1.4.0';
 const APP_SHELL = [
   './',
   'index.html',
@@ -20,6 +20,10 @@ const APP_SHELL = [
   'scripts/engine/safety.js',
   'scripts/engine/bookends.js',
   'scripts/engine/resolve.js',
+  'scripts/engine/voice.js',
+  'scripts/data/voice-manifest.js',
+  'scripts/components/body-map.js',
+  'audio/voice/_silence.mp3',
   'scripts/components/icons.js',
   'scripts/components/sparkline.js',
   'scripts/components/radar.js',

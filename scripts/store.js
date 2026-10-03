@@ -2,7 +2,7 @@
 const DB_NAME = 'core_app';
 const STORE = 'kv';
 const KEY = 'core_data_v1';
-const APP_VERSION = '1.3.0';
+const APP_VERSION = '1.4.0';
 const SCHEMA = 'core/v1';
 
 let _dbPromise = null;

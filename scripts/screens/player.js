@@ -4,7 +4,8 @@ import { illustrationFor } from '../components/exercise-illustrations.js';
 import { resolveRoutine } from '../engine/resolve.js';
 import { recordTingle } from '../engine/bookends.js';
 import { isSafeMode, tingleCount, TINGLE_LIMIT, tingleAlternate } from '../engine/safety.js';
-import { recordSession, getState } from '../store.js';
+import { recordSession, getState, setState } from '../store.js';
+import * as voice from '../engine/voice.js';
 
 export function renderPlayer(state, routineId) {
   const routine = resolveRoutine(state, routineId);
@@ -24,13 +25,19 @@ export function renderPlayer(state, routineId) {
   const skipped = new Set();
   const tingled = new Set();
   let elapsed = 0;
+  let voiceOn = state.preferences.voiceGuide !== false;
+  let finishing = false;
+  let pendingPrefix = [];
 
   const html = `
     ${statusBarHtml('9:42')}
     <div class="screen player">
       <div class="top-row">
         <button class="close-btn bare" data-action="close" aria-label="Close">${Icon.close()}</button>
-        <div class="counter"><span id="ct-i">1</span> of ${routine.exercises.length}</div>
+        <div class="counter-col">
+          <div class="counter"><span id="ct-i">1</span> of ${routine.exercises.length}</div>
+          <label class="voice-toggle"><input type="checkbox" id="voice-on" ${voiceOn ? 'checked' : ''}><span>Voice guide</span></label>
+        </div>
         ${safe ? `<button class="tingle-btn bare" data-action="tingle" aria-label="Tingle: skip this move and log it">⚡ Tingle</button>` : `<div class="free-pill">${escapeOneLiner(routine.title.toUpperCase())}</div>`}
       </div>
       <div class="circle-wrap">
@@ -75,6 +82,13 @@ export function renderPlayer(state, routineId) {
         $('#ex-meta').textContent = stepMeta(ex);
         $('#ex-oneliner').textContent = ex.oneLiner || '';
         $('#ct-i').textContent = i + 1;
+        if (voiceOn) {
+          voice.startStep(ex, { tipOffset: ex.side === 'right' ? 2 : 0, prefix: pendingPrefix });
+          if (!paused) voice.tick(0);
+        } else {
+          voice.stop();
+        }
+        pendingPrefix = [];
         $('#timer').textContent = fmtTime(secondsLeft);
         const ill = $('#ill-inside');
         ill.innerHTML = illustrationFor(ex.id, 200);
@@ -92,10 +106,12 @@ export function renderPlayer(state, routineId) {
       function play() {
         paused = false;
         $('[data-action="toggle"]').innerHTML = Icon.pause();
+        if (voiceOn) { voice.resume(); voice.tick(elapsed); }
         clearInterval(tickHandle);
         tickHandle = setInterval(() => {
           secondsLeft -= 1;
           elapsed += 1;
+          if (voiceOn) voice.tick(elapsed);
           if (secondsLeft < 0) {
             done.add(idx);
             advance(1);
@@ -108,6 +124,7 @@ export function renderPlayer(state, routineId) {
       function pause() {
         paused = true;
         $('[data-action="toggle"]').innerHTML = Icon.play();
+        voice.pause();
         clearInterval(tickHandle);
         tickHandle = null;
         releaseWakeLock();
@@ -128,6 +145,7 @@ export function renderPlayer(state, routineId) {
           tickHandle = setInterval(() => {
             secondsLeft -= 1;
             elapsed += 1;
+            if (voiceOn) voice.tick(elapsed);
             if (secondsLeft < 0) { done.add(idx); advance(1); return; }
             $('#timer').textContent = fmtTime(secondsLeft);
           }, 1000);
@@ -156,11 +174,14 @@ export function renderPlayer(state, routineId) {
       function finish() {
         clearInterval(tickHandle);
         releaseWakeLock();
+        finishing = true;
+        if (voiceOn) voice.say('_done'); else voice.stop();
         save(true);
         location.hash = `#/complete/${routine.id}`;
       }
 
       root.querySelector('[data-action="close"]').addEventListener('click', () => {
+        voice.stop();
         clearInterval(tickHandle);
         releaseWakeLock();
         markIfHalfway();
@@ -175,6 +196,7 @@ export function renderPlayer(state, routineId) {
         recordTingle(ex.id, ex.side);
         tingled.add(idx);
         done.delete(idx);
+        pendingPrefix = ['_tingle'];
         const n = tingleCount(getState(), ex.id);
         if (n >= TINGLE_LIMIT) {
           const alt = tingleAlternate(ex.id);
@@ -190,6 +212,14 @@ export function renderPlayer(state, routineId) {
       root.querySelector('[data-action="prev"]').addEventListener('click', () => advance(-1));
       root.querySelector('[data-action="next"]').addEventListener('click', () => { markIfHalfway(); advance(1); });
       root.querySelector('[data-action="skip"]').addEventListener('click', () => { if (!done.has(idx) && !tingled.has(idx)) skipped.add(idx); advance(1); });
+      $('#voice-on').addEventListener('change', e => {
+        voiceOn = e.target.checked;
+        setState(s => ({ ...s, preferences: { ...s.preferences, voiceGuide: voiceOn } }), { silent: true });
+        if (!voiceOn) { voice.stop(); return; }
+        voice.startStep(routine.exercises[idx], { tipOffset: routine.exercises[idx].side === 'right' ? 2 : 0 });
+        voice.skipTo(elapsed);
+        if (paused) voice.pause(); else voice.resume();
+      });
       root.querySelector('[data-action="info"]').addEventListener('click', () => showInfoSheet(root, routine.exercises[idx]));
 
       // Auto-start after a beat
@@ -219,7 +249,7 @@ export function renderPlayer(state, routineId) {
         } catch {}
       }
 
-      return () => { clearTimeout(startHandle); clearInterval(tickHandle); releaseWakeLock(); };
+      return () => { clearTimeout(startHandle); clearInterval(tickHandle); releaseWakeLock(); if (!finishing) voice.stop(); };
     },
   };
 }

@@ -1,4 +1,4 @@
-import { getExercise } from '../data/exercises.js';
+import { getExercise, EXERCISES } from '../data/exercises.js';
 import { isAllowed, applySafety } from './safety.js';
 
 // CORE FLEX — a quick randomized full-body routine drawn from 12 movement
@@ -45,27 +45,37 @@ function shuffle(arr, rand) {
   return arr;
 }
 
-// `state` applies sciatica-safe mode and tingle swaps: excluded ids are
-// removed from their family before picking, and swaps (e.g. seated forward
-// fold → nerve slider + bent-knee hamstring) happen after.
+// With state: a random mix drawn from the user's focus areas (body map),
+// round-robin across areas so every checked area is represented, with
+// sciatica-safe exclusions/swaps applied. Without state: the original
+// 12-family full-body mix.
 export function buildFlexRoutine(difficulty, seed, state) {
   const level = FLEX_LEVELS[difficulty] || FLEX_LEVELS.medium;
   const rand = mulberry32(seed);
   const count = level.min + Math.floor(rand() * (level.max - level.min + 1));
 
-  const families = state
-    ? FLEX_GROUPS.map(g => ({ ...g, ids: g.ids.filter(id => isAllowed(state, id)) })).filter(g => g.ids.length)
-    : FLEX_GROUPS;
-  const groups = shuffle([...families], rand);
-  const picks = [];
-  for (const g of groups) {
-    if (picks.length >= count) break;
-    picks.push(g.ids[Math.floor(rand() * g.ids.length)]);
-  }
-  if (picks.length < count) {
-    const used = new Set(picks);
-    const rest = shuffle(families.flatMap(g => g.ids).filter(id => !used.has(id)), rand);
-    while (picks.length < count && rest.length) picks.push(rest.shift());
+  let picks;
+  if (state) {
+    const focus = (state.selectedAreas && state.selectedAreas.length) ? state.selectedAreas : ['lower_back', 'hips', 'glutes', 'hamstrings'];
+    const pools = focus.map(a => shuffle(EXERCISES.filter(e => e.area === a && isAllowed(state, e.id)).map(e => e.id), rand)).filter(p => p.length);
+    // Top up thin selections with full-body moves so Hard still has enough.
+    const total = pools.reduce((n, p) => n + p.length, 0);
+    if (total < count) pools.push(shuffle(EXERCISES.filter(e => e.area === 'full_body' && isAllowed(state, e.id)).map(e => e.id), rand));
+    const order = shuffle(pools.map((_, i) => i), rand);
+    picks = [];
+    while (picks.length < count && pools.some(p => p.length)) {
+      for (const i of order) {
+        if (picks.length >= count) break;
+        const id = pools[i].shift();
+        if (id && !picks.includes(id)) picks.push(id);
+      }
+    }
+  } else {
+    picks = [];
+    for (const g of shuffle([...FLEX_GROUPS], rand)) {
+      if (picks.length >= count) break;
+      picks.push(g.ids[Math.floor(rand() * g.ids.length)]);
+    }
   }
 
   let exercises = picks.map(getExercise).filter(Boolean);
@@ -76,7 +86,7 @@ export function buildFlexRoutine(difficulty, seed, state) {
   return {
     id: `r_flex_${difficulty}_${seed}`,
     title: `Core Flex · ${level.label}`,
-    areas: ['full_body'],
+    areas: state ? [...new Set(exercises.map(e => e.area))] : ['full_body'],
     pastel: 'var(--pastel-lavender)',
     exercises,
     durationSec: exercises.reduce((s, e) => s + (e.durationSec || 30), 0),

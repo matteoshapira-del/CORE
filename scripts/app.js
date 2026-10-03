@@ -8,6 +8,7 @@ import { renderComplete } from './screens/complete.js';
 import { renderKpiDetail } from './screens/kpi-detail.js';
 import { renderOnboarding } from './screens/onboarding/index.js';
 import { renderSundayCheck } from './screens/sunday-check.js';
+import { installUnlock } from './engine/voice.js';
 
 const mount = document.getElementById('app');
 
@@ -59,6 +60,7 @@ function navigate() {
 // Boot
 (async () => {
   await loadState();
+  installUnlock();
   // Re-render on state changes
   subscribe(() => navigate());
   window.addEventListener('hashchange', navigate);

@@ -1185,3 +1185,110 @@
   .player .ctrl { width: 48px; height: 48px; }
   .player .ctrl.pause { width: 60px; height: 60px; }
 }
+
+/* ===== v1.4: no-scroll Home, body map, guides ===== */
+.home-screen .screen-body { overflow: hidden; }
+.home { display: flex; flex-direction: column; flex: 1; min-height: 0; gap: 10px; padding: 6px 0 10px; }
+.home .home-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.home .greeting { padding-top: 0; margin-bottom: 0; min-width: 0; }
+.home .greeting .hi { font-size: 21px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.home .greeting .sub { font-size: 12px; margin-top: 1px; }
+.home .greeting .sub a { color: var(--text-muted); text-decoration: none; }
+.home .greeting .sub a.warm { color: var(--accent-warm); }
+.home .body-btn {
+  position: relative; width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
+  background: var(--accent-soft); color: var(--accent); border: 1px solid rgba(91, 192, 167, 0.35);
+  display: flex; align-items: center; justify-content: center;
+}
+.home .body-btn .badge {
+  position: absolute; top: -3px; right: -3px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px;
+  background: var(--accent); color: #07120e; font-size: 10px; font-weight: 700; line-height: 18px; text-align: center;
+}
+.home .streak-gauge { margin: 0; }
+.home .bookends { margin: 0; gap: 8px; }
+.home .bookend { min-height: 60px; padding: 10px 12px 10px 16px; }
+.home .bookend .be-title { font-size: 17px; }
+.home .bookend .be-state { width: 38px; height: 38px; }
+.home .be-guide {
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer;
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  background: var(--accent-soft); border-radius: var(--r-pill); padding: 8px 12px; min-height: 36px;
+}
+.home .be-guide input, .player .voice-toggle input { width: 16px; height: 16px; accent-color: var(--accent); margin: 0; }
+.home .flex-row {
+  display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--surface-3);
+  border-radius: var(--r-card); padding: 10px 10px 10px 16px;
+}
+.home .flex-row .flex-lbl { flex: 1; min-width: 0; }
+.home .flex-row .flex-title { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); }
+.home .flex-row .flex-sub { font-size: 10.5px; color: var(--text-muted); white-space: nowrap; }
+.home .flex-row .flex-levels { display: flex; gap: 2px; background: var(--surface-2); border-radius: var(--r-pill); padding: 3px; margin: 0; grid-template-columns: none; }
+.home .flex-row .flex-lvl {
+  padding: 7px 10px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; color: var(--text-muted);
+  background: none; border: none; min-height: 32px; display: block;
+}
+.home .flex-row .flex-lvl.active { background: var(--accent-soft); color: var(--accent); }
+.home .flex-row .flex-go { width: 38px; height: 38px; border-radius: 50%; background: var(--accent); color: #07120e; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.home .flex-row .flex-go svg { width: 14px; height: 14px; }
+.home .quick-row { display: flex; align-items: center; gap: 10px; }
+.home .quick-row .stiff { flex: 1; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.home .quick-row .stiff-label { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+.home .quick-row .stiff-picks { gap: 4px; }
+.home .quick-row .stiff-pick { width: 32px; height: 32px; font-size: 12px; }
+.home .quick-row .share-day { width: auto; margin: 0; padding: 0 14px; min-height: 40px; border-style: solid; flex-shrink: 0; white-space: nowrap; }
+
+/* Body map sheet */
+.body-map .bm-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.body-map .bm-summary { font-size: 11px; color: var(--accent); font-weight: 600; text-align: right; }
+.body-map .bm-lead { margin-bottom: 6px; font-size: 12px; }
+.bm-figs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0 -10px; }
+.bm-fig { width: 100%; height: auto; max-height: 46vh; overflow: visible; }
+.bm-body { fill: var(--surface-3); stroke: var(--surface-3); }
+.bm-body line { stroke-width: 15; stroke-linecap: round; }
+.bm-cap { fill: var(--text-faint); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+.bm-spot { cursor: pointer; outline: none; }
+.bm-spot .hit { fill: transparent; }
+.bm-spot .dot { fill: var(--surface); stroke: var(--text-muted); stroke-width: 1.6; transition: fill var(--t-quick) var(--ease); }
+.bm-spot .tick { fill: none; stroke: #07120e; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.bm-spot text { fill: var(--text-muted); font-size: 10.5px; font-weight: 500; }
+.bm-spot.on .dot { fill: var(--accent); stroke: var(--accent); }
+.bm-spot.on .tick { opacity: 1; }
+.bm-spot.on text { fill: var(--text); font-weight: 700; }
+.bm-spot:focus-visible .dot { stroke: var(--text); stroke-width: 2.5; }
+.bm-extra { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+.bm-chip { padding: 8px 14px; min-height: 36px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--surface-3); }
+.bm-chip.on { background: var(--accent-soft); color: var(--accent); border-color: var(--accent-dim); }
+.bm-chip.on::before { content: '✓ '; }
+.bm-chip.reset { margin-left: auto; background: none; border-color: transparent; color: var(--text-faint); }
+.body-map.sheet { max-height: 92%; }
+
+/* Player: voice guide toggle under the counter */
+.player .counter-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.player .voice-toggle { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); cursor: pointer; }
+
+.bm-spot .lead { stroke: var(--surface-3); stroke-width: 1; }
+.bm-spot.on .lead { stroke: var(--accent-dim); }
+.bm-fig { overflow: visible; }
+.home .flex-row .flex-lbl { overflow: hidden; }
+.home .flex-row .flex-title, .home .flex-row .flex-sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Tall phones: use the room instead of leaving a gap under the buttons. */
+@media (min-height: 760px) {
+  .home { gap: 14px; padding-top: 10px; }
+  .home .bookend { min-height: 78px; }
+  .home .bookend .be-title { font-size: 19px; }
+  .home .flex-row { min-height: 66px; }
+}
+/* Narrow phones (320px): tighten Core Flex + quick row. */
+@media (max-width: 359px) {
+  .home .flex-row { padding-left: 12px; gap: 6px; }
+  .home .flex-row .flex-sub { display: none; }
+  .home .flex-row .flex-lvl { padding: 6px 7px; font-size: 11px; }
+  .home .quick-row .stiff-label { display: none; }
+  .home .quick-row .stiff-pick { width: 30px; height: 30px; }
+  .home .quick-row .share-day { padding: 0 10px; font-size: 12px; }
+}
+
+/* Bookends share any spare height (tall phones), never below 60px. */
+.home .bookends { flex: 1 1 auto; max-height: 330px; min-height: 0; }
+.home .bookends > .bookend { flex: 1 1 0; }
+.bm-figs { margin: 0 -14px; }

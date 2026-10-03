@@ -1,0 +1,1152 @@
+{
+ "_generic": {
+  "_side_left": "Left side first.",
+  "_side_right": "And now, the right side.",
+  "_release": "And slowly, gently release.",
+  "_done": "Lovely work. That is your routine complete.",
+  "_tingle": "No problem. We will skip that one and move on."
+ },
+ "chin_tucks": {
+  "setup": "Sit or stand tall and glide your chin straight back, making a gentle double chin.",
+  "tips": [
+   "Keep your eyes level; the head slides back, it does not tip down.",
+   "Hold each tuck briefly, then relax forward and repeat.",
+   "Feel a light stretch at the base of the skull.",
+   "Breathe easily and keep your shoulders soft and low."
+  ]
+ },
+ "neck_flexion": {
+  "setup": "Sit tall, let your chin drop toward your chest, and rest a hand lightly behind your head.",
+  "tips": [
+   "Let the weight of your hand do the work; never pull.",
+   "Ease off at the first hint of tingling into the arms or legs.",
+   "Feel the stretch along the back of your neck and upper back.",
+   "Breathe slowly into your upper back and let your shoulders soften."
+  ]
+ },
+ "neck_extension": {
+  "setup": "Sit tall and slowly tilt your head back to look up at the ceiling.",
+  "tips": [
+   "Lead with your eyes and keep the movement small and comfortable.",
+   "Hold lightly, return to level, and repeat at an easy pace.",
+   "If you feel any dizziness, bring your head back to level.",
+   "Breathe softly and keep your shoulders relaxed and down."
+  ]
+ },
+ "ear_to_shoulder": {
+  "setup": "Sit tall and let your ear tilt gently toward your shoulder, face looking forward.",
+  "tips": [
+   "Keep the opposite shoulder heavy, drawing it down away from your ear.",
+   "Feel the stretch along the side of your neck.",
+   "Breathe out slowly and let the neck soften a little further.",
+   "No hand pressure needed; let gravity do the gentle work."
+  ]
+ },
+ "neck_rotation": {
+  "setup": "Sit tall and slowly turn your head to look over your shoulder.",
+  "tips": [
+   "Keep your chin level, turning the nose rather than tipping the head.",
+   "Let your shoulders stay square and still while only the head turns.",
+   "Breathe out and see if the turn eases a touch further.",
+   "Stay in a comfortable range; there is no need to strain."
+  ]
+ },
+ "upper_trap_stretch": {
+  "setup": "Sit tall, tuck one hand behind your back, and tilt your ear away from that arm.",
+  "tips": [
+   "Let the shoulder of the tucked arm draw gently down toward the floor.",
+   "Feel the stretch run from your neck to the top of your shoulder.",
+   "For a little more, rest your free hand lightly on your head.",
+   "Breathe slowly and let your jaw and face relax."
+  ]
+ },
+ "levator_scapulae_stretch": {
+  "setup": "Sit tall, turn your nose down toward your armpit, and rest a hand lightly on the back of your head.",
+  "tips": [
+   "Let the hand rest lightly; its weight is enough, never pull.",
+   "Feel it at the back of your neck, down toward the shoulder blade.",
+   "Keep the opposite shoulder heavy and drawn down.",
+   "Breathe out slowly and let the neck soften."
+  ]
+ },
+ "scalene_stretch": {
+  "setup": "Sit tall, lift your chin slightly and turn your head a little to the side.",
+  "tips": [
+   "Feel a gentle stretch along the front and side of your neck.",
+   "Rest a hand on your collarbone to keep it anchored down.",
+   "Keep it subtle; ease off if anything feels pinchy or dizzy.",
+   "Breathe slowly through your nose and let your jaw soften."
+  ]
+ },
+ "shoulder_rolls": {
+  "setup": "Stand tall, arms relaxed, and roll your shoulders in slow, full circles.",
+  "tips": [
+   "Lift up toward your ears, squeeze back, then let them drop down.",
+   "Make each circle as big and smooth as feels comfortable.",
+   "Every few circles, reverse the direction.",
+   "Breathe in as you lift, breathe out as you let them fall."
+  ]
+ },
+ "cross_body_shoulder": {
+  "setup": "Bring one arm across your chest and hold it just above the elbow with your other hand.",
+  "tips": [
+   "Keep the shoulder down and away from your ear.",
+   "Feel the stretch across the back of the shoulder.",
+   "Draw the arm in gently; avoid pressing on the elbow joint itself.",
+   "Breathe out and let the shoulder blade widen and soften."
+  ]
+ },
+ "eagle_arms": {
+  "setup": "Cross one arm under the other in front of you, wrap the forearms, and lift your elbows.",
+  "tips": [
+   "Lift the elbows to shoulder height and ease them slightly forward.",
+   "Feel the space widen between your shoulder blades.",
+   "If your palms cannot meet, press the backs of the hands together.",
+   "Keep your shoulders low and breathe wide into your upper back."
+  ]
+ },
+ "cow_face_arms": {
+  "setup": "Reach one hand over your shoulder down your back, and the other up behind to meet it.",
+  "tips": [
+   "If the hands do not meet, hold a towel or strap between them.",
+   "Keep your ribs soft and avoid arching your lower back.",
+   "Feel the stretch along the back of the top arm and the shoulder.",
+   "Breathe slowly, keeping your head tall and your elbow pointing up."
+  ]
+ },
+ "reverse_prayer": {
+  "setup": "Bring your palms together behind your back, fingertips pointing up between your shoulder blades.",
+  "tips": [
+   "If palms will not meet, hold opposite elbows behind your back instead.",
+   "Roll the shoulders back and open the chest.",
+   "Feel the stretch across the fronts of the shoulders and wrists.",
+   "Breathe steadily and keep your wrists comfortable; ease off if they ache."
+  ]
+ },
+ "doorway_pec": {
+  "setup": "Rest your forearm on a doorframe, elbow bent to ninety degrees at shoulder height, and step gently through.",
+  "tips": [
+   "Keep your shoulder down and back, not rolling forward.",
+   "Feel the stretch open across your chest and the front of the shoulder.",
+   "Ease off if you feel tingling or pinching in the arm.",
+   "Breathe into your chest and let it open a little more each exhale."
+  ]
+ },
+ "sleeper_stretch": {
+  "setup": "Lie on your side, bottom elbow bent to ninety degrees at shoulder height, and ease that hand toward the floor.",
+  "tips": [
+   "Use your top hand to press gently; never force the rotation.",
+   "Roll slightly back off the shoulder if you feel any pinching.",
+   "Feel the stretch at the back of the shoulder.",
+   "Rest your head on a cushion and breathe slowly."
+  ]
+ },
+ "wall_slides": {
+  "setup": "Stand with your back to a wall, arms bent to ninety degrees, and slowly slide them up overhead.",
+  "tips": [
+   "Keep your lower back gently against the wall; do not arch.",
+   "Slide up as you exhale, then down as you inhale.",
+   "Only go as high as you can while keeping contact.",
+   "Draw the shoulder blades down as the arms come back down."
+  ]
+ },
+ "thread_needle": {
+  "setup": "On hands and knees, slide one arm under your chest, across to the far side, and rest that shoulder down.",
+  "tips": [
+   "Keep your hips stacked over your knees as you twist.",
+   "Feel it open between your shoulder blades and behind the shoulder.",
+   "Breathe into your upper back and let the twist deepen naturally.",
+   "Rest your head fully and let your neck relax."
+  ]
+ },
+ "child_pose_extended": {
+  "setup": "Kneel, sit back toward your heels, and fold forward, walking both hands far out in front.",
+  "tips": [
+   "Press lightly through your palms and feel your arms and sides lengthen.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Breathe slowly into your back and let your forehead rest heavy.",
+   "Widen your knees or place a cushion under your hips if needed."
+  ]
+ },
+ "pendulum_swings": {
+  "setup": "Rest one hand on a table, hinge forward with soft knees, and let your other arm hang loosely.",
+  "tips": [
+   "Let the arm swing in small, slow circles, driven by your body sway.",
+   "Keep your back long, and ease off at any tingling down the leg.",
+   "Breathe easily and keep the hanging arm loose, like a heavy rope.",
+   "Every few circles, reverse the direction."
+  ]
+ },
+ "cat_cow": {
+  "setup": "Come onto hands and knees, wrists under shoulders, and slowly alternate arching and rounding your back.",
+  "tips": [
+   "Move slowly: inhale as your belly drops and chest lifts, exhale to round.",
+   "Round up through the whole spine, letting your head hang heavy.",
+   "Keep the range easy; ease off at any tingling down the leg.",
+   "Let the breath set the pace, one smooth wave at a time."
+  ]
+ },
+ "thoracic_extension_chair": {
+  "setup": "Sit on a chair and gently lean back over the chair-back, reaching both arms overhead.",
+  "tips": [
+   "Let the bend come from your upper back, not your lower back.",
+   "Support your head with your hands if your neck feels strained.",
+   "Feel your chest open and the upper spine gently extend.",
+   "Breathe deeply into the front of your chest."
+  ]
+ },
+ "open_book": {
+  "setup": "Lie on your side, knees bent and stacked, arms out in front, and open your top arm across.",
+  "tips": [
+   "Keep your knees together and resting down as your chest turns open.",
+   "Follow your moving hand with your eyes to turn the upper spine.",
+   "Breathe out as you open, letting the arm settle toward the floor.",
+   "Only go as far as feels easy; the arm need not touch down."
+  ]
+ },
+ "quadruped_tspine_rotation": {
+  "setup": "On hands and knees, place one hand behind your head and rotate that elbow up toward the ceiling.",
+  "tips": [
+   "Then sweep the elbow down and under toward the supporting arm.",
+   "Keep your hips still and level; the turn comes from your upper back.",
+   "Inhale as you open up, exhale as you thread under.",
+   "Move slowly and smoothly, never swinging into the end range."
+  ]
+ },
+ "wall_angels": {
+  "setup": "Stand with your back flat to a wall, arms bent at ninety degrees, and trace slow snow-angel arcs overhead.",
+  "tips": [
+   "Keep head, upper back and lower back gently touching the wall.",
+   "Exhale as the arms rise, inhale as they lower.",
+   "Only go as high as you can while keeping your arms in contact.",
+   "Feel the muscles between your shoulder blades doing the work."
+  ]
+ },
+ "bear_hug": {
+  "setup": "Wrap your arms around yourself, hands reaching toward your shoulder blades, and round your upper back.",
+  "tips": [
+   "Breathe wide into your back and feel the shoulder blades spread apart.",
+   "Keep the curve high; ease off at any tingling down the leg.",
+   "Let your chin drop slightly and your neck soften.",
+   "Let your shoulders drop away from your ears as you breathe out."
+  ]
+ },
+ "doorway_pec_high": {
+  "setup": "Rest your forearm on a doorframe with the elbow above shoulder height, and step gently through.",
+  "tips": [
+   "Keep your shoulder down and back, away from your ear.",
+   "Feel the stretch across the chest and toward the armpit.",
+   "Ease off if you feel tingling or pinching in the arm.",
+   "Breathe slowly and let your chest open a little more each exhale."
+  ]
+ },
+ "doorway_pec_low": {
+  "setup": "Rest your forearm on a doorframe with the elbow below shoulder height, and step gently through.",
+  "tips": [
+   "Keep your chest tall and the shoulder from rolling forward.",
+   "Feel the stretch across the front of the shoulder and upper chest.",
+   "Ease off if you feel tingling or pinching in the arm.",
+   "Breathe slowly and let your weight carry you gently forward."
+  ]
+ },
+ "corner_stretch": {
+  "setup": "Face a corner, place a forearm on each wall at shoulder height, and step gently in.",
+  "tips": [
+   "Keep your chin tucked and avoid poking your head forward.",
+   "Feel both sides of your chest open evenly.",
+   "Keep a gentle brace through your middle so the lower back stays neutral.",
+   "Breathe slowly into your chest and let your shoulders settle back."
+  ]
+ },
+ "floor_y_hold": {
+  "setup": "Lie face down, arms overhead in a Y, thumbs up, and lift your arms just off the floor.",
+  "tips": [
+   "Draw your shoulder blades down and back, away from your ears.",
+   "Keep your forehead resting lightly, with your neck long.",
+   "Feel the muscles between and below your shoulder blades working.",
+   "Breathe steadily; lower and rest if you need, then lift again."
+  ]
+ },
+ "reclined_butterfly": {
+  "setup": "Lie back, soles of the feet together, knees falling open, arms resting overhead.",
+  "tips": [
+   "Support each knee with a cushion if your hips feel strained.",
+   "Let your lower back rest naturally, without pressing or arching.",
+   "Feel your inner thighs and chest gently open.",
+   "Breathe slowly into your belly and let your whole body grow heavy."
+  ]
+ },
+ "childs_pose": {
+  "setup": "Kneel, sit back toward your heels, and fold forward, arms ahead or resting by your sides.",
+  "tips": [
+   "Let your forehead rest down and your whole back grow heavy.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Breathe slowly into your lower back and feel it widen.",
+   "Widen your knees or place a cushion under your hips for comfort."
+  ]
+ },
+ "knee_to_chest": {
+  "setup": "Lie on your back and draw one knee toward your chest, hands holding behind the thigh.",
+  "tips": [
+   "Keep the other leg bent with the foot flat, or long if comfortable.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Feel a gentle stretch in your lower back and buttock.",
+   "Keep your head and shoulders relaxed on the mat as you breathe."
+  ]
+ },
+ "cobra": {
+  "setup": "Lie face down, hands under your shoulders, and press your chest up, keeping your hips on the floor.",
+  "tips": [
+   "Only rise as high as is comfortable; elbows can stay softly bent.",
+   "If symptoms spread further down the leg, lower down and ease off.",
+   "Let your buttocks and lower back stay relaxed rather than clenched.",
+   "Keep your shoulders away from your ears and breathe slowly."
+  ]
+ },
+ "sphinx": {
+  "setup": "Lie face down and prop yourself up on your forearms, elbows under your shoulders.",
+  "tips": [
+   "Let your belly and hips sink heavy into the floor.",
+   "If symptoms spread further down the leg, lower down and ease off.",
+   "Gently draw your chest forward and keep your neck long.",
+   "Breathe slowly and let your lower back soften into the gentle curve."
+  ]
+ },
+ "supine_spinal_twist": {
+  "setup": "Lie on your back, arms out wide, bring your knees up and lower them gently to one side.",
+  "tips": [
+   "Keep both shoulders heavy on the mat as the knees settle.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Only lower as far as feels easy; rest the knees on a cushion.",
+   "Breathe out slowly and feel the twist soften through your lower back."
+  ]
+ },
+ "bird_dog": {
+  "setup": "On hands and knees, reach one arm forward and the opposite leg back, then alternate slowly.",
+  "tips": [
+   "Keep your hips level, as if balancing a cup on your lower back.",
+   "Reach long rather than high; the leg stops at hip height.",
+   "Exhale as you extend, inhale as you return to all fours.",
+   "Move slowly and keep your neck long, gaze down at the mat."
+  ]
+ },
+ "glute_bridge": {
+  "setup": "Lie on your back, knees bent and feet flat, then press through your heels to lift your hips.",
+  "tips": [
+   "Squeeze your glutes to lift; avoid arching through your lower back.",
+   "Exhale as you lift, inhale as you lower slowly down.",
+   "Rise until knees, hips and shoulders form a straight line.",
+   "Feel the work in your buttocks, not your hamstrings or lower back."
+  ]
+ },
+ "mckenzie_press_ups": {
+  "setup": "Lie face down, hands beside your ribs, and press your chest up while your hips stay down.",
+  "tips": [
+   "Let your lower back and buttocks stay completely relaxed as you rise.",
+   "Press up as you exhale, lower slowly as you inhale.",
+   "If symptoms spread further down the leg, keep the range smaller.",
+   "Rise a little higher each time, only as far as feels easy."
+  ]
+ },
+ "superman_hold": {
+  "setup": "Lie face down, arms reaching forward, and lift your arms, chest and legs just off the floor.",
+  "tips": [
+   "Keep the lift small; length matters more than height.",
+   "If your back or leg complains, lift only the arms and chest.",
+   "Keep your gaze down so your neck stays long.",
+   "Breathe steadily through each hold, then lower and rest before repeating."
+  ]
+ },
+ "kneeling_hip_flexor": {
+  "setup": "Come into half-kneeling, back knee on a cushion, then squeeze the back-leg glute and shift forward.",
+  "tips": [
+   "Tuck your pelvis under first; the stretch comes from the tuck.",
+   "Feel it at the front of the hip on the kneeling side.",
+   "Stay tall through your chest and avoid arching your lower back.",
+   "Breathe out and let the front of the hip soften a little more."
+  ]
+ },
+ "couch_stretch": {
+  "setup": "Kneel with your back foot up on a couch, front foot planted, and gently drive your hips forward.",
+  "tips": [
+   "Squeeze the back glute and tuck your pelvis; keep your ribs down.",
+   "Stay leaning forward on the front thigh if upright feels too strong.",
+   "Feel a deep stretch along the front of the thigh and hip.",
+   "Breathe slowly; this one is intense, so stay well below any strain."
+  ]
+ },
+ "pigeon_pose": {
+  "setup": "Bring one shin forward across your mat, extend the other leg straight back, and fold gently forward.",
+  "tips": [
+   "Keep your hips square, with a cushion under the front hip if needed.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Feel the stretch deep in the buttock of the front leg.",
+   "Rest on your forearms or a cushion and breathe slowly into the hip."
+  ]
+ },
+ "half_pigeon_supine": {
+  "setup": "Lie on your back, cross one ankle over the opposite knee, and draw that thigh gently toward you.",
+  "tips": [
+   "Flex the crossed foot to keep the knee comfortable.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Feel the stretch deep in the buttock and outer hip.",
+   "Keep your head and shoulders resting heavy on the mat as you breathe."
+  ]
+ },
+ "frog_stretch": {
+  "setup": "Come onto all fours, widen your knees, turn your toes out, and rest on your forearms.",
+  "tips": [
+   "Keep your ankles in line with your knees, shins parallel.",
+   "Sit your hips back slowly, only as far as feels easy.",
+   "Feel the stretch along your inner thighs and groin.",
+   "Breathe out and let your hips sink a little heavier."
+  ]
+ },
+ "butterfly_stretch": {
+  "setup": "Sit tall, bring the soles of your feet together, and let your knees fall open.",
+  "tips": [
+   "Lengthen up through your spine before any gentle lean forward.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Rest your elbows lightly on your knees, with soft, gentle pressure.",
+   "Breathe slowly and let your knees soften toward the floor."
+  ]
+ },
+ "ninety_ninety": {
+  "setup": "Sit with your front leg bent at ninety degrees ahead, back leg bent ninety degrees beside you.",
+  "tips": [
+   "Sit tall and square your chest over your front shin.",
+   "Feel it deep in the outer hip and seat of the front leg.",
+   "Use your hands behind you for support if your hips feel tight.",
+   "Breathe out and let the front hip settle a little lower."
+  ]
+ },
+ "lizard_pose": {
+  "setup": "Step into a low lunge, back knee down, and lower both forearms inside your front foot.",
+  "tips": [
+   "Keep your front knee tracking over your ankle, not collapsing inward.",
+   "Feel the stretch in your front inner hip and back hip flexor.",
+   "Stay on your hands instead if forearms feel too deep.",
+   "Breathe slowly and let your hips sink gently with each exhale."
+  ]
+ },
+ "reclined_figure4": {
+  "setup": "Lie on your back, cross your ankle over the opposite knee, and pull the thigh in gently.",
+  "tips": [
+   "Flex your crossed foot to protect the knee, and keep shoulders heavy.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Feel it deep in the seat of the crossed leg.",
+   "Breathe out and let the crossed knee drift gently away from you."
+  ]
+ },
+ "deep_squat_hold": {
+  "setup": "Stand with feet a little wider than hips, toes turned out, and sink into a deep squat.",
+  "tips": [
+   "Keep your heels down; rest them on a folded towel if needed.",
+   "Only sink as deep as your lower back stays comfortable.",
+   "Press your elbows gently against your inner knees to open the hips.",
+   "Breathe slowly into your belly and let your hips settle."
+  ]
+ },
+ "single_leg_glute_bridge": {
+  "setup": "Lie on your back, plant one foot, extend the other leg, and lift your hips.",
+  "tips": [
+   "Drive through your planted heel and squeeze your glute at the top.",
+   "Exhale as you lift, inhale as you lower slowly.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Keep your hips level; do not let them tip or twist."
+  ]
+ },
+ "clamshells": {
+  "setup": "Lie on your side, knees bent, feet together, and slowly open the top knee.",
+  "tips": [
+   "Keep your feet touching and your hips stacked; do not roll back.",
+   "Exhale as the knee opens, inhale as it lowers.",
+   "Feel it working in the side of your seat.",
+   "Small and controlled beats big and rushed."
+  ]
+ },
+ "fire_hydrants": {
+  "setup": "On all fours, keep your knee bent and lift it out to the side.",
+  "tips": [
+   "Keep your back flat and your weight even across both hands.",
+   "Exhale as you lift, inhale as you lower with control.",
+   "Lift only as high as your hips stay level.",
+   "Feel the work in the side of your seat."
+  ]
+ },
+ "side_lying_hip_abduction": {
+  "setup": "Lie on your side, bottom knee bent for support, and slowly lift your straight top leg.",
+  "tips": [
+   "Lead with your heel and keep your toes pointing forward.",
+   "Exhale to lift, inhale to lower slowly.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Keep your hips stacked; lift only as high as stays controlled."
+  ]
+ },
+ "donkey_kicks": {
+  "setup": "On all fours, keep your knee bent and press the sole of your foot toward the ceiling.",
+  "tips": [
+   "Keep your lower back still; the lift comes from your seat.",
+   "Exhale to press up, inhale to lower with control.",
+   "Lift only to hip height, never arching to go higher.",
+   "Keep your neck long and your gaze down between your hands."
+  ]
+ },
+ "standing_forward_fold": {
+  "setup": "Stand with feet hip width, soften your knees, and fold forward from your hips.",
+  "tips": [
+   "Keep your knees softly bent and let your arms hang heavy.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Let your head and neck relax completely, nodding gently if you like.",
+   "Breathe into your back and let it soften with each exhale."
+  ]
+ },
+ "seated_forward_fold": {
+  "setup": "Sit with legs straight in front, knees soft, and hinge forward toward your toes.",
+  "tips": [
+   "Lead with your chest and keep your spine long, not rounded.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Bend your knees as much as you need; never force the reach.",
+   "Breathe slowly and let your hamstrings soften with each exhale."
+  ]
+ },
+ "supine_hamstring_strap": {
+  "setup": "Lie on your back, loop a strap over one foot, and raise that leg toward you.",
+  "tips": [
+   "Keep the knee soft and the foot relaxed.",
+   "Stop before any tingling; ease off at the first hint.",
+   "Keep your other leg and your hips resting heavy on the mat.",
+   "Breathe slowly, holding the strap lightly, with shoulders relaxed."
+  ]
+ },
+ "wide_leg_forward_fold": {
+  "setup": "Sit with legs wide and straight, sit tall, then fold forward from your hips.",
+  "tips": [
+   "Keep your back long; lead with your chest, not your head.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Keep knees and toes pointing up, and soften the knees if needed.",
+   "Breathe out and let your inner thighs and hamstrings soften."
+  ]
+ },
+ "single_leg_forward_fold": {
+  "setup": "Sit with one leg straight, the other foot tucked to your inner thigh, and fold forward.",
+  "tips": [
+   "Hinge from your hips over the straight leg, keeping your spine long.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Soften the knee of the straight leg if the stretch feels sharp.",
+   "Breathe slowly and let your shoulders and neck relax."
+  ]
+ },
+ "standing_hamstring_chair": {
+  "setup": "Stand facing a chair, rest one heel on the seat, and hinge forward from your hips.",
+  "tips": [
+   "Keep your back long and the raised knee softly unlocked.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Keep your standing knee soft and a hand near support.",
+   "Breathe out and let the back of the thigh soften."
+  ]
+ },
+ "down_dog": {
+  "setup": "From all fours, tuck your toes and lift your hips up and back.",
+  "tips": [
+   "Bend your knees freely so your spine stays long.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Press the floor away and let your head hang between your arms.",
+   "Breathe slowly; let your heels drift toward the floor without forcing."
+  ]
+ },
+ "toe_to_wall": {
+  "setup": "Place your toes up against a wall, heel down, and hinge gently forward from your hips.",
+  "tips": [
+   "Keep the leg straight but the knee unlocked.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Feel the stretch through your calf and back of the leg.",
+   "Breathe easily and keep a hand on the wall for support."
+  ]
+ },
+ "standing_quad": {
+  "setup": "Stand tall, hold a support, and draw one heel toward your seat by the ankle.",
+  "tips": [
+   "Knees together, pelvis gently tucked, standing tall.",
+   "Keep a hand near support so you stay steady.",
+   "Feel the stretch along the front of the thigh.",
+   "Breathe easily, without arching your lower back."
+  ]
+ },
+ "side_lying_quad": {
+  "setup": "Lie on your side, bend your top knee, and hold that ankle behind you.",
+  "tips": [
+   "Draw the heel gently toward your seat, keeping knees together.",
+   "Tuck your pelvis slightly so your lower back stays long.",
+   "Feel it along the front of the top thigh.",
+   "Rest your head on your arm and breathe easily."
+  ]
+ },
+ "kneeling_quad": {
+  "setup": "Kneel facing away from a wall, back shin up against it, front foot forward in a lunge.",
+  "tips": [
+   "Squeeze your back glute and tuck your pelvis gently under.",
+   "Sink your hips only as far as stays comfortable.",
+   "Breathe slowly and let the front of the thigh soften.",
+   "Pad the back knee and keep a hand near support."
+  ]
+ },
+ "hero_pose": {
+  "setup": "Kneel with knees together and sit back onto your heels, or onto a block.",
+  "tips": [
+   "Use a block or cushion if your knees or ankles complain.",
+   "Sit tall, stacking your shoulders over your hips.",
+   "Feel a gentle stretch across the fronts of your thighs and ankles.",
+   "Rest your hands on your thighs and breathe slowly."
+  ]
+ },
+ "standing_calf": {
+  "setup": "Hands on the wall, step one leg back, keep it straight, and press the heel down.",
+  "tips": [
+   "Keep your back toes pointing straight forward.",
+   "Lean your hips gently toward the wall to deepen it.",
+   "Feel it in the upper calf of the straight leg.",
+   "Breathe easily and keep your shoulders relaxed."
+  ]
+ },
+ "bent_knee_calf": {
+  "setup": "Hands on the wall, step one leg back, heel down, and gently bend the back knee.",
+  "tips": [
+   "Keep the back heel grounded as the knee bends.",
+   "Feel it lower down, deep in the calf near the ankle.",
+   "Keep your toes pointing forward and hips square.",
+   "Breathe slowly and let the calf soften."
+  ]
+ },
+ "down_dog_pedal": {
+  "setup": "From all fours, lift your hips into down dog, then press one heel down, then the other.",
+  "tips": [
+   "Bend one knee as the other heel sinks, like walking in place.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Breathe steadily and keep the rhythm slow and smooth.",
+   "Keep your neck relaxed and your head between your arms."
+  ]
+ },
+ "heel_drops": {
+  "setup": "Stand on a step on the balls of your feet, hold a rail, and slowly lower your heels.",
+  "tips": [
+   "Lower your heels slowly below the step; never bounce.",
+   "Keep a hand near support the whole time.",
+   "Rise back up smoothly, keeping your knees soft.",
+   "Breathe steadily and feel the calves lengthen and work."
+  ]
+ },
+ "ankle_circles": {
+  "setup": "Lift one foot, holding a support, and draw slow circles with your toes.",
+  "tips": [
+   "Keep the movement in the ankle, with your leg still.",
+   "Make the circles as big and smooth as feels easy.",
+   "Keep a hand near support to stay steady.",
+   "Reverse direction halfway and breathe easily throughout."
+  ]
+ },
+ "forearm_plank": {
+  "setup": "Lie face down, then rise onto your forearms and toes, body in one straight line.",
+  "tips": [
+   "Elbows under shoulders, and squeeze your glutes to protect your lower back.",
+   "Draw your belly gently in; do not let your hips sag.",
+   "Breathe steadily; never hold your breath.",
+   "Drop to your knees anytime the line starts to break."
+  ]
+ },
+ "knee_plank": {
+  "setup": "Lie face down, then rise onto your forearms and knees, body in one line.",
+  "tips": [
+   "Keep a straight line from your head through to your knees.",
+   "Elbows under shoulders, belly drawn gently in.",
+   "Squeeze your glutes so your lower back stays neutral.",
+   "Breathe steadily and keep your neck long."
+  ]
+ },
+ "dead_bug": {
+  "setup": "Lie on your back, arms up, knees over hips, then slowly lower opposite arm and leg.",
+  "tips": [
+   "Keep your lower back gently pressed into the mat throughout.",
+   "Exhale as you lower, inhale as you return to centre.",
+   "Move slowly; only lower as far as your back stays flat.",
+   "Keep your neck relaxed and your head resting on the mat."
+  ]
+ },
+ "hollow_body_hold": {
+  "setup": "Lie on your back, press your lower back down, and lift your arms and legs slightly.",
+  "tips": [
+   "Keep your lower back pinned to the floor the whole time.",
+   "Bend your knees or raise your legs higher to make it easier.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Keep breathing steadily; never hold your breath."
+  ]
+ },
+ "hollow_body_rocks": {
+  "setup": "Find your hollow body shape, lower back down, then rock gently forward and back.",
+  "tips": [
+   "Keep the shape fixed; the rock comes from your whole body.",
+   "Small, smooth rocks are plenty; stay in control.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Breathe steadily with the rhythm, never holding your breath."
+  ]
+ },
+ "toe_taps": {
+  "setup": "Lie on your back, knees bent at ninety degrees, then lower one toe to tap the floor.",
+  "tips": [
+   "Alternate slowly, keeping your lower back gently pressed into the mat.",
+   "Exhale as the toe lowers, inhale as it returns.",
+   "Keep the knee bend fixed; move only from the hip.",
+   "Keep your neck and shoulders relaxed on the floor."
+  ]
+ },
+ "leg_lowers": {
+  "setup": "Lie on your back, legs up toward the ceiling, and slowly lower them toward the floor.",
+  "tips": [
+   "Only lower as far as your lower back stays pressed down.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Exhale as you lower, inhale as you lift back up.",
+   "Soften your knees or place hands under your hips for support."
+  ]
+ },
+ "v_sit_hold": {
+  "setup": "Sit tall, lean back slightly, and lift your legs, balancing in a V with arms forward.",
+  "tips": [
+   "Keep your chest lifted and spine long rather than slumped.",
+   "Bend your knees to make the balance easier.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Breathe steadily and keep a hand near the floor if needed."
+  ]
+ },
+ "side_plank": {
+  "setup": "Lie on your side, prop up on your forearm, and lift your hips into a straight line.",
+  "tips": [
+   "Stack your elbow directly under your shoulder.",
+   "Keep your hips lifted and in line with your head and feet.",
+   "Breathe steadily; never hold your breath.",
+   "Drop the bottom knee anytime you need an easier version."
+  ]
+ },
+ "side_plank_knees": {
+  "setup": "Lie on your side, knees bent, prop up on your forearm, and lift your hips.",
+  "tips": [
+   "Elbow under shoulder, body straight from head to knees.",
+   "Press the bottom knee down and lift through the side waist.",
+   "Breathe steadily and keep your top shoulder rolled back.",
+   "Keep your neck long, gaze straight ahead."
+  ]
+ },
+ "side_bend": {
+  "setup": "Stand tall, feet hip width, reach one arm overhead, and bend gently to the opposite side.",
+  "tips": [
+   "Keep both feet grounded and your hips steady.",
+   "Lean straight sideways, not forward or back.",
+   "Feel the stretch along the whole lengthened side of your body.",
+   "Breathe into your ribs and let them open with each inhale."
+  ]
+ },
+ "standing_oblique_reach": {
+  "setup": "Stand tall, reach one arm up overhead, and lengthen that whole side of your body.",
+  "tips": [
+   "Reach up first, then only a gentle arc over.",
+   "Keep your shoulders relaxed away from your ears.",
+   "Feel it from your hip all the way to your fingertips.",
+   "Breathe in to grow taller, breathe out to soften."
+  ]
+ },
+ "pallof_press": {
+  "setup": "Stand side on to the anchor, band at your chest, and press your hands straight out.",
+  "tips": [
+   "Resist the twist; keep your chest and hips facing forward.",
+   "Brace your belly gently and keep your knees soft.",
+   "Exhale as you press out, inhale as you draw back in.",
+   "Move slowly, pausing briefly with your arms fully extended."
+  ]
+ },
+ "reverse_plank": {
+  "setup": "Sit with legs straight, hands behind you, fingers forward, and lift your hips into a straight line.",
+  "tips": [
+   "Press through your hands and heels, squeezing your glutes to stay up.",
+   "Keep your neck neutral rather than dropping your head back.",
+   "Bend your knees to tabletop if the straight line feels too much.",
+   "Breathe steadily; never hold your breath."
+  ]
+ },
+ "quadruped_opp_raise": {
+  "setup": "On all fours, slowly reach one arm forward and the opposite leg back, then alternate.",
+  "tips": [
+   "Keep your back flat and hips level, as if balancing a cup.",
+   "Lift only a few inches; control matters more than height.",
+   "Exhale as you reach, inhale as you return to all fours.",
+   "Keep your neck long, gaze down between your hands."
+  ]
+ },
+ "prone_ytw": {
+  "setup": "Lie face down, forehead resting on a folded towel, arms reaching overhead in a Y shape.",
+  "tips": [
+   "Lift your arms only an inch or two, leading with your shoulder blades.",
+   "Move slowly from Y, to T, to W, pausing briefly in each.",
+   "Exhale as you lift, inhale as you lower.",
+   "Keep your neck long and your gaze down towards the mat."
+  ]
+ },
+ "sun_salute": {
+  "setup": "Stand tall, feet hip-width apart. Sweep both arms overhead, then hinge forward with soft knees.",
+  "tips": [
+   "Inhale to sweep up, exhale to fold. Let the breath set the pace.",
+   "Keep your knees generously bent as you fold, so the back stays easy.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Rise slowly, rolling up through the spine, head coming up last."
+  ]
+ },
+ "bodyweight_squat": {
+  "setup": "Stand with feet shoulder-width apart. Lower slowly for three, pause for two, rise for three.",
+  "tips": [
+   "Sit your hips back as if reaching for a chair behind you.",
+   "Keep your knees tracking over your toes and your chest lifted.",
+   "Inhale on the way down, exhale as you stand.",
+   "Only go as deep as feels comfortable for your back."
+  ]
+ },
+ "goblet_squat_hold": {
+  "setup": "Hold a weight close to your chest, feet a little wider than hips, and sink into a deep squat.",
+  "tips": [
+   "Keep your chest tall and the weight tucked in close to you.",
+   "Press your knees gently outwards, in line with your toes.",
+   "Breathe slowly into your belly and let your hips settle lower.",
+   "Rise up a little if your low back starts to round."
+  ]
+ },
+ "forward_lunge": {
+  "setup": "Stand tall, then step one foot forward and lower the back knee gently towards the floor.",
+  "tips": [
+   "Keep your front knee over your ankle, not drifting past your toes.",
+   "Push through the front heel to step back up to standing.",
+   "Exhale as you push back up; move at a steady, even pace.",
+   "Keep your torso upright and your core gently engaged."
+  ]
+ },
+ "reverse_lunge": {
+  "setup": "Stand tall, then step one foot back and lower that back knee gently towards the floor.",
+  "tips": [
+   "Keep most of your weight in the front heel.",
+   "Front knee stays over the ankle; hips square to the front.",
+   "Inhale to step back, exhale to drive up to standing.",
+   "Shorten the step if anything pulls in your low back or leg."
+  ]
+ },
+ "lateral_lunge": {
+  "setup": "Stand with feet together. Step one foot wide to the side and sit your hips back over it.",
+  "tips": [
+   "Keep the other leg straight and both feet pointing forward.",
+   "Sit back into the hip, chest proud, rather than leaning forward.",
+   "Ease off at any tingling down the straight leg.",
+   "Exhale as you push off to return to the centre."
+  ]
+ },
+ "worlds_greatest_stretch": {
+  "setup": "Step into a long lunge, hands inside your front foot, then open your top arm to the ceiling.",
+  "tips": [
+   "Follow your top hand with your eyes, rotating through your upper back.",
+   "Then shift your hips back, front knee soft, for a gentle hamstring reach.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Exhale into each rotation; move slowly, three rounds, no rushing."
+  ]
+ },
+ "cossack_squat": {
+  "setup": "Take a wide stance, toes turned out slightly, and shift your weight low over one leg.",
+  "tips": [
+   "Keep the heel of the bent leg down and your chest lifted.",
+   "Move slowly side to side, only as low as feels easy.",
+   "Ease off at any tingling down the straight leg.",
+   "Exhale as you sink, inhale as you travel through the middle."
+  ]
+ },
+ "down_dog_flow": {
+  "setup": "Start in downward dog, hands wide and knees soft, then flow slowly forward to plank and upward dog.",
+  "tips": [
+   "Exhale back to downward dog, inhale forward through plank to upward dog.",
+   "Keep your knees bent in downward dog so the hamstrings stay easy.",
+   "Ease off at the first hint of tingling down the leg.",
+   "In upward dog, lift gently, shoulders away from your ears."
+  ]
+ },
+ "single_leg_balance": {
+  "setup": "Stand tall beside a wall or chair, then lift one foot just off the floor.",
+  "tips": [
+   "Keep a hand near your support, ready to steady yourself.",
+   "Soften the standing knee and spread your weight through the whole foot.",
+   "Breathe slowly and fix your gaze on one still point ahead.",
+   "If steady, try closing your eyes for a few breaths."
+  ]
+ },
+ "tree_pose": {
+  "setup": "Stand near a support, then place the sole of one foot on your inner calf or thigh.",
+  "tips": [
+   "Keep a hand near your support until you feel steady.",
+   "Press foot and leg gently into each other, avoiding the knee joint.",
+   "When steady, raise your arms overhead, shoulders soft.",
+   "Breathe slowly and rest your gaze on one still point."
+  ]
+ },
+ "heel_toe_walk": {
+  "setup": "Walk slowly in a straight line, placing each heel directly in front of the other toes.",
+  "tips": [
+   "Walk alongside a wall so a hand can stay near support.",
+   "Fix your gaze ahead rather than down at your feet.",
+   "Move slowly and smoothly, one calm step per breath.",
+   "Arms can float out to the sides to help you balance."
+  ]
+ },
+ "sit_to_stand_practice": {
+  "setup": "Sit cross-legged on the floor, then stand up without using your hands or knees.",
+  "tips": [
+   "Lean forward over your feet and drive up through your legs.",
+   "Lower back down slowly and with control, then repeat.",
+   "Exhale as you rise; take a breath between each rep.",
+   "Use a hand for support whenever you need it; no straining."
+  ]
+ },
+ "single_leg_deadlift": {
+  "setup": "Stand on one leg near a support, then hinge at the hip as the other leg reaches back.",
+  "tips": [
+   "Keep a hand near your support, ready to steady yourself.",
+   "Keep your back long and hips level, standing knee softly bent.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Inhale as you hinge, exhale to squeeze the glute and stand."
+  ]
+ },
+ "eyes_closed_romberg": {
+  "setup": "Stand beside a wall with feet together and arms by your sides, then gently close your eyes.",
+  "tips": [
+   "Keep a hand near the wall, ready to steady yourself.",
+   "Let small sways happen; stay soft rather than rigid.",
+   "Breathe slowly and evenly through your nose.",
+   "Open your eyes at any time if you feel unsteady."
+  ]
+ },
+ "pilates_hundred": {
+  "setup": "Lie on your back, knees in tabletop, lift head and shoulders, and pump straight arms by your hips.",
+  "tips": [
+   "Inhale for five pumps, exhale for five pumps.",
+   "Keep your low back gently anchored to the mat.",
+   "Rest your head down if your neck tires; keep the arms pumping.",
+   "Ease off at the first hint of tingling down the leg."
+  ]
+ },
+ "pilates_roll_up": {
+  "setup": "Lie on your back, knees softly bent, arms overhead, then roll up slowly into a forward fold.",
+  "tips": [
+   "Peel up one vertebra at a time, then roll down the same way.",
+   "Inhale to lift arms and head, exhale to curl up and over.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Keep your knees bent if the fold pulls; no momentum needed."
+  ]
+ },
+ "pilates_double_leg_stretch": {
+  "setup": "Lie on your back, curl head and shoulders up, and hug your knees into your chest.",
+  "tips": [
+   "Inhale to reach arms and legs out long, exhale to circle back in.",
+   "Keep your low back anchored; reach the legs higher if it lifts.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Let your gaze rest towards your knees, neck long."
+  ]
+ },
+ "pilates_single_leg_stretch": {
+  "setup": "Lie on your back, head and shoulders curled up, one knee hugged in, the other leg extended.",
+  "tips": [
+   "Alternate legs smoothly, drawing one knee in as the other reaches away.",
+   "Exhale with each change; keep a steady, even rhythm.",
+   "Keep your torso still and your low back anchored to the mat.",
+   "Ease off at the first hint of tingling down the leg."
+  ]
+ },
+ "pilates_criss_cross": {
+  "setup": "Lie on your back, hands behind your head, curl up and bring one elbow towards the opposite knee.",
+  "tips": [
+   "Twist from your ribs, not your elbows; keep the elbows wide.",
+   "Exhale as you twist, inhale as you pass through the centre.",
+   "Hands cradle the head lightly; never pull on your neck.",
+   "Ease off at the first hint of tingling down the leg."
+  ]
+ },
+ "pilates_teaser": {
+  "setup": "Sit with knees bent, lean back, then lift your legs and reach your hands towards your toes in a V.",
+  "tips": [
+   "Keep your knees bent and shins level for an easier version.",
+   "Lift through your chest; avoid slumping into your low back.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Breathe steadily rather than holding your breath."
+  ]
+ },
+ "pilates_roll_over": {
+  "setup": "Lie on your back, arms by your sides, legs straight up, then roll your hips over behind you.",
+  "tips": [
+   "Only roll as far as is easy; never let weight onto your neck.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Press your arms down and lower one vertebra at a time.",
+   "Exhale to roll over, inhale as you lower slowly."
+  ]
+ },
+ "pilates_saw": {
+  "setup": "Sit tall with legs wide and arms out to the sides, then twist and reach towards the opposite foot.",
+  "tips": [
+   "Reach your little finger past the outside of the foot, like a saw.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Bend your knees slightly or sit on a cushion to keep things easy.",
+   "Exhale to twist and reach, inhale to rise back up tall."
+  ]
+ },
+ "pilates_spine_stretch": {
+  "setup": "Sit tall with legs wide and straight, arms reaching forward, then round forward one vertebra at a time.",
+  "tips": [
+   "Soften your knees or sit on a cushion so the hamstrings stay easy.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Exhale as you curl forward, inhale to stack back up tall.",
+   "Think of lifting up and over, rather than collapsing down."
+  ]
+ },
+ "pilates_swimming": {
+  "setup": "Lie face down, arms reaching forward, then lift your arms, legs and chest just off the mat.",
+  "tips": [
+   "Flutter opposite arm and leg in small, quick, controlled movements.",
+   "Keep your neck long and your gaze down towards the mat.",
+   "Breathe in for five flutters, out for five.",
+   "Keep the lift low; lower down if your back complains."
+  ]
+ },
+ "pilates_side_kick": {
+  "setup": "Lie on your side, head resting on your arm, and lift the top leg to hip height.",
+  "tips": [
+   "Swing the top leg forward and back, slow and controlled.",
+   "Keep your hips stacked and your torso still.",
+   "Keep the forward kick small; ease off at any tingling down the leg.",
+   "Exhale as the leg swings forward, inhale as it sweeps back."
+  ]
+ },
+ "pilates_mermaid": {
+  "setup": "Sit on one hip, legs folded beside you, and reach the opposite arm up and over your head.",
+  "tips": [
+   "Lengthen up through your waist before you bend; think up and over.",
+   "Feel the stretch open along your side, from hip to fingertips.",
+   "Breathe into your ribs, letting each exhale soften the stretch.",
+   "Keep both sit bones heavy; use a cushion under your hip if needed."
+  ]
+ },
+ "pilates_open_leg_rocker": {
+  "setup": "Balance on your sit bones holding your ankles, legs in a V, then rock back to your shoulders.",
+  "tips": [
+   "Keep a rounded spine and roll smoothly, never onto your neck.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Bend your knees, holding behind them, if straight legs pull.",
+   "Inhale to rock back, exhale to return to balance."
+  ]
+ },
+ "pilates_leg_circles": {
+  "setup": "Lie on your back, one leg reaching up to the ceiling, the other bent with foot flat.",
+  "tips": [
+   "Trace small, slow circles with the raised leg, keeping your pelvis still.",
+   "Soften the raised knee; it does not need to be straight.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Breathe steadily; reverse the circle direction halfway through."
+  ]
+ },
+ "pilates_bridge": {
+  "setup": "Lie on your back, knees bent and feet hip-width, then peel your spine up one vertebra at a time.",
+  "tips": [
+   "Exhale to curl up, inhale at the top, exhale to roll down.",
+   "Lift only to a straight line from knees to shoulders, no higher.",
+   "Feel your glutes and hamstrings working, not your low back.",
+   "Lower slowly, placing each part of your spine down in turn."
+  ]
+ },
+ "knees_to_chest_rock": {
+  "setup": "Lie on your back, hug both knees into your chest, and rock gently side to side.",
+  "tips": [
+   "Keep the rock small and slow, massaging your low back into the mat.",
+   "Let your head stay heavy, and breathe slowly into your low back.",
+   "Hold behind your thighs if that feels kinder to your back.",
+   "Ease off at the first hint of tingling down the leg."
+  ]
+ },
+ "sciatic_nerve_slider": {
+  "setup": "Sit tall on a chair. Straighten the knee and look up; bend the knee and look down.",
+  "tips": [
+   "A glide, never a pull. Keep the movement smooth and easy.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Breathe in as the knee straightens, out as it bends.",
+   "Stay tall through your spine and let your shoulders relax."
+  ]
+ },
+ "sciatic_slider_gentle": {
+  "setup": "Sit tall with your head still and level. Straighten the knee only halfway, then bend it back.",
+  "tips": [
+   "Small, easy range. This is a gentle glide, never a stretch.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Keep your head neutral and your gaze softly ahead.",
+   "Breathe slowly and let the movement stay smooth and unhurried."
+  ]
+ },
+ "supine_hamstring_towel": {
+  "setup": "Lie on your back, loop a towel around one foot, and raise that leg gently.",
+  "tips": [
+   "Knee soft, foot relaxed. Stop before any tingling down the leg.",
+   "Breathe slowly; a mild stretch in the back of the thigh is plenty.",
+   "Keep the other knee bent with that foot flat for your back.",
+   "Hold the towel lightly; shoulders stay heavy on the mat."
+  ]
+ },
+ "supine_9090_hamstring": {
+  "setup": "Lie on your back and hold one thigh upright behind the knee, knee bent at a right angle.",
+  "tips": [
+   "Ease the shin up only a little, keeping the knee bent.",
+   "Ease off at the first hint of tingling down the leg.",
+   "A gentle stretch behind the thigh is enough; no tension down the leg.",
+   "Breathe slowly and keep your head and shoulders relaxed on the mat."
+  ]
+ },
+ "figure4_wall": {
+  "setup": "Lie back with your feet on a wall, knees bent, and cross one ankle over the other knee.",
+  "tips": [
+   "Let the crossed knee fall gently away. Let gravity do it.",
+   "Breathe into the outer hip and let it soften with each exhale.",
+   "No pulling. Shuffle closer to the wall only for more stretch.",
+   "Flex the top foot lightly to protect the knee."
+  ]
+ },
+ "childs_pose_supported": {
+  "setup": "Kneel with knees wide, place a pillow under your chest, and fold forward to rest on it.",
+  "tips": [
+   "Breathe into your low back and feel it widen with each inhale.",
+   "Let your whole upper body feel heavy on the pillow.",
+   "Ease off at the first hint of tingling down the leg.",
+   "Add a cushion between hips and heels if your knees feel tight."
+  ]
+ },
+ "leg_swings": {
+  "setup": "Stand side-on to a support, hold it with one hand, and swing the outside leg front to back.",
+  "tips": [
+   "Keep a steady hand on your support and stand tall.",
+   "Swing like a pendulum, breathing easily with a smooth rhythm.",
+   "Start small and let the range grow naturally; never force it.",
+   "Ease off at the first hint of tingling down the leg."
+  ]
+ },
+ "standing_back_extension": {
+  "setup": "Stand tall, hands on your low back, ease your hips forward and lean back gently.",
+  "tips": [
+   "Lean back only a little, then return upright. Five slow repeats.",
+   "Exhale as you lean back, inhale as you come up tall.",
+   "Keep your knees soft and your neck long; look ahead, not up.",
+   "Stop if anything pinches or sends sensation down the leg."
+  ]
+ },
+ "standing_hip_flexor": {
+  "setup": "Take a split stance. Squeeze the back-leg glute, tuck the pelvis, and shift gently forward.",
+  "tips": [
+   "Feel the stretch across the front of the back hip.",
+   "Keep your tuck as you shift; avoid arching your low back.",
+   "Breathe slowly and let the front of the hip soften.",
+   "Hold a support nearby if your balance wobbles."
+  ]
+ }
+}

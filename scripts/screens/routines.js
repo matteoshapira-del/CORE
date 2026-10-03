@@ -7,7 +7,7 @@ import { illustrationFor, heroIllustration } from '../components/exercise-illust
 export function renderRoutines(state) {
   const today = pickTodayRoutine(state);
   const options = listRoutineOptions(state).filter(r => r.id !== today.id);
-  const bookends = ['r_post_sea7', 'r_car60'].map(id => getBookendRoutine(id, state));
+  const bookends = ['r_post_sea7', 'r_beach3', 'r_car60'].map(id => getBookendRoutine(id, state));
   const html = chromeWrap({
     activeTab: 'routines',
     scroll: true,

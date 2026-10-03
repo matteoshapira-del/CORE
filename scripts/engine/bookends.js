@@ -6,20 +6,62 @@ import { resolveIds } from './safety.js';
 // Post-Sea 7 and Car Reset 60 are guided; Beach 3 is memorised (no phone on
 // the sand) and logged after the fact with one tap.
 
-const POST_SEA = [
-  { id: 'knees_to_chest_rock', sec: 45, cue: 'Hug both knees, rock gently side to side.' },
-  { id: 'kneeling_hip_flexor', name: 'Half-Kneeling Hip Flexor', sec: 45, sides: true, cue: 'Squeeze the back-leg glute, tuck the pelvis, shift forward.' },
-  { id: 'reclined_figure4', name: 'Figure-4 (Piriformis)', sec: 45, sides: true, cue: 'Ankle over knee, pull the thigh in gently.' },
-  { id: 'sciatic_nerve_slider', sec: 40, sides: true, reps: 10, cue: 'Seated tall. Straighten the knee AND look up; bend the knee AND look down. A glide, never a pull.' },
-  { id: 'supine_hamstring_towel', sec: 45, sides: true, cue: 'Knee soft, foot relaxed, stop before any tingling.' },
-  { id: 'childs_pose', sec: 30, cue: 'Sit back on your heels, fold forward, breathe into the low back.' },
+// Post-Sea is built from the user's focus areas (state.selectedAreas, edited
+// via the body map on Home). Blocks keep a fixed floor-friendly order, so a
+// given selection always gives the same routine. `extra` moves are dropped
+// first when the selection would run long. With the default selection
+// (lower back, hips, glutes, hamstrings) this is exactly the spec's Post-Sea 7.
+export const DEFAULT_FOCUS = ['lower_back', 'hips', 'glutes', 'hamstrings'];
+const POST_SEA_BLOCKS = [
+  { area: 'lower_back', id: 'knees_to_chest_rock', sec: 45, cue: 'Hug both knees, rock gently side to side.' },
+  { area: 'upper_back', id: 'cat_cow', sec: 45, reps: 8 },
+  { area: 'upper_back', id: 'open_book', sec: 30, sides: true, extra: true },
+  { area: 'hips', id: 'kneeling_hip_flexor', name: 'Half-Kneeling Hip Flexor', sec: 45, sides: true, cue: 'Squeeze the back-leg glute, tuck the pelvis, shift forward.' },
+  { area: 'quads', id: 'side_lying_quad', sec: 30, sides: true },
+  { area: 'glutes', id: 'reclined_figure4', name: 'Figure-4 (Piriformis)', sec: 45, sides: true, cue: 'Ankle over knee, pull the thigh in gently.' },
+  { area: 'core_anterior', id: 'dead_bug', sec: 40 },
+  { area: 'core_posterior', id: 'bird_dog', sec: 40 },
+  { area: 'core_lateral', id: 'side_plank_knees', sec: 25, sides: true },
+  { area: 'hamstrings', id: 'sciatic_nerve_slider', sec: 40, sides: true, reps: 10, cue: 'Seated tall. Straighten the knee AND look up; bend the knee AND look down. A glide, never a pull.' },
+  { area: 'hamstrings', id: 'supine_hamstring_towel', sec: 45, sides: true, cue: 'Knee soft, foot relaxed, stop before any tingling.' },
+  { area: 'shoulders', id: 'thread_needle', sec: 30, sides: true },
+  { area: 'shoulders', id: 'cross_body_shoulder', sec: 25, sides: true, extra: true },
+  { area: 'chest', id: 'corner_stretch', sec: 30 },
+  { area: 'neck', id: 'chin_tucks', sec: 30 },
+  { area: 'neck', id: 'ear_to_shoulder', sec: 25, sides: true, extra: true },
+  { area: 'ankles_calves', id: 'bent_knee_calf', sec: 30, sides: true },
+  { area: 'full_body', id: 'worlds_greatest_stretch', sec: 30, sides: true, reps: 3 },
+  { area: 'balance', id: 'single_leg_balance', sec: 25, sides: true },
+  { area: 'lower_back', id: 'childs_pose', sec: 30, cue: 'Sit back on your heels, fold forward, breathe into the low back.' },
 ];
+const POST_SEA_MAX_SEC = 9 * 60;
+
+export function focusAreas(state) {
+  const sel = (state.selectedAreas || []).filter(Boolean);
+  return sel.length ? sel : DEFAULT_FOCUS;
+}
+
+function postSeaMoves(state) {
+  const focus = new Set(focusAreas(state));
+  let moves = POST_SEA_BLOCKS.filter(b => focus.has(b.area));
+  const len = ms => ms.reduce((t, m) => t + m.sec * (m.sides ? 2 : 1), 0);
+  if (len(moves) > POST_SEA_MAX_SEC) moves = moves.filter(m => !m.extra);
+  if (!moves.length) moves = POST_SEA_BLOCKS.filter(b => DEFAULT_FOCUS.includes(b.area));
+  return moves;
+}
 
 const CAR_RESET = [
   { id: 'standing_back_extension', sec: 20, reps: 5, cue: 'Hands on your low back, hips forward; lean back gently.' },
   { id: 'standing_hip_flexor', sec: 20, sides: true, cue: 'Squeeze the back-leg glute, tuck the pelvis, shift forward.' },
 ];
 
+// Beach 3: memorised for the sand, but playable as a guided routine (Home
+// "Guide" toggle) until it sticks.
+const BEACH_MOVES = [
+  { id: 'cat_cow', sec: 45, reps: 8 },
+  { id: 'leg_swings', name: 'Leg Swings (Front/Back)', sec: 30, sides: true, reps: 10 },
+  { id: 'worlds_greatest_stretch', sec: 35, sides: true, reps: 3 },
+];
 export const BEACH_3 = [
   { id: 'cat_cow', label: 'Cat-cow', dose: '×8' },
   { id: 'leg_swings', label: 'Leg swings front/back', dose: '×10 per side' },
@@ -27,7 +69,8 @@ export const BEACH_3 = [
 ];
 
 export const BOOKENDS = {
-  r_post_sea7: { kind: 'post_sea', title: 'Post-Sea 7', moves: POST_SEA, pastel: 'var(--pastel-mist)', areas: ['lower_back', 'hips'] },
+  r_post_sea7: { kind: 'post_sea', title: 'Post-Sea 7', moves: postSeaMoves, pastel: 'var(--pastel-mist)', areas: ['lower_back', 'hips'] },
+  r_beach3: { kind: 'beach', title: 'Beach 3', moves: BEACH_MOVES, pastel: 'var(--pastel-cream)', areas: ['full_body'] },
   r_car60: { kind: 'car', title: 'Car Reset 60', moves: CAR_RESET, pastel: 'var(--pastel-peach)', areas: ['lower_back'] },
 };
 
@@ -39,8 +82,9 @@ export const BOOKEND_KINDS = new Set(['post_sea', 'beach', 'car']);
 export function getBookendRoutine(routineId, state) {
   const def = BOOKENDS[routineId];
   if (!def) return null;
+  const moves = typeof def.moves === 'function' ? def.moves(state) : def.moves;
   const steps = [];
-  for (const m of def.moves) {
+  for (const m of moves) {
     const ids = resolveIds(state, m.id);
     for (const id of ids) {
       const ex = getExercise(id);
@@ -49,7 +93,7 @@ export function getBookendRoutine(routineId, state) {
       const base = {
         ...ex,
         name: swapped ? ex.name : (m.name || ex.name),
-        oneLiner: swapped ? ex.oneLiner : m.cue,
+        oneLiner: swapped || !m.cue ? ex.oneLiner : m.cue,
         durationSec: m.sec,
         reps: m.reps || null,
         sideSpecific: false,
@@ -68,7 +112,7 @@ export function getBookendRoutine(routineId, state) {
     id: routineId,
     kind: def.kind,
     title: def.title,
-    areas: def.areas,
+    areas: routineId === 'r_post_sea7' ? focusAreas(state) : def.areas,
     pastel: def.pastel,
     exercises: steps,
     durationSec: steps.reduce((s, e) => s + e.durationSec, 0),
