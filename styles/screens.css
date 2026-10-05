@@ -1292,3 +1292,17 @@
 .home .bookends { flex: 1 1 auto; max-height: 330px; min-height: 0; }
 .home .bookends > .bookend { flex: 1 1 0; }
 .bm-figs { margin: 0 -14px; }
+
+/* ===== v1.5: signed numeric input (± for negative values) ===== */
+.signed-input { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.signed-input .sign-btn {
+  width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px;
+  background: var(--surface-2); border: 1px solid var(--surface-3);
+  color: var(--accent); font-size: 22px; font-weight: 600; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.signed-input .sign-btn:active { background: var(--accent-soft); }
+.measure-test .measure-input .input-row { align-items: center; }
+.measure-test .measure-input .input-row .signed-input input { width: 120px; }
+.sunday-check .sc-signed { width: 100%; }
+.sunday-check .sc-signed input { flex: 1; min-width: 0; }

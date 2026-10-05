@@ -1,52 +1,99 @@
-import { getExercise } from '../data/exercises.js';
+import { getExercise, EXERCISES } from '../data/exercises.js';
 import { setState, recordSession } from '../store.js';
 import { resolveIds } from './safety.js';
+import { mulberry32, shuffle } from './flex.js';
 
 // Bookends — three fixed daily slots (spec: CORE-bookends-spec.md, v1 2026-10-03).
 // Post-Sea 7 and Car Reset 60 are guided; Beach 3 is memorised (no phone on
 // the sand) and logged after the fact with one tap.
 
-// Post-Sea is built from the user's focus areas (state.selectedAreas, edited
-// via the body map on Home). Blocks keep a fixed floor-friendly order, so a
-// given selection always gives the same routine. `extra` moves are dropped
-// first when the selection would run long. With the default selection
-// (lower back, hips, glutes, hamstrings) this is exactly the spec's Post-Sea 7.
+// Post-Sea: a random daily mix of stretches from the user's focus areas
+// (state.selectedAreas, edited via the body map on Home). Seeded by
+// date + areas, so it's stable all day (player, complete screen and Home
+// agree) and changes tomorrow — or as soon as the areas change.
+// Picks round-robin across areas so every checked area is represented, and
+// stops around 7 minutes. Sciatica-safe exclusions/swaps and tingle swaps
+// are applied to the pool before picking.
 export const DEFAULT_FOCUS = ['lower_back', 'hips', 'glutes', 'hamstrings'];
-const POST_SEA_BLOCKS = [
-  { area: 'lower_back', id: 'knees_to_chest_rock', sec: 45, cue: 'Hug both knees, rock gently side to side.' },
-  { area: 'upper_back', id: 'cat_cow', sec: 45, reps: 8 },
-  { area: 'upper_back', id: 'open_book', sec: 30, sides: true, extra: true },
-  { area: 'hips', id: 'kneeling_hip_flexor', name: 'Half-Kneeling Hip Flexor', sec: 45, sides: true, cue: 'Squeeze the back-leg glute, tuck the pelvis, shift forward.' },
-  { area: 'quads', id: 'side_lying_quad', sec: 30, sides: true },
-  { area: 'glutes', id: 'reclined_figure4', name: 'Figure-4 (Piriformis)', sec: 45, sides: true, cue: 'Ankle over knee, pull the thigh in gently.' },
-  { area: 'core_anterior', id: 'dead_bug', sec: 40 },
-  { area: 'core_posterior', id: 'bird_dog', sec: 40 },
-  { area: 'core_lateral', id: 'side_plank_knees', sec: 25, sides: true },
-  { area: 'hamstrings', id: 'sciatic_nerve_slider', sec: 40, sides: true, reps: 10, cue: 'Seated tall. Straighten the knee AND look up; bend the knee AND look down. A glide, never a pull.' },
-  { area: 'hamstrings', id: 'supine_hamstring_towel', sec: 45, sides: true, cue: 'Knee soft, foot relaxed, stop before any tingling.' },
-  { area: 'shoulders', id: 'thread_needle', sec: 30, sides: true },
-  { area: 'shoulders', id: 'cross_body_shoulder', sec: 25, sides: true, extra: true },
-  { area: 'chest', id: 'corner_stretch', sec: 30 },
-  { area: 'neck', id: 'chin_tucks', sec: 30 },
-  { area: 'neck', id: 'ear_to_shoulder', sec: 25, sides: true, extra: true },
-  { area: 'ankles_calves', id: 'bent_knee_calf', sec: 30, sides: true },
-  { area: 'full_body', id: 'worlds_greatest_stretch', sec: 30, sides: true, reps: 3 },
-  { area: 'balance', id: 'single_leg_balance', sec: 25, sides: true },
-  { area: 'lower_back', id: 'childs_pose', sec: 30, cue: 'Sit back on your heels, fold forward, breathe into the low back.' },
-];
-const POST_SEA_MAX_SEC = 9 * 60;
+const POST_SEA_TARGET_SEC = 6.5 * 60;
+const POST_SEA_MAX_SEC = 8 * 60;
+// Bookend-only moves that belong in the pool (by their area).
+const POST_SEA_EXTRAS = ['knees_to_chest_rock', 'sciatic_nerve_slider', 'supine_hamstring_towel'];
+// Stretches filed under a neighbouring area that also serve this one.
+const POST_SEA_ALSO = {
+  glutes: ['pigeon_pose', 'half_pigeon_supine', 'ninety_ninety'],
+  quads: ['couch_stretch'],
+};
+// Thin selections are topped up from these so Post-Sea still lands ~7 min.
+const POST_SEA_TOPUP = ['lower_back', 'hips', 'glutes'];
+// Spec cues/names kept whenever these moves come up.
+const POST_SEA_STYLE = {
+  knees_to_chest_rock: { cue: 'Hug both knees, rock gently side to side.' },
+  kneeling_hip_flexor: { name: 'Half-Kneeling Hip Flexor', cue: 'Squeeze the back-leg glute, tuck the pelvis, shift forward.' },
+  reclined_figure4: { name: 'Figure-4 (Piriformis)', cue: 'Ankle over knee, pull the thigh in gently.' },
+  sciatic_nerve_slider: { reps: 10, cue: 'Seated tall. Straighten the knee AND look up; bend the knee AND look down. A glide, never a pull.' },
+  supine_hamstring_towel: { cue: 'Knee soft, foot relaxed, stop before any tingling.' },
+  childs_pose: { cue: 'Sit back on your heels, fold forward, breathe into the low back.' },
+  cat_cow: { reps: 8 },
+};
 
 export function focusAreas(state) {
   const sel = (state.selectedAreas || []).filter(Boolean);
   return sel.length ? sel : DEFAULT_FOCUS;
 }
 
-function postSeaMoves(state) {
-  const focus = new Set(focusAreas(state));
-  let moves = POST_SEA_BLOCKS.filter(b => focus.has(b.area));
-  const len = ms => ms.reduce((t, m) => t + m.sec * (m.sides ? 2 : 1), 0);
-  if (len(moves) > POST_SEA_MAX_SEC) moves = moves.filter(m => !m.extra);
-  if (!moves.length) moves = POST_SEA_BLOCKS.filter(b => DEFAULT_FOCUS.includes(b.area));
+function hashSeed(str) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+
+function postSeaPool(state, area) {
+  const all = [...EXERCISES.filter(e => e.area === area),
+    ...POST_SEA_EXTRAS.map(getExercise).filter(e => e && e.area === area),
+    ...(POST_SEA_ALSO[area] || []).map(getExercise).filter(Boolean)];
+  const stretches = all.filter(e => e.category === 'stretch');
+  // Areas with few stretches (core, balance) fall back to their other moves.
+  const base = stretches.length >= 2 ? stretches : all;
+  const ids = [...new Set(base.flatMap(e => resolveIds(state, e.id)))];
+  return ids.map(getExercise).filter(Boolean);
+}
+
+function postSeaMoves(state, date = new Date()) {
+  const focus = focusAreas(state);
+  const rand = mulberry32(hashSeed(dayKey(date) + '|' + [...focus].sort().join(',')));
+  const pools = shuffle(focus.map(a => shuffle(postSeaPool(state, a), rand)).filter(p => p.length), rand);
+  const moves = [];
+  const used = new Set();
+  let total = 0;
+  const slot = e => {
+    const sec = Math.max(30, Math.min(45, e.durationSec || 30));
+    return { id: e.id, sec, sides: !!e.sideSpecific, ...(POST_SEA_STYLE[e.id] || {}) };
+  };
+  const fill = poolList => {
+    let progress = true;
+    while (total < POST_SEA_TARGET_SEC && progress) {
+      progress = false;
+      for (const pool of poolList) {
+        if (total >= POST_SEA_TARGET_SEC) break;
+        while (pool.length) {
+          const e = pool.shift();
+          if (used.has(e.id)) continue;
+          const m = slot(e);
+          const len = m.sec * (m.sides ? 2 : 1);
+          if (total + len > POST_SEA_MAX_SEC) continue;
+          used.add(e.id); moves.push(m); total += len; progress = true;
+          break;
+        }
+      }
+    }
+  };
+  fill(pools);
+  if (total < POST_SEA_TARGET_SEC) {
+    const extra = POST_SEA_TOPUP.filter(a => !focus.includes(a))
+      .map(a => shuffle(postSeaPool(state, a).filter(e => e.category === 'stretch'), rand));
+    fill(shuffle(extra, rand));
+  }
   return moves;
 }
 

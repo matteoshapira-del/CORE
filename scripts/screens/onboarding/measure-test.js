@@ -4,6 +4,7 @@ import { testIllustrationFor } from '../../components/exercise-illustrations.js'
 import { getKpi, scoreFor } from '../../data/kpis.js';
 import { activeKpiIds, staleKpis } from '../../engine/score.js';
 import { recordMeasurement, setState } from '../../store.js';
+import { signedInputHtml, attachSignedInput } from '../../components/signed-input.js';
 
 export function renderMeasureTest(state, params) {
   const isRemeasure = params && params.get('mode') === 'remeasure';
@@ -102,14 +103,19 @@ export function renderMeasureTest(state, params) {
         });
       } else {
         // numeric input
-        const inp = root.querySelector('#num-input');
-        inp.addEventListener('input', () => {
-          const v = parseFloat(inp.value);
-          if (!isNaN(v)) { rawValue = v; enable(); } else { recordBtn.toggleAttribute('disabled', true); }
-        });
-        // Unit toggle (display only — store stays metric)
+        // Value is typed in the selected unit; the store stays metric (cm).
+        let typed = null;
+        let unit = 'cm';
+        const sync = () => {
+          if (typed == null) { rawValue = null; recordBtn.toggleAttribute('disabled', true); return; }
+          rawValue = unit === 'in' ? Math.round(typed * 2.54 * 10) / 10 : typed;
+          enable();
+        };
+        attachSignedInput(root, 'num-input', v => { typed = v; sync(); });
         root.querySelectorAll('[data-unit]').forEach(b => b.addEventListener('click', () => {
+          unit = b.dataset.unit;
           root.querySelectorAll('[data-unit]').forEach(x => x.classList.toggle('active', x === b));
+          sync();
         }));
       }
 
@@ -157,7 +163,7 @@ function renderNumeric(k) {
     <div class="measure-input">
       <div class="lbl">${k.unit === 'cm' ? 'Distance' : 'Angle'} ${k.inverted ? '(smaller = better)' : ''}</div>
       <div class="input-row">
-        <input type="number" id="num-input" inputmode="decimal" placeholder="${ph}" step="0.1">
+        ${signedInputHtml({ id: 'num-input', placeholder: ph, allowNegative: k.kind === 'distance' })}
         ${k.unit === 'cm' ? `<div class="unit-toggle seg-control">
           <button data-unit="cm" class="active">cm</button>
           <button data-unit="${altUnit}">${altUnit}</button>

@@ -28,7 +28,7 @@ export const FLEX_LEVELS = {
 
 // Deterministic PRNG — the player resolves routines by re-generating them
 // from the id, so `r_flex_<level>_<seed>` must always rebuild identically.
-function mulberry32(a) {
+export function mulberry32(a) {
   return function () {
     a |= 0; a = (a + 0x6D2B79F5) | 0;
     let t = Math.imul(a ^ (a >>> 15), 1 | a);
@@ -37,7 +37,7 @@ function mulberry32(a) {
   };
 }
 
-function shuffle(arr, rand) {
+export function shuffle(arr, rand) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(rand() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];

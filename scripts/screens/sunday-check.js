@@ -5,6 +5,7 @@ import { imgHtmlForKpiTest } from '../components/exercise-icons.js';
 import { getKpi, scoreFor } from '../data/kpis.js';
 import { recordMeasurement } from '../store.js';
 import { setCheckin, checkinFor } from '../engine/bookends.js';
+import { signedInputHtml, attachSignedInput, parseSigned } from '../components/signed-input.js';
 
 // Weekly check (spec §4), prompted after Post-Sea 7 on Sundays. Forward Fold
 // is a gentle test — stop at the first nerve sensation, never a hold.
@@ -26,7 +27,7 @@ export function renderSundayCheck(state) {
             <div><div class="sc-t">Forward Fold</div><div class="sc-s">cm past the toes (negative if short)</div></div>
           </div>
           <div class="sc-warn">Reach slowly and stop at the <b>first nerve sensation</b>. Read the number, come straight back up.</div>
-          <div class="field"><input type="number" inputmode="decimal" step="0.5" id="sc-ff" placeholder="e.g. -4"></div>
+          <div class="field">${signedInputHtml({ id: 'sc-ff', placeholder: 'e.g. -4', cls: 'sc-signed' })}</div>
         </div>
 
         <div class="sc-card">
@@ -69,6 +70,7 @@ export function renderSundayCheck(state) {
           group.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
         }));
       });
+      attachSignedInput(root, 'sc-ff');
       const drive = root.querySelector('[data-drive]');
       drive.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
         picks.drive = Number(b.dataset.v);
@@ -76,8 +78,7 @@ export function renderSundayCheck(state) {
       }));
 
       root.querySelector('[data-action="save"]').addEventListener('click', () => {
-        const ffRaw = root.querySelector('#sc-ff').value.trim();
-        const ff = ffRaw === '' ? null : Number(ffRaw);
+        const ff = parseSigned(root.querySelector('#sc-ff').value);
         if (ff == null && !picks.left && !picks.right && !picks.drive) {
           window.toast?.('Nothing entered yet');
           return;
